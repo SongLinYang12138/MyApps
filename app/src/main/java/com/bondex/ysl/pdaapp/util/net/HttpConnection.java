@@ -1,12 +1,13 @@
-package com.bondex.ysl.pdaapp.net;
+package com.bondex.ysl.pdaapp.util.net;
 
 import android.util.Log;
 
-import com.bondex.ysl.pdaapp.netutil.ApiParam;
-import com.bondex.ysl.pdaapp.netutil.MD5;
-import com.bondex.ysl.pdaapp.netutil.ParamUtils;
+import com.bondex.ysl.pdaapp.util.netutil.ApiParam;
+import com.bondex.ysl.pdaapp.util.netutil.MD5;
+import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,6 +88,7 @@ public class HttpConnection {
 
         String param = json.toString();
         param = ParamUtils.getParams(param, "login");
+        Logger.i("登录参数 "+param);
         NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
 
         return netApi.testHello(param);

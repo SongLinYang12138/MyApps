@@ -67,8 +67,8 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
 
         WindowManager.LayoutParams lp = window.getAttributes();
 
-        lp.width = CommonUtil.getScreentW(this) - 100;
-        lp.height = CommonUtil.getScreenH(this) / 2;
+        lp.width = CommonUtil.getScreentW(this)-10;
+        lp.height = CommonUtil.getScreenH(this) -CommonUtil.getScreenH(this)/4;
         lp.gravity = Gravity.CENTER;
         window.setAttributes(lp);
     }

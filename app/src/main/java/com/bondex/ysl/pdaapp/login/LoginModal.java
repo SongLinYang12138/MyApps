@@ -7,11 +7,11 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.bondex.ysl.pdaapp.application.PdaApplication;
-import com.bondex.ysl.pdaapp.provider.LoginProvider;
+import com.bondex.ysl.pdaapp.util.provider.LoginProvider;
 import com.bondex.ysl.pdaapp.base.BaseModel;
 import com.bondex.ysl.pdaapp.bean.BaseBean;
 import com.bondex.ysl.pdaapp.bean.loginebean.LoginBean;
-import com.bondex.ysl.pdaapp.net.HttpConnection;
+import com.bondex.ysl.pdaapp.util.net.HttpConnection;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -102,7 +102,7 @@ public class LoginModal extends BaseModel<LoginBack> {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    resultback.loginFailed("字段错误");
+                    resultback.loginFailed("服务器错误");
                 }
             }
         };

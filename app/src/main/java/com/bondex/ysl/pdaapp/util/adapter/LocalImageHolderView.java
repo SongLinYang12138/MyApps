@@ -1,7 +1,5 @@
-package com.bondex.ysl.pdaapp.adapter;
+package com.bondex.ysl.pdaapp.util.adapter;
 
-import android.content.Context;
-import android.graphics.drawable.Animatable;
 import android.view.View;
 import android.widget.ImageView;
 

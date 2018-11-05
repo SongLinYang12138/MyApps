@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.netutil;
+package com.bondex.ysl.pdaapp.util.netutil;
 
 public class ApiParam {
 	private String app_id;

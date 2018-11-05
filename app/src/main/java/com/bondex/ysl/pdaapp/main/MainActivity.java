@@ -6,12 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bondex.ysl.pdaapp.R;
-import com.bondex.ysl.pdaapp.adapter.MainAdapter;
+import com.bondex.ysl.pdaapp.util.adapter.MainAdapter;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.bean.MainBean;
@@ -39,6 +40,8 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     TextView version;
     @BindView(R.id.check_update)
     TextView checkUpdate;
+    @BindView(R.id.menu_bt_porwer)
+    Switch swPower;
 
     @BindView(R.id.main_panel)
     SlidingPaneLayout mainPanel;

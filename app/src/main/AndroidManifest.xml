@@ -37,7 +37,7 @@
         </activity>
 
         <provider
-            android:name=".provider.LoginProvider"
+            android:name=".util.provider.LoginProvider"
             android:authorities="com.bondex.ysl.pdaapp.login"
             android:exported="false" />
 

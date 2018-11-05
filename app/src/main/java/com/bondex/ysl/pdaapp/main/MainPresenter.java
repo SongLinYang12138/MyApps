@@ -1,13 +1,11 @@
 package com.bondex.ysl.pdaapp.main;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bondex.ysl.pdaapp.R;
-import com.bondex.ysl.pdaapp.adapter.LocalImageHolderView;
+import com.bondex.ysl.pdaapp.util.adapter.LocalImageHolderView;
 import com.bondex.ysl.pdaapp.base.BasePresnter;
 
 import java.util.ArrayList;
@@ -50,9 +48,4 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
     }
 
-
-    public void choosePage() {
-
-
-    }
 }

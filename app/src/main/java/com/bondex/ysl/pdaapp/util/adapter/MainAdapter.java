@@ -1,8 +1,6 @@
-package com.bondex.ysl.pdaapp.adapter;
+package com.bondex.ysl.pdaapp.util.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MainBean;
-import com.bondex.ysl.pdaapp.ui.IconText;
 
 import java.util.ArrayList;
 

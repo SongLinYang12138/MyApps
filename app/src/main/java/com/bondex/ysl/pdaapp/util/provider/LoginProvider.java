@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.provider;
+package com.bondex.ysl.pdaapp.util.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

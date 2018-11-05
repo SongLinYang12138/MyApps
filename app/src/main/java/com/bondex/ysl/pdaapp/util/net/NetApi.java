@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.net;
+package com.bondex.ysl.pdaapp.util.net;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
