@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="220dp">
+
+    <RelativeLayout
+        android:id="@+id/menu_rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bondex_blue_dark"
+        android:paddingVertical="6dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/menu_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="空运"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_large" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/menu_iv_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:scaleType="fitXY"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_rl_top" />
+
+    <TextView
+        android:id="@+id/menu_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/menu_iv_icon"
+        app:layout_constraintLeft_toLeftOf="@id/menu_iv_icon"
+        android:text="空运"
+        android:layout_marginTop="@dimen/main_small"
+        android:textSize="@dimen/text_large"
+        android:textColor="@color/black_panit"
+         />
+
+
+</android.support.constraint.ConstraintLayout>
