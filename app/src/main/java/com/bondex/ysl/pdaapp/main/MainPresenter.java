@@ -26,7 +26,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
         CBViewHolderCreator holderCreator = new CBViewHolderCreator() {
             @Override
             public LocalImageHolderView createHolder(View itemView) {
-                return  new LocalImageHolderView(itemView,context);
+                return  new LocalImageHolderView(itemView);
             }
 
             @Override

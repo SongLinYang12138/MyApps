@@ -52,12 +52,13 @@
     <com.gc.materialdesign.views.ButtonRectangle
 
         android:id="@+id/stowrage_bt_confirm"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintRight_toLeftOf="@id/stowrage_bt_cancel"
+       app:layout_constraintDimensionRatio="w:10:5"
         app:layout_constraintTop_toBottomOf="@id/stowrage_ll_center"
          android:layout_marginTop="40dp"
         >
@@ -76,11 +77,11 @@
     <com.gc.materialdesign.views.ButtonRectangle
 
         android:id="@+id/stowrage_bt_cancel"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@color/text_gray"
-        app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintLeft_toRightOf="@id/stowrage_bt_confirm"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stowrage_ll_center"
         android:layout_marginTop="40dp"

@@ -11,18 +11,14 @@ import com.bondex.ysl.pdaapp.R;
 
 public class LocalImageHolderView extends Holder<Integer> {
     private ImageView imageView;
-    private Context context;
 
-    public LocalImageHolderView(View itemView,Context context) {
+    public LocalImageHolderView(View itemView) {
         super(itemView);
-        this.context = context;
     }
-
 
     @Override
     protected void initView(View itemView) {
-        imageView = itemView.findViewById(R.id.ivPost);
-//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView =itemView.findViewById(R.id.ivPost);
     }
 
     @Override

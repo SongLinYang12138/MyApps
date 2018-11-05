@@ -4,17 +4,13 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SlidingPaneLayout;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bondex.ysl.pdaapp.R;
-import com.bondex.ysl.pdaapp.adapter.LocalImageHolderView;
 import com.bondex.ysl.pdaapp.adapter.MainAdapter;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
@@ -22,9 +18,8 @@ import com.bondex.ysl.pdaapp.bean.MainBean;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
-
+import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -91,12 +86,14 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @Override
     protected void onResume() {
         super.onResume();
+        Logger.i("开启");
     banner.startTurning();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Logger.i("关闭");
     banner.stopTurning();
     }
 
@@ -123,6 +120,9 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         tvUserId.setText("用户ID:"+PdaApplication.LOGINBEAN.getUserid());
         userName.setText("用户名: "+PdaApplication.LOGINBEAN.getUsername());
         tvSorage.setText(""+subSystemName);
+
+
+
 
         ArrayList<MainBean> mainBeans = new ArrayList<>();
         mainBeans.add(new MainBean("入库","入库",R.mipmap.attend));
@@ -156,6 +156,13 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @Override
     public void setBnnerrs(CBViewHolderCreator holderCreator,ArrayList<Integer> localImages) {
 
-        banner.setPages(holderCreator,localImages);
+        banner.setPages(holderCreator,localImages).setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Logger.i("click banner: "+position);
+            }
+        });
+
+
     }
 }
