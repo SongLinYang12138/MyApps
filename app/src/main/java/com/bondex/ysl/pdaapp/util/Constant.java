@@ -8,6 +8,8 @@ public class Constant {
 
     public static final String STORWAGEPAGE = "stowrage";
     public static final String SUBSYSTEM_NAME = "subsystem_name";
+    public static final String SUBSYSTEM_NO = "subsystem_no";
+    public static final String LOGIN_OUT = "login_out";
 
 
 }

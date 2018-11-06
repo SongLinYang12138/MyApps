@@ -1,23 +1,28 @@
 package com.bondex.ysl.pdaapp.main;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SlidingPaneLayout;
+import android.support.v7.widget.SwitchCompat;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bondex.ysl.pdaapp.R;
-import com.bondex.ysl.pdaapp.util.adapter.MainAdapter;
+import com.bondex.ysl.pdaapp.login.LoginActivity;
+import com.bondex.ysl.pdaapp.stowrage.StowrageActivity;
+import com.bondex.ysl.pdaapp.util.PdaUtils;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
-import com.bondex.ysl.pdaapp.bean.MainBean;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
+import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
@@ -41,7 +46,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @BindView(R.id.check_update)
     TextView checkUpdate;
     @BindView(R.id.menu_bt_porwer)
-    Switch swPower;
+    SwitchCompat swPower;
 
     @BindView(R.id.main_panel)
     SlidingPaneLayout mainPanel;
@@ -52,9 +57,9 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
 
     private ColorStateList normal, select;
-
-
     private String subSystemName;
+
+    private long lastback = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,14 +94,14 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @Override
     protected void onResume() {
         super.onResume();
-        Logger.i("开启");
+
     banner.startTurning();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Logger.i("关闭");
+
     banner.stopTurning();
     }
 
@@ -107,6 +112,10 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
             case R.id.menu_bt_loginout:
 
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                 intent.putExtra(Constant.LOGIN_OUT,true);
+                startBaseActivity(intent);
+                finish();
                 break;
         }
 
@@ -124,16 +133,32 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         userName.setText("用户名: "+PdaApplication.LOGINBEAN.getUsername());
         tvSorage.setText(""+subSystemName);
 
+        swPower.setChecked(false);
+        swPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                PdaUtils.turnOnOffPda(isChecked,PdaApplication.context);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+
+            if(System.currentTimeMillis() - lastback > 2000){
+                ToastUtils.showToast("请再按一次退出");
+                lastback = System.currentTimeMillis();
+            }else {
+                finish();
+            }
+        return false;
+        }
 
 
-
-        ArrayList<MainBean> mainBeans = new ArrayList<>();
-        mainBeans.add(new MainBean("入库","入库",R.mipmap.attend));
-        mainBeans.add(new MainBean("出库","出库",R.mipmap.ticket));
-        mainBeans.add(new MainBean("库存","库存",R.mipmap.warehouse));
-
-        MainAdapter adapter = new MainAdapter(this,mainBeans);
-        listView.setAdapter(adapter);
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -167,5 +192,10 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         });
 
 
+    }
+
+    @Override
+    public void listAdapter(MainAdapter adapter) {
+        listView.setAdapter(adapter);
     }
 }

@@ -24,6 +24,7 @@
             android:textSize="@dimen/text_large" />
     </RelativeLayout>
 
+
     <ImageView
         android:id="@+id/menu_iv_icon"
         android:layout_width="50dp"

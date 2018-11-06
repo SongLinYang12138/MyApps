@@ -11,14 +11,26 @@ public class PdaUtils {
 
         int value = isOpen ? 1 : 0;
 
-        Intent intent = new Intent(SystemBroadCast.SCANNER_POWER);
-        intent.putExtra("scanneronoff", value);
-        context.sendBroadcast(intent);
+        String msg = isOpen ? "扫描器打开" : "扫描器关闭";
+
+        if(isOpen){
+            context.sendBroadcast(new Intent("com.android.server.scannerservice.onoff")
+                    .putExtra("scanneronoff", 1));
+
+        }else {
+            context.sendBroadcast(new Intent("com.android.server.scannerservice.onoff")
+                    .putExtra("scanneronoff", 0));
+        }
+
+//        Intent intent = new Intent(SystemBroadCast.SCANNER_POWER);
+//        intent.putExtra("scanneronoff", value);
+//        context.sendBroadcast(intent);
+        ToastUtils.showToast(msg);
     }
 
     public static void startScan(Context context) {
 
-        Intent intent = new Intent(SystemBroadCast.SCN_CUST_ACTION_SCODE);
+        Intent intent = new Intent(SystemBroadCast.SCN_CUST_ACTION_START);
         context.sendBroadcast(intent);
     }
 

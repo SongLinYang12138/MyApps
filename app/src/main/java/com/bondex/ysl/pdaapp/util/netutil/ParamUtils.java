@@ -5,6 +5,9 @@ import android.util.Log;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -52,10 +55,11 @@ public class ParamUtils {
         apiParam.setTimestamp(timestamp);
 
         param = gson.toJson(apiParam);
-
-
         return param;
 
     }
+
+
+
 
 }

@@ -10,7 +10,7 @@ public interface NetApi {
 
     @FormUrlEncoded
     @POST("/wms/api/")
-    Call<String> testHello(@Field("param")String hello);
+    Call<String> connect(@Field("param")String param);
 
 
 

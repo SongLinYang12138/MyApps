@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/user_name" />
 
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:id="@+id/menu_bt_porwer"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:text="扫描器开关:"
             >
 
-        </Switch>
+        </android.support.v7.widget.SwitchCompat>
 
 
         <com.gc.materialdesign.views.ButtonRectangle

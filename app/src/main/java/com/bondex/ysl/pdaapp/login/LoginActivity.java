@@ -11,6 +11,7 @@ import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.main.MainActivity;
 import com.bondex.ysl.pdaapp.stowrage.StowrageActivity;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
+import com.bondex.ysl.pdaapp.util.Constant;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -110,7 +111,7 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
     public void onSuccess(String data) {
 
         showShort(data);
-        jumpToMain();
+        jumpStowrage();
 
     }
 
@@ -131,8 +132,18 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
 
     private void jumpToMain() {
 
+        boolean isLoginOut = getIntent().getBooleanExtra(Constant.LOGIN_OUT, false);
+        if (isLoginOut) return;
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startBaseActivity(intent);
+        finish();
+    }
+
+    private void jumpStowrage() {
+
         Intent intent = new Intent(this, StowrageActivity.class);
         startBaseActivity(intent);
-//        finish();
+        finish();
     }
 }

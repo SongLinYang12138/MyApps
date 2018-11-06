@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.util.adapter;
+package com.bondex.ysl.pdaapp.main;
 
 import android.view.View;
 import android.widget.ImageView;

@@ -2,6 +2,7 @@ package com.bondex.ysl.pdaapp.util.net;
 
 import android.util.Log;
 
+import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.util.netutil.ApiParam;
 import com.bondex.ysl.pdaapp.util.netutil.MD5;
 import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
@@ -71,7 +72,7 @@ public class HttpConnection {
         hello = gson.toJson(apiParam);
 
         NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
-        return netApi.testHello(hello);
+        return netApi.connect(hello);
     }
 
 
@@ -79,8 +80,8 @@ public class HttpConnection {
 
         JSONObject json = new JSONObject();
         try {
-            json.put("userid",name);
-            json.put("pwd",password);
+            json.put("userid", name);
+            json.put("pwd", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -88,10 +89,55 @@ public class HttpConnection {
 
         String param = json.toString();
         param = ParamUtils.getParams(param, "login");
-        Logger.i("登录参数 "+param);
+        Logger.i("登录参数 " + param);
         NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
 
-        return netApi.testHello(param);
+        return netApi.connect(param);
+    }
+
+    public static Call<String> traceId(String traceId, int num) {
+
+        String method = "inv.MovementBefore";//方法名
+        JSONObject object = new JSONObject();
+        try {
+            object.put("userid", PdaApplication.LOGINBEAN.getUserid());
+
+            object.put("warehouseno", num);//此处为仓库编号，成都为1，烟台为2这样
+            object.put("traceid", traceId);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String param = object.toString();
+
+        param = ParamUtils.getParams(param, method);
+
+        NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
+        return netApi.connect(param);
+    }
+
+
+    public static Call<String> removeStowrage(String traceId, int num) {
+
+        String method = "inv.movementID";
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("locationid", "STAGE");
+            object.put("userid", PdaApplication.LOGINBEAN.getUserid());
+            object.put("warehouseno", 1);
+            object.put("traceid", "yy170300000480");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String param = object.toString();
+        param = ParamUtils.getParams(param, method);
+
+        NetApi netApi = HttpConnection.getRretrofit(BASE_URL).create(NetApi.class);
+        return netApi.connect(param);
     }
 
 

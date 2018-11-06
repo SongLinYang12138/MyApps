@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.Constraints;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +20,7 @@ import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.bean.loginebean.WarehousesBean;
+import com.bondex.ysl.pdaapp.login.LoginActivity;
 import com.bondex.ysl.pdaapp.main.MainActivity;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
@@ -53,7 +55,7 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
         showLeft(true, 0, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                toLogin();
             }
         });
         showTitle(true, "请选择仓库");
@@ -71,6 +73,24 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
         lp.height = CommonUtil.getScreenH(this) -CommonUtil.getScreenH(this)/4;
         lp.gravity = Gravity.CENTER;
         window.setAttributes(lp);
+    }
+
+    private void toLogin(){
+
+
+        finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            toLogin();
+            return false;
+        }
+
+
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -107,8 +127,6 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
 
         stowrageBtCancel.setOnClickListener(clickListener);
         stowrageBtConfirm.setOnClickListener(clickListener);
-
-
     }
 
     @Override
@@ -149,6 +167,7 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
 
                 WarehousesBean bean = presenter.getWarehousesBeans().get((int) id);
                 SharedPreferecneUtils.saveValue(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME,bean.getSUBSYSTEM_NAME());
+                SharedPreferecneUtils.saveInteger(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NO,bean.getNo());
             }
 
             @Override

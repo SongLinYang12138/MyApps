@@ -84,7 +84,6 @@ public class LoginModal extends BaseModel<LoginBack> {
                     if (bean.isSuccess()) {
 
                         LoginBean loginBean = gson.fromJson(bean.getMsg(), LoginBean.class);
-
                         loginBean.setPassword(password);
                         loginBean.setLogined(true);
                         saveUserBean(loginBean);
@@ -97,7 +96,6 @@ public class LoginModal extends BaseModel<LoginBack> {
                         } else {
                             resultback.loginFailed("获取失败");
                         }
-
                     }
 
                 } catch (Exception e) {
