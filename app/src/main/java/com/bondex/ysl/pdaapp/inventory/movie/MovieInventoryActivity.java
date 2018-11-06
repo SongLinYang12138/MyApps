@@ -53,6 +53,9 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     ImageView ivStowragelo;
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avloading;
+    @BindView(R.id.movie_tv_success)
+    TextView tvSuccess;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +104,9 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     }
 
 
+    /**
+     * 查询原始单号
+     * */
     private void searchTraceId() {
         String traceId = movieEtTracknum.getText().toString();
 
@@ -108,6 +114,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
             showShort("请输入原始单号");
             return;
         }
+        showSuccess(View.GONE,null);
         traceId = traceId.replace("\n", "").trim();
         if (avloading.getVisibility() == View.VISIBLE) {
             return;
@@ -116,6 +123,9 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
     }
 
+    /**
+     * 查询原始库位
+     * */
     private void removeStowrage() {
 
         String stowrageNum = movieEtStorwagelo.getText().toString();
@@ -124,6 +134,8 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
             showShort("请输入原始库位");
             return;
         }
+
+        showSuccess(View.GONE,null);
 
         stowrageNum = stowrageNum.replace("\n", stowrageNum);
         if (avloading.getVisibility() == View.VISIBLE) return;
@@ -204,17 +216,29 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
     }
 
+    /**
+     * 移除成功
+     * */
     @Override
     public void onSuccess(String data) {
 
         showShort(data);
-//        finish();
+        showSuccess(View.VISIBLE, data);
+    }
 
+    /**
+     * 移除成功或失败后显示原因
+     * */
+    private void showSuccess(int vise, String msg) {
+
+        tvSuccess.setVisibility(vise);
+        if (CommonUtil.isNotEmpty(msg)) tvSuccess.setText(msg);
     }
 
     @Override
     public void faile(String msg) {
 
+        showSuccess(View.VISIBLE, msg);
         showLong(msg);
     }
 
@@ -234,7 +258,8 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
         if (movieEtStorwagelo.isFocused()) {
 
-            if (checkStorwage(result)) {
+            boolean flag = checkStorwage(result);
+            if (flag) {
                 movieEtStorwagelo.getText().clear();
                 movieEtStorwagelo.setText(result);
             }
@@ -246,6 +271,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
             if (checkTraceId(result)) movieEtTracknum.setText(result);
         } else if (CommonUtil.isEmpty(movieEtStorwagelo.getText().toString())) {
+
 
 
             if (checkStorwage(result)) {
@@ -269,7 +295,6 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
             showShort("该单号已存在");
             return false;
         }
-
         return true;
     }
 
