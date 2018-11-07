@@ -1,20 +1,14 @@
 package com.bondex.ysl.pdaapp.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MainBean;
-import com.bondex.ysl.pdaapp.exwarehouse.ConsigeMentActivity;
-import com.bondex.ysl.pdaapp.inventory.InventoryActivity;
-import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
-import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 
 public class MainAdapter extends BaseAdapter {

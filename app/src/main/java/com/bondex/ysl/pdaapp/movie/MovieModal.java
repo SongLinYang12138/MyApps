@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.inventory.movie;
+package com.bondex.ysl.pdaapp.movie;
 
 import android.content.Context;
 
@@ -7,9 +7,6 @@ import com.bondex.ysl.pdaapp.bean.InventoryMovieOneTraceIdBean;
 import com.bondex.ysl.pdaapp.util.net.HttpConnection;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;

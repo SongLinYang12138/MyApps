@@ -1,11 +1,7 @@
-package com.bondex.ysl.pdaapp.inventory.movie;
+package com.bondex.ysl.pdaapp.movie;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -18,10 +14,7 @@ import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.PdaUtils;
-import com.bondex.ysl.pdaapp.util.SystemBroadCast;
-import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.orhanobut.logger.Logger;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
 

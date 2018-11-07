@@ -34,9 +34,7 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/dialog"></activity>
-        <activity android:name=".inventory.InventoryActivity" />
-        <activity android:name=".inventory.movie.MovieInventoryActivity" />
-        <activity android:name=".middle.MiddleActivity" />
+        <activity android:name=".movie.MovieInventoryActivity" />
         <activity android:name=".exwarehouse.ConsigeMentActivity" />
 
         <provider

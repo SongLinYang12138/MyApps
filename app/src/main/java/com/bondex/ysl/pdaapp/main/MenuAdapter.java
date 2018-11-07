@@ -1,16 +1,19 @@
 package com.bondex.ysl.pdaapp.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
+import com.bondex.ysl.pdaapp.exwarehouse.ConsigeMentActivity;
+import com.bondex.ysl.pdaapp.movie.MovieInventoryActivity;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
+import com.bondex.ysl.pdaapp.util.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -60,8 +63,8 @@ public class MenuAdapter extends BaseAdapter {
             holder.bt = view.findViewById(R.id.menu_bt);
             MyClickListener listener = new MyClickListener(holder);
             holder.bt.setOnClickListener(listener);
-           view.setTag(holder);
-        }else {
+            view.setTag(holder);
+        } else {
 
             holder = (ViewHolder) view.getTag();
         }
@@ -81,19 +84,34 @@ public class MenuAdapter extends BaseAdapter {
             this.holder = holder;
         }
 
+//        inList.add(new MenuBean("标准收货","standardReceive"));
+//        inList.add(new MenuBean("混托盘收货","confusionReceive"));
+//        outList.add(new MenuBean("按订单发货","orderConsignment"));
+//        outList.add(new MenuBean("订单拣货","orderPick"));
+//        movieList.add(new MenuBean("单元移库","unitmovie"));
+
         @Override
         public void click(View v) {
 
             Integer postion = (Integer) holder.bt.getTag();
+            Intent intent = null;
+            switch (list.get(postion).getFlag()) {
 
-            switch (list.get(postion).getFlag()){
+                case "unitmovie":
 
-                case "":
+                    intent = new Intent(context, MovieInventoryActivity.class);
+                    break;
+                case "orderConsignment":
 
+                    intent = new Intent(context, ConsigeMentActivity.class);
                     break;
 
-
+                default:
+                    ToastUtils.showToast("该功能正在开发中");
             }
+
+            if (intent != null) context.startActivity(intent);
+
 
         }
     }

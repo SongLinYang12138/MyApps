@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.inventory.movie;
+package com.bondex.ysl.pdaapp.movie;
 
 import android.content.Context;
 import android.content.IntentFilter;
@@ -12,7 +12,6 @@ import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.bondex.ysl.pdaapp.util.broadcast.PdaBroadCast;
 import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
