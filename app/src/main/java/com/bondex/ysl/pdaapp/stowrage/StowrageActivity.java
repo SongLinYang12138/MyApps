@@ -25,6 +25,7 @@ import com.bondex.ysl.pdaapp.main.MainActivity;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
+import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import java.util.ArrayList;
 import butterknife.BindView;
@@ -44,6 +45,10 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
     ButtonRectangle stowrageBtCancel;
     @BindView(R.id.stowarge_tv_bottom)
     TextView tvBottom;
+
+
+    WarehousesBean warehousesBean;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +112,14 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
         switch (v.getId()){
             case R.id.stowrage_bt_confirm:
 
+                if(warehousesBean == null ) {
+                    showShort("请选择仓库");
+                    return;
+                }
+
+                SharedPreferecneUtils.saveValue(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME,warehousesBean.getSUBSYSTEM_NAME());
+                SharedPreferecneUtils.saveInteger(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NO,warehousesBean.getNo());
+
                 Intent intent = new Intent(this,MainActivity.class);
                 startBaseActivity(intent);
 
@@ -165,10 +178,9 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                WarehousesBean bean = presenter.getWarehousesBeans().get((int) id);
-                SharedPreferecneUtils.saveValue(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME,bean.getSUBSYSTEM_NAME());
-                SharedPreferecneUtils.saveInteger(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NO,bean.getNo());
-            }
+                warehousesBean = presenter.getWarehousesBeans().get((int) id);
+
+                }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

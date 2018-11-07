@@ -7,6 +7,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MainBean;
 import com.bondex.ysl.pdaapp.base.BasePresnter;
+import com.bondex.ysl.pdaapp.bean.MenuBean;
 
 import java.util.ArrayList;
 
@@ -50,9 +51,24 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
 
         ArrayList<MainBean> mainBeans = new ArrayList<>();
-        mainBeans.add(new MainBean("入库","入库",R.mipmap.attend));
-        mainBeans.add(new MainBean("出库","出库",R.mipmap.ticket));
-        mainBeans.add(new MainBean("库存","库存",R.mipmap.warehouse));
+
+        ArrayList<MenuBean> inList = new ArrayList<>();
+        inList.add(new MenuBean("标准收货","standardReceive"));
+        inList.add(new MenuBean("混托盘收货","confusionReceive"));
+
+        ArrayList<MenuBean> outList = new ArrayList<>();
+
+        outList.add(new MenuBean("按订单发货","orderConsignment"));
+        outList.add(new MenuBean("订单拣货","orderPick"));
+
+        ArrayList<MenuBean> movieList = new ArrayList<>();
+        movieList.add(new MenuBean("单元移库","unitmovie"));
+
+        mainBeans.add(new MainBean("入库",inList));
+        mainBeans.add(new MainBean("出库",outList));
+        mainBeans.add(new MainBean("库存",movieList));
+
+
 
         MainAdapter adapter = new MainAdapter(context,mainBeans);
       view.listAdapter(adapter);

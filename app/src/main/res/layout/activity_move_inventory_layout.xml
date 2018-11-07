@@ -27,6 +27,7 @@
         android:gravity="center"
         android:textColor="@color/black_panit"
         android:textSize="@dimen/text_normal"
+        android:singleLine="true"
        app:layout_constraintTop_toTopOf="@id/movie_tv_tracknum"
         app:layout_constraintBottom_toBottomOf="@id/movie_tv_tracknum"
         app:layout_constraintDimensionRatio="w:5:4"

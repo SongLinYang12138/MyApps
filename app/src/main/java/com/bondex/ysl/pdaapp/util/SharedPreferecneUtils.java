@@ -14,7 +14,7 @@ public class SharedPreferecneUtils {
         if (context == null) {
             return;
         }
-        if (CommonUtil.isEmpty(key) || CommonUtil.isEmpty(value)) {
+        if (CommonUtil.isEmpty(key) || value == null) {
             return;
         }
         SharedPreferences preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);

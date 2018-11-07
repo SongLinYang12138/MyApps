@@ -127,6 +127,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
 
     public void destroy() {
 
+        resultMap.clear();
         context.unregisterReceiver(pdaBroadCast);
     }
 

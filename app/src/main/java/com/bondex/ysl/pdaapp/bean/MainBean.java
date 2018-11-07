@@ -1,32 +1,29 @@
 package com.bondex.ysl.pdaapp.bean;
 
+import java.util.ArrayList;
+
 public class MainBean {
 
     private String title;
-    private  int resourceId;
-    private String name;
 
+    private ArrayList<MenuBean> menuList = new ArrayList<>();
 
+    public MainBean(String title, ArrayList<MenuBean> menuList) {
+        this.title = title;
+        this.menuList = menuList;
+    }
 
     public MainBean(){
 
     }
-    public MainBean(String title,String name,int resourceId){
 
-        this.title = title;
-        this.name = name;
-        this.resourceId = resourceId;
-
+    public ArrayList<MenuBean> getMenuList() {
+        return menuList;
     }
 
-    public String getName() {
-        return name == null ? "" : name;
+    public void setMenuList(ArrayList<MenuBean> menuList) {
+        this.menuList = menuList;
     }
-
-    public void setName(String name) {
-        this.name = name == null ? "" : name;
-    }
-
 
     public String getTitle() {
         return title == null ? "" : title;
@@ -34,13 +31,5 @@ public class MainBean {
 
     public void setTitle(String title) {
         this.title = title == null ? "" : title;
-    }
-
-    public int getResourceId() {
-        return resourceId;
-    }
-
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
     }
 }

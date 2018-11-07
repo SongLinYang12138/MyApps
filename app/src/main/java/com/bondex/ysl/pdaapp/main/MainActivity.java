@@ -152,6 +152,8 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
                 ToastUtils.showToast("请再按一次退出");
                 lastback = System.currentTimeMillis();
             }else {
+
+                SharedPreferecneUtils.saveValue(this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME,"");
                 finish();
             }
         return false;

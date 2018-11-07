@@ -12,6 +12,7 @@ import com.bondex.ysl.pdaapp.main.MainActivity;
 import com.bondex.ysl.pdaapp.stowrage.StowrageActivity;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -126,8 +127,10 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
 
         loginEtPhone.setText(name);
         loginEtPassword.setText(passoword);
+        String stowrage = SharedPreferecneUtils.getValue(this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME);
 
-        if (islogined) jumpToMain();
+
+        if (islogined && CommonUtil.isNotEmpty(stowrage)) jumpToMain();
     }
 
     private void jumpToMain() {

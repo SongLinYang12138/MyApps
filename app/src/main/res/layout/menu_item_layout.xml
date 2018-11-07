@@ -21,31 +21,20 @@
             android:layout_height="wrap_content"
             android:text="空运"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_large" />
+            android:textSize="@dimen/text_normal" />
     </RelativeLayout>
 
-
-    <ImageView
-        android:id="@+id/menu_iv_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:scaleType="fitXY"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_rl_top" />
-
-    <TextView
-        android:id="@+id/menu_tv_name"
-        android:layout_width="wrap_content"
+    <GridView
+        android:id="@+id/menu_gridview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/menu_iv_icon"
-        app:layout_constraintLeft_toLeftOf="@id/menu_iv_icon"
-        android:text="空运"
-        android:layout_marginTop="@dimen/main_small"
-        android:textSize="@dimen/text_large"
-        android:textColor="@color/black_panit"
-         />
+        app:layout_constraintTop_toBottomOf="@id/menu_rl_top"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:numColumns="2"
+        ></GridView>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>
