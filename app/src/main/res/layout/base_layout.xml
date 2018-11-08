@@ -3,14 +3,16 @@
     android:id="@+id/ll_basetitle_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/light_gray"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        >
 
         <ImageView
             android:id="@+id/base_back"

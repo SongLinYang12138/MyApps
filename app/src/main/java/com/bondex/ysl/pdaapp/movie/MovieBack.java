@@ -1,7 +1,7 @@
 package com.bondex.ysl.pdaapp.movie;
 
 import com.bondex.ysl.pdaapp.base.BaseBack;
-import com.bondex.ysl.pdaapp.bean.InventoryMovieOneTraceIdBean;
+import com.bondex.ysl.pdaapp.bean.ResultBean;
 
 
 /**
@@ -12,8 +12,8 @@ import com.bondex.ysl.pdaapp.bean.InventoryMovieOneTraceIdBean;
 public interface MovieBack extends BaseBack {
 
 
-    void traceIdExists(InventoryMovieOneTraceIdBean bean);
+    void traceIdExists(ResultBean bean);
     void onFailed(String msg);
 
-    void removeStowrage(InventoryMovieOneTraceIdBean bean);
+    void removeStowrage(ResultBean bean);
 }

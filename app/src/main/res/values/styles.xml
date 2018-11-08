@@ -29,8 +29,11 @@
 
     </style>
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">@color/text_gray</item>
-        <item name="android:background">@color/white_back</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:background">@drawable/gray_exitext_rect</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textAlignment">center</item>
+
     </style>
 
     <style name="edit_style">
@@ -48,7 +51,6 @@
     </style>
 
     <style name="super_text_style">
-        <!-- Customize your theme here. -->
 
         <item name="android:background">@color/bondex_blue_accent</item>
         <item name="android:textColor">@android:color/white</item>
@@ -59,19 +61,18 @@
 
     </style>
 
+    <style name="button_blue_theme" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/bt_blue_solid</item>
+        <item name="android:textSize">@dimen/text_nromal</item>
+        <item name="android:textColor">@color/white_back</item>
+    </style>
 
 
+    <style name="button_gray_theme" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/bt_gray_solid</item>
+        <item name="android:textSize">@dimen/text_nromal</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
 
-
-    <!--<style name="Spinner" parent="Widget.AppCompat.Spinner">-->
-
-        <!--&lt;!&ndash;确定Spinner的弹出方式，下拉跟dialog两种&ndash;&gt;-->
-        <!--<item name="android:spinnerMode">dropdown</item>-->
-        <!--&lt;!&ndash;修改spinner的背景边框样式&ndash;&gt;-->
-        <!--<item name="android:popupBackground">@drawable/switch_gray</item>-->
-        <!--<item name="android:dropDownVerticalOffset">0dip</item>-->
-        <!--<item name="android:dropDownHorizontalOffset">0dip</item>-->
-        <!--<item name="android:dropDownWidth">wrap_content</item>-->
-    <!--</style>-->
 
 </resources>

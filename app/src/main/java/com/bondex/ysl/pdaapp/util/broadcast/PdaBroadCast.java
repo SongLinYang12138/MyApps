@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.SystemBroadCast;
 import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
 
@@ -34,7 +35,7 @@ public class PdaBroadCast extends BroadcastReceiver {
                 e.printStackTrace();
                 Log.e("in", e.toString());
             }
-            if (pdaCallback != null) pdaCallback.pdaResult(message);
+            if (pdaCallback != null && CommonUtil.isNotEmpty(message)) pdaCallback.pdaResult(message);
 
 
         }

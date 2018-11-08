@@ -1,13 +1,16 @@
 package com.bondex.ysl.pdaapp.exwarehouse;
 
-import android.app.Notification;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
+import com.bondex.ysl.pdaapp.util.CommonUtil;
+import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -66,12 +69,20 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
         switch (v.getId()) {
 
 
-
             case R.id.confi_bt_confirm:
 
+                String code = etCode.getText().toString();
+
+                if (CommonUtil.isEmpty(code)) {
+                    ToastUtils.showToast("请输入单号");
+                    return;
+                }
+
+                presenter.consignment(code);
                 break;
             case R.id.consi_bt_out:
 
+                finish();
                 break;
 
 
@@ -84,26 +95,50 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
 
         confiBtConfirm.setOnClickListener(clickListener);
         consiBtOut.setOnClickListener(clickListener);
-
     }
 
     @Override
     public void showLoading() {
 
+        avLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void stopLoading() {
 
+        avLoading.setVisibility(View.GONE);
     }
 
     @Override
     public void onSuccess(String data) {
 
+        showShort(data);
+        finish();
     }
 
     @Override
     public void faile(String msg) {
+        showLong(msg);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
+    }
+
+    @Override
+    public void setCode(String result) {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(Constant.TAG, "" + etCode.getText().toString());
+        etCode.getText().clear();
+        etCode.setText(result);
     }
 }

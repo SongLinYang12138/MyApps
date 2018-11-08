@@ -140,5 +140,29 @@ public class HttpConnection {
         return netApi.connect(param);
     }
 
+    public static Call<String> consigement(String id,int num){
+
+        String method="so.shipment";//方法名
+
+        JSONObject map = new JSONObject();
+
+        try {
+            map.put("warehouseno", Integer.valueOf(num));//当前登录用户选择的仓库ID
+            map.put("Action", "Ship");//固定值
+            map.put("ProcessBy", "OrderNo");//固定值
+            map.put("userid", PdaApplication.LOGINBEAN.getUserid());//系统当前登录人ID
+            map.put("OrderNO", id);//第一步扫描的发运单号
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String params = map.toString();
+        params = ParamUtils.getParams(params,method);
+
+        NetApi netApi = HttpConnection.getRretrofit(BASE_URL).create(NetApi.class);
+     return    netApi.connect(params);
+    }
+
+
 
 }

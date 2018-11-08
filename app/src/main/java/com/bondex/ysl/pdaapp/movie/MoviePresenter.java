@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.IntentFilter;
 
 import com.bondex.ysl.pdaapp.base.BasePresnter;
-import com.bondex.ysl.pdaapp.bean.InventoryMovieOneTraceIdBean;
+import com.bondex.ysl.pdaapp.bean.ResultBean;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.bondex.ysl.pdaapp.util.SystemBroadCast;
@@ -87,7 +87,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     }
 
     @Override
-    public void traceIdExists(InventoryMovieOneTraceIdBean bean) {
+    public void traceIdExists(ResultBean bean) {
 
         if (bean.isSuccess()) {
 
@@ -109,7 +109,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     }
 
     @Override
-    public void removeStowrage(InventoryMovieOneTraceIdBean bean) {
+    public void removeStowrage(ResultBean bean) {
 
 
         view.stopLoading();

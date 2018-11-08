@@ -8,4 +8,6 @@ import com.bondex.ysl.pdaapp.base.BaseView;
  * description:
  */
 public interface ConsigementView extends BaseView {
+
+  void    setCode(String result);
 }

@@ -12,6 +12,7 @@ import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
 import com.bondex.ysl.pdaapp.exwarehouse.ConsigeMentActivity;
 import com.bondex.ysl.pdaapp.movie.MovieInventoryActivity;
+import com.bondex.ysl.pdaapp.receive.standand.StandardReceiveActivity;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
 
@@ -105,6 +106,12 @@ public class MenuAdapter extends BaseAdapter {
 
                     intent = new Intent(context, ConsigeMentActivity.class);
                     break;
+
+                case "standardReceive":
+
+                    intent = new Intent(context,StandardReceiveActivity.class);
+                    break;
+
 
                 default:
                     ToastUtils.showToast("该功能正在开发中");

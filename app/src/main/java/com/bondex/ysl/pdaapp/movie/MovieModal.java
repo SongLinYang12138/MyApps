@@ -3,7 +3,7 @@ package com.bondex.ysl.pdaapp.movie;
 import android.content.Context;
 
 import com.bondex.ysl.pdaapp.base.BaseModel;
-import com.bondex.ysl.pdaapp.bean.InventoryMovieOneTraceIdBean;
+import com.bondex.ysl.pdaapp.bean.ResultBean;
 import com.bondex.ysl.pdaapp.util.net.HttpConnection;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -87,7 +87,7 @@ public class MovieModal extends BaseModel<MovieBack> {
 
                     Gson gson = new Gson();
 
-                    InventoryMovieOneTraceIdBean bean = gson.fromJson(s, InventoryMovieOneTraceIdBean.class);
+                    ResultBean bean = gson.fromJson(s, ResultBean.class);
                     resultback.traceIdExists(bean);
                 }
 
@@ -138,7 +138,7 @@ public class MovieModal extends BaseModel<MovieBack> {
 
                     Gson gson = new Gson();
 
-                    InventoryMovieOneTraceIdBean bean = gson.fromJson(s,InventoryMovieOneTraceIdBean.class);
+                    ResultBean bean = gson.fromJson(s,ResultBean.class);
                     resultback.removeStowrage(bean);
                 }
 

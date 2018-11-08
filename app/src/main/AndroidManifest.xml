@@ -36,6 +36,7 @@
             android:theme="@style/dialog"></activity>
         <activity android:name=".movie.MovieInventoryActivity" />
         <activity android:name=".exwarehouse.ConsigeMentActivity" />
+        <activity android:name=".receive.standand.StandardReceiveActivity"/>
 
         <provider
             android:name=".util.provider.LoginProvider"

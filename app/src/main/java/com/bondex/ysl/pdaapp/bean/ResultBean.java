@@ -5,7 +5,7 @@ package com.bondex.ysl.pdaapp.bean;
  * Author: ysl
  * description: 在单元移除中查询运单号返回的结果
  */
-public class InventoryMovieOneTraceIdBean {
+public class ResultBean {
 
 
     /**

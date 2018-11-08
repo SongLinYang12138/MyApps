@@ -20,7 +20,6 @@ public abstract class BasePresnter<V extends BaseView, M extends BaseModel> {
         else Logger.i("base view == null");
 
         modal = getModal();
-
         initData();
 
     }

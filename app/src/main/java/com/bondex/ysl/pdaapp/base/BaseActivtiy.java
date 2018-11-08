@@ -122,7 +122,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
                 WindowManager.LayoutParams attributes = window.getAttributes();
                 attributes.flags |= flagTranslucentNavigation;
                 window.setAttributes(attributes);
-                getWindow().setStatusBarColor(Color.TRANSPARENT);
+                getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
             } else {
                 Window window = getWindow();
                 WindowManager.LayoutParams attributes = window.getAttributes();
