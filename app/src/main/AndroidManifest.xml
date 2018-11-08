@@ -37,6 +37,7 @@
         <activity android:name=".movie.MovieInventoryActivity" />
         <activity android:name=".exwarehouse.ConsigeMentActivity" />
         <activity android:name=".receive.standand.StandardReceiveActivity"/>
+        <activity android:name=".receive.confuse.ConfuseReceiveActivity"/>
 
         <provider
             android:name=".util.provider.LoginProvider"

@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.receive.standand;
+package com.bondex.ysl.pdaapp.receive.confuse;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.base.BasePresnter;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * Author: ysl
  * description:
  */
-public class StandardReceiveActivity extends BaseActivtiy<BasePresnter> {
+public class ConfuseReceiveActivity extends BaseActivtiy<ConfusePrensenter> {
 
     private final String[] ASN_TYPE = {"已提取", "入库通知", "生产收货", "客户拒收", "采购收货", "RR", "商务退机", "国内仓库调拨", "销售退回"};
     @BindView(R.id.receive_tv_supplier)
@@ -76,7 +77,7 @@ public class StandardReceiveActivity extends BaseActivtiy<BasePresnter> {
     }
 
     @Override
-    public BasePresnter getPresenter() {
+    public ConfusePrensenter getPresenter() {
         return null;
     }
 

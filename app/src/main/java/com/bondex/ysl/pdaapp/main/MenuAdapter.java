@@ -12,6 +12,7 @@ import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
 import com.bondex.ysl.pdaapp.exwarehouse.ConsigeMentActivity;
 import com.bondex.ysl.pdaapp.movie.MovieInventoryActivity;
+import com.bondex.ysl.pdaapp.receive.confuse.ConfuseReceiveActivity;
 import com.bondex.ysl.pdaapp.receive.standand.StandardReceiveActivity;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
@@ -110,6 +111,11 @@ public class MenuAdapter extends BaseAdapter {
                 case "standardReceive":
 
                     intent = new Intent(context,StandardReceiveActivity.class);
+                    break;
+
+                case "confusionReceive":
+                    intent = new Intent(context,ConfuseReceiveActivity.class);
+
                     break;
 
 
