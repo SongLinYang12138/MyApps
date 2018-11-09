@@ -122,7 +122,7 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
 
                 Intent intent = new Intent(this,MainActivity.class);
                 startBaseActivity(intent);
-
+                finish();
                 break;
 
             case R.id.stowrage_bt_cancel:

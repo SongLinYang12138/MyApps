@@ -108,15 +108,15 @@ public class MenuAdapter extends BaseAdapter {
                     intent = new Intent(context, ConsigeMentActivity.class);
                     break;
 
-                case "standardReceive":
-
-                    intent = new Intent(context,StandardReceiveActivity.class);
-                    break;
-
-                case "confusionReceive":
-                    intent = new Intent(context,ConfuseReceiveActivity.class);
-
-                    break;
+//                case "standardReceive":
+//
+//                    intent = new Intent(context,StandardReceiveActivity.class);
+//                    break;
+//
+//                case "confusionReceive":
+//
+//                    intent = new Intent(context,ConfuseReceiveActivity.class);
+//                    break;
 
 
                 default:

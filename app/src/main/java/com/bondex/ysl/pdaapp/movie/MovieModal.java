@@ -101,14 +101,14 @@ public class MovieModal extends BaseModel<MovieBack> {
     }
 
 
-    public synchronized void removieStowrage(final String id, final int num) {
+    public synchronized void removieStowrage(final String id, final int num, final String stowrage) {
 
 
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
 
-                Call<String> call = HttpConnection.removeStowrage(id, num);
+                Call<String> call = HttpConnection.removeStowrage(id, num,stowrage);
                 call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {

@@ -1,5 +1,9 @@
 package com.bondex.ysl.pdaapp.movie;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,6 +18,7 @@ import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.PdaUtils;
+import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -36,18 +41,18 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     TextView movieTvStorwagelo;
     @BindView(R.id.movie_et_storwagelo)
     MaterialEditText movieEtStorwagelo;
-    @BindView(R.id.movie_bt_out)
-    ButtonRectangle movieBtOut;
+
     @BindView(R.id.movie_bt_scan)
     ButtonRectangle movieBtScan;
     @BindView(R.id.movie_iv_tracknum)
     ImageView ivtrackNum;
-    @BindView(R.id.movie_iv_storwagelo)
-    ImageView ivStowragelo;
+
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avloading;
     @BindView(R.id.movie_tv_success)
     TextView tvSuccess;
+
+    private ColorStateList select, normal;
 
 
     @Override
@@ -78,12 +83,8 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
         switch (v.getId()) {
 
-            case R.id.movie_bt_out:
+            case R.id.movie_bt_scan:
 
-                finish();
-                break;
-
-            case R.id.movie_iv_storwagelo:
 
                 removeStowrage();
                 break;
@@ -99,7 +100,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
     /**
      * 查询原始单号
-     * */
+     */
     private void searchTraceId() {
         String traceId = movieEtTracknum.getText().toString();
 
@@ -107,32 +108,31 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
             showShort("请输入原始单号");
             return;
         }
-        showSuccess(View.GONE,null);
+        showSuccess(View.GONE, null);
         traceId = traceId.replace("\n", "").trim();
         if (avloading.getVisibility() == View.VISIBLE) {
             return;
         }
+
         presenter.traceId(traceId);
 
     }
 
     /**
      * 查询原始库位
-     * */
+     */
     private void removeStowrage() {
 
         String stowrageNum = movieEtStorwagelo.getText().toString();
 
         if (CommonUtil.isEmpty(stowrageNum)) {
-            showShort("请输入原始库位");
             return;
         }
 
-        showSuccess(View.GONE,null);
+        showSuccess(View.GONE, null);
 
         stowrageNum = stowrageNum.replace("\n", stowrageNum);
         if (avloading.getVisibility() == View.VISIBLE) return;
-
         presenter.removeStowrage(stowrageNum);
 
 
@@ -142,32 +142,11 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     public void initView() {
 
         ivtrackNum.setOnClickListener(clickListener);
-        ivStowragelo.setOnClickListener(clickListener);
-        movieBtOut.setOnClickListener(clickListener);
         ivtrackNum.setOnClickListener(clickListener);
-        ivStowragelo.setOnClickListener(clickListener);
+        movieBtScan.setOnClickListener(clickListener);
 
-        movieBtScan.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-
-
-                        PdaUtils.startScan(MovieInventoryActivity.this);
-                        break;
-                    case MotionEvent.ACTION_UP:
-
-                        PdaUtils.cancelScan(MovieInventoryActivity.this);
-                        break;
-
-                }
-
-                return false;
-            }
-        });
-
+        select = getResources().getColorStateList(R.color.colorPrimary);
+        normal = getResources().getColorStateList(R.color.text_gray);
 
         movieEtStorwagelo.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -211,7 +190,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
     /**
      * 移除成功
-     * */
+     */
     @Override
     public void onSuccess(String data) {
 
@@ -221,7 +200,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
     /**
      * 移除成功或失败后显示原因
-     * */
+     */
     private void showSuccess(int vise, String msg) {
 
         tvSuccess.setVisibility(vise);
@@ -266,7 +245,6 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         } else if (CommonUtil.isEmpty(movieEtStorwagelo.getText().toString())) {
 
 
-
             if (checkStorwage(result)) {
 
                 movieEtStorwagelo.getText().clear();
@@ -285,7 +263,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         }
 
         if (str.equals(text)) {
-            showShort("该单号已存在");
+
             return false;
         }
         return true;
@@ -299,7 +277,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
         movieEtStorwagelo.getText().clear();
         if (text.equals(str)) {
-            showShort("该单号已存在");
+
             return false;
         }
         return true;
@@ -314,6 +292,20 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         movieEtStorwagelo.setFocusableInTouchMode(true);
         movieEtStorwagelo.requestFocus();
         Log.i(Constant.TAG, "获取焦点");
+    }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public void setBtBack(boolean isClick) {
+
+
+        if (isClick) {
+
+            movieBtScan.setBackground(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+        } else {
+            movieBtScan.setBackground(new ColorDrawable(getResources().getColor(R.color.text_gray)));
+        }
+        movieBtScan.setClickable(isClick);
     }
 
     @Override

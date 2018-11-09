@@ -2,13 +2,14 @@ package com.bondex.ysl.pdaapp.main;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bondex.ysl.pdaapp.R;
 
 
-public class LocalImageHolderView extends Holder<Integer> {
-    private ImageView imageView;
+public class LocalImageHolderView extends Holder<String> {
+    private TextView tv;
 
     public LocalImageHolderView(View itemView) {
         super(itemView);
@@ -16,11 +17,11 @@ public class LocalImageHolderView extends Holder<Integer> {
 
     @Override
     protected void initView(View itemView) {
-        imageView =itemView.findViewById(R.id.ivPost);
+        tv =itemView.findViewById(R.id.ivPost);
     }
 
     @Override
-    public void updateUI(Integer data) {
-        imageView.setImageResource(data);
+    public void updateUI(String data) {
+        tv.setText(data);
     }
 }

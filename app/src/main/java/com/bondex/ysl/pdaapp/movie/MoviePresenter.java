@@ -24,6 +24,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     private PdaBroadCast pdaBroadCast;
 
     private boolean isTraceIdExist;
+    private String traceId; //被移除的单号
 
     private String removeKey;//设置的是上一次移除的id
     private LinkedHashMap<String, Boolean> resultMap = new LinkedHashMap<>();//将移除id的结果收集到map中
@@ -52,31 +53,33 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     public void traceId(String id) {
 
         view.showLoading();
+        isTraceIdExist = false;
         int num = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
         modal.searchTruckNum(id, num);
+        traceId = id;
     }
 
-    public void removeStowrage(String id) {
+    public void removeStowrage(String stowrage) {
 
         if (!isTraceIdExist) {
             ToastUtils.showToast("请先查询原始单号成功");
             return;
         }
 
-     if(resultMap.get(id) == null)   resultMap.put(id, false);
+     if(resultMap.get(stowrage) == null)   resultMap.put(stowrage, false);
 
-        removeKey = id;
+        removeKey = stowrage;
 
-//        判断一个单号移除一次
-        if(resultMap.get(id)){
+//        判断一个库位移除一次
+        if(resultMap.get(stowrage)){
 
-            ToastUtils.showToast("该单号已移除成功");
+            ToastUtils.showToast("该库位已移除成功");
             return;
         }
 
         view.showLoading();
         int num = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
-        modal.removieStowrage(id, num);
+        modal.removieStowrage(traceId, num,stowrage);
     }
 
 
@@ -91,10 +94,11 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
 
         if (bean.isSuccess()) {
 
-            ToastUtils.showToast("单号已存在，可以移除");
             view.toStorLocaltion();
             isTraceIdExist = true;
+            view.setBtBack(true);
         } else {
+            view.setBtBack(false);
             ToastUtils.showToast(bean.getErrormsg());
         }
 

@@ -12,4 +12,7 @@ public interface MovieView  extends BaseView {
     void pdaResult(String result);
 
     void toStorLocaltion();
+
+    void setBtBack(boolean isClick);
+
 }

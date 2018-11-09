@@ -15,7 +15,10 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.concurrent.TimeUnit;
 
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -23,11 +26,17 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class HttpConnection {
 
     private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
+    private static final String VERSION_URL = "http://cas.bondex.com.cn:8080/";
+    private static final OkHttpClient httpClient = new OkHttpClient
+            .Builder()
+            .connectTimeout(30000, TimeUnit.SECONDS)
+            .build();
 
     public static Retrofit getRretrofit(String url) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
+                .client(httpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
         return retrofit;
@@ -118,16 +127,16 @@ public class HttpConnection {
     }
 
 
-    public static Call<String> removeStowrage(String traceId, int num) {
+    public static Call<String> removeStowrage(String traceId, int num, String stowrage) {
 
         String method = "inv.movementID";
 
         JSONObject object = new JSONObject();
         try {
-            object.put("locationid", "STAGE");
+            object.put("locationid", stowrage);
             object.put("userid", PdaApplication.LOGINBEAN.getUserid());
             object.put("warehouseno", 1);
-            object.put("traceid", "yy170300000480");
+            object.put("traceid", traceId);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -140,9 +149,9 @@ public class HttpConnection {
         return netApi.connect(param);
     }
 
-    public static Call<String> consigement(String id,int num){
+    public static Call<String> consigement(String id, int num) {
 
-        String method="so.shipment";//方法名
+        String method = "so.shipment";//方法名
 
         JSONObject map = new JSONObject();
 
@@ -157,12 +166,17 @@ public class HttpConnection {
             e.printStackTrace();
         }
         String params = map.toString();
-        params = ParamUtils.getParams(params,method);
+        params = ParamUtils.getParams(params, method);
 
         NetApi netApi = HttpConnection.getRretrofit(BASE_URL).create(NetApi.class);
-     return    netApi.connect(params);
+        return netApi.connect(params);
     }
 
+    public static Call<String> getVersion(){
+
+        NetApi netApi = HttpConnection.getRretrofit(VERSION_URL).create(NetApi.class);
+        return netApi.getVersion();
+    }
 
 
 }

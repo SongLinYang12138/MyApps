@@ -58,4 +58,23 @@ public class SharedPreferecneUtils {
         return preferences.getInt(key, 1111);
     }
 
+    public static void saveBoolean(Context context, String name, String key, boolean value) {
+
+        SharedPreferences preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(key, value);
+        editor.commit();
+        editor.clear();
+
+    }
+
+    public static boolean getBoolean(Context context, String name, String key) {
+
+        SharedPreferences preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+        return preferences.getBoolean(key, false);
+
+    }
+
 }

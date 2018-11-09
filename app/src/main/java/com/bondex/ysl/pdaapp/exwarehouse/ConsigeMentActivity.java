@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
@@ -14,7 +13,6 @@ import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,8 +27,7 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
     TextView consiTvCode;
     @BindView(R.id.confi_bt_confirm)
     ButtonRectangle confiBtConfirm;
-    @BindView(R.id.consi_bt_out)
-    ButtonRectangle consiBtOut;
+
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avLoading;
     @BindView(R.id.consi_et_code)
@@ -80,10 +77,7 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
 
                 presenter.consignment(code);
                 break;
-            case R.id.consi_bt_out:
 
-                finish();
-                break;
 
 
         }
@@ -94,7 +88,7 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
     public void initView() {
 
         confiBtConfirm.setOnClickListener(clickListener);
-        consiBtOut.setOnClickListener(clickListener);
+
     }
 
     @Override

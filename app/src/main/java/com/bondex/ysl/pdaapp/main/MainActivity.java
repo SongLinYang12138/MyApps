@@ -15,8 +15,9 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bondex.ysl.pdaapp.R;
+import com.bondex.ysl.pdaapp.bean.UpdateBean;
 import com.bondex.ysl.pdaapp.login.LoginActivity;
-import com.bondex.ysl.pdaapp.stowrage.StowrageActivity;
+import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.PdaUtils;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
             }
         });
         showRight(false, 0, null);
-        showTitle(true,"海程邦达");
+        showTitle(true, "仓库PDA");
 
     }
 
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     public MainPresenter getPresenter() {
 
         if (presenter == null) {
-            subSystemName = SharedPreferecneUtils.getValue(this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME);
+            subSystemName = SharedPreferecneUtils.getValue(this, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NAME);
             presenter = new MainPresenter(this, this);
 
         }
@@ -95,25 +96,25 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     protected void onResume() {
         super.onResume();
 
-    banner.startTurning();
+        banner.startTurning();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-    banner.stopTurning();
+        banner.stopTurning();
     }
 
     @Override
     public void noDoubleClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.menu_bt_loginout:
 
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                 intent.putExtra(Constant.LOGIN_OUT,true);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.putExtra(Constant.LOGIN_OUT, true);
                 startBaseActivity(intent);
                 finish();
                 break;
@@ -129,16 +130,19 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         select = getResources().getColorStateList(R.color.colorPrimary);
         btLoginout.setOnClickListener(clickListener);
 
-        tvUserId.setText("用户ID:"+PdaApplication.LOGINBEAN.getUserid());
-        userName.setText("用户名: "+PdaApplication.LOGINBEAN.getUsername());
-        tvSorage.setText(""+subSystemName);
+        tvUserId.setText("用户ID:" + PdaApplication.LOGINBEAN.getUserid());
+        userName.setText("用户名: " + PdaApplication.LOGINBEAN.getUsername());
+        tvSorage.setText("" + subSystemName);
 
-        swPower.setChecked(false);
+
+        version.setText(CommonUtil.getVersionName(this));
+        swPower.setChecked(SharedPreferecneUtils.getBoolean(this, Constant.STORWAGEPAGE, Constant.POWER_STATE));
         swPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                PdaUtils.turnOnOffPda(isChecked,PdaApplication.context);
+                PdaUtils.turnOnOffPda(isChecked, PdaApplication.context);
+                SharedPreferecneUtils.saveBoolean(MainActivity.this, Constant.STORWAGEPAGE, Constant.POWER_STATE, isChecked);
             }
         });
     }
@@ -146,17 +150,21 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-            if(System.currentTimeMillis() - lastback > 2000){
+            if (System.currentTimeMillis() - lastback > 2000) {
+
                 ToastUtils.showToast("请再按一次退出");
                 lastback = System.currentTimeMillis();
-            }else {
+            } else {
 
-                SharedPreferecneUtils.saveValue(this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME,"");
+                SharedPreferecneUtils.saveValue(this, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NAME, "");
+                Intent intent = new Intent(this,LoginActivity.class);
+                intent.putExtra(Constant.LOGIN_OUT,true);
+                startBaseActivity(intent);
                 finish();
             }
-        return false;
+            return false;
         }
 
 
@@ -184,20 +192,23 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     }
 
     @Override
-    public void setBnnerrs(CBViewHolderCreator holderCreator,ArrayList<Integer> localImages) {
+    public void setBnnerrs(CBViewHolderCreator holderCreator, ArrayList<String> localImages) {
 
-        banner.setPages(holderCreator,localImages).setOnItemClickListener(new OnItemClickListener() {
+        banner.setPages(holderCreator, localImages).setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Logger.i("click banner: "+position);
+                Logger.i("click banner: " + position);
             }
         });
-
-
     }
 
     @Override
     public void listAdapter(MainAdapter adapter) {
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showUpdate(UpdateBean bean) {
+
     }
 }
