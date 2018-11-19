@@ -2,6 +2,8 @@ package com.bondex.ysl.pdaapp.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.bondex.ysl.pdaapp.receive.confuse.ConfuseReceiveActivity;
 import com.bondex.ysl.pdaapp.receive.standand.StandardReceiveActivity;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
+import com.google.android.flexbox.FlexboxLayoutManager;
 
 import java.util.ArrayList;
 
@@ -24,7 +27,7 @@ import java.util.ArrayList;
  * Author: ysl
  * description:
  */
-public class MenuAdapter extends BaseAdapter {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private ArrayList<MenuBean> list;
     private Context context;
@@ -34,14 +37,27 @@ public class MenuAdapter extends BaseAdapter {
         this.context = context;
     }
 
+
+    @NonNull
     @Override
-    public int getCount() {
-        return list.size();
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.gridview_item_main_menu_layou, viewGroup, false);
+
+        ViewGroup.LayoutParams lp = viewGroup.getLayoutParams();
+        if (lp instanceof FlexboxLayoutManager.LayoutParams) {
+            FlexboxLayoutManager.LayoutParams flexboxLp = (FlexboxLayoutManager.LayoutParams) lp;
+            flexboxLp.setFlexGrow(1.0f);
+        }
+
+        return new ViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return list.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
+        viewHolder.bt.setText(list.get(i).getName());
+        viewHolder.bt.setTag(Integer.valueOf(i));
     }
 
     @Override
@@ -49,33 +65,42 @@ public class MenuAdapter extends BaseAdapter {
         return position;
     }
 
-    private class ViewHolder {
-
-        TextView bt;
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 
-    private ViewHolder holder;
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
 
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.gridview_item_main_menu_layou, null);
-            holder = new ViewHolder();
-            holder.bt = view.findViewById(R.id.menu_bt);
-            MyClickListener listener = new MyClickListener(holder);
-            holder.bt.setOnClickListener(listener);
-            view.setTag(holder);
-        } else {
+        private TextView bt;
 
-            holder = (ViewHolder) view.getTag();
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            MyClickListener listener = new MyClickListener(this);
+
+            bt = itemView.findViewById(R.id.menu_bt);
+            bt.setOnClickListener(listener);
         }
 
-        holder.bt.setTag(Integer.valueOf(position));
-
-        holder.bt.setText(list.get(position).getName());
-        return view;
     }
+
+
+//        if (view == null) {
+//            view = LayoutInflater.from(context).inflate(R.layout.gridview_item_main_menu_layou, null);
+//            holder = new ViewHolder();
+//            holder.bt = view.findViewById(R.id.menu_bt);
+//            holder.bt.setOnClickListener(listener);
+//            view.setTag(holder);
+//        } else {
+//
+//            holder = (ViewHolder) view.getTag();
+//        }
+//
+//        holder.bt.setTag(Integer.valueOf(position));
+//
+//        holder.bt.setText(list.get(position).getName());
 
 
     private class MyClickListener extends NoDoubleClickListener {
@@ -110,12 +135,12 @@ public class MenuAdapter extends BaseAdapter {
 
 //                case "standardReceive":
 //
-//                    intent = new Intent(context,StandardReceiveActivity.class);
+//                    intent = new Intent(context, StandardReceiveActivity.class);
 //                    break;
 //
 //                case "confusionReceive":
 //
-//                    intent = new Intent(context,ConfuseReceiveActivity.class);
+//                    intent = new Intent(context, ConfuseReceiveActivity.class);
 //                    break;
 
 

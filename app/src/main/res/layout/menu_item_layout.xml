@@ -24,14 +24,14 @@
             android:textSize="@dimen/text_normal" />
     </RelativeLayout>
 
-    <GridView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/menu_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/menu_rl_top"
         android:paddingHorizontal="@dimen/activity_horizontal_margin"
         android:numColumns="2"
-        ></GridView>
+        ></android.support.v7.widget.RecyclerView>
 
 
 

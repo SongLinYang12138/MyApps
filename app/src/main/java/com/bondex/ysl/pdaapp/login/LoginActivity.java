@@ -32,6 +32,8 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avLoading;
 
+    private final int STOWRAGE_REQUEST_CODE = 101;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +148,23 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
     private void jumpStowrage() {
 
         Intent intent = new Intent(this, StowrageActivity.class);
-        startBaseActivity(intent);
-        finish();
+        startBaseActivityForResult(intent,STOWRAGE_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+
+            if(requestCode == STOWRAGE_REQUEST_CODE){
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startBaseActivity(intent);
+                finish();
+            }
+        }
+
+
     }
 }

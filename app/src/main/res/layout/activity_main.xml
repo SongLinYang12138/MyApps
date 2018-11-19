@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:materialdesign="http://schemas.android.com/tools"
     android:id="@+id/main_panel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +18,8 @@
             android:id="@+id/menu_tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="欢迎使用FLUX RF程序" />
+            android:textColor="@color/white_back"
+            android:text="欢迎使用仓库系统" />
 
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/paddingVertical"
             android:text="用户id:"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white_back"
             app:layout_constraintTop_toBottomOf="@+id/menu_tv_welcome" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/paddingVertical"
             android:text="用户名:"
-            android:textColor="@android:color/black"
+            android:textColor="@color/white_back"
             app:layout_constraintTop_toBottomOf="@+id/user_id" />
 
         <TextView
@@ -46,8 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/paddingVertical"
             android:text="仓库"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/user_name" />
+            android:textColor="@color/white_back"
+            app:layout_constraintTop_toBottomOf="@id/user_name"
+            />
 
 
         <android.support.v7.widget.SwitchCompat
@@ -59,11 +60,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_stowrage"
             app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_stowrage"
             android:text="扫描器开关:"
             >
 
         </android.support.v7.widget.SwitchCompat>
 
+
+        <TextView
+            android:id="@+id/check_update"
+            style="@style/super_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/marginVertical"
+            android:text="检查更新"
+            app:layout_constraintVertical_bias="0.4"
+           app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/marginVertical"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/check_update"
+            android:text="当前版本：1.0.15"
+          />
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/menu_bt_loginout"
@@ -72,8 +98,9 @@
             android:background="@color/bondex_blue_dark"
             android:padding="@dimen/paddingVertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/menu_bt_porwer"
-            app:layout_constraintVertical_bias="0.3">
+            app:layout_constraintTop_toBottomOf="@id/version"
+            app:layout_constraintVertical_bias="0.5"
+     >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,25 +113,7 @@
         </com.gc.materialdesign.views.ButtonRectangle>
 
 
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/marginVertical"
-            android:text="当前版本：1.0.15"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <TextView
-            android:id="@+id/check_update"
-            style="@style/super_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/marginVertical"
-            android:text="检查更新"
-            app:layout_constraintBottom_toTopOf="@id/version" />
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout

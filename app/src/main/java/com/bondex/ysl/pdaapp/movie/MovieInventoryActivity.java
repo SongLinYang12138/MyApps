@@ -51,6 +51,8 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     AVLoadingIndicatorView avloading;
     @BindView(R.id.movie_tv_success)
     TextView tvSuccess;
+    @BindView(R.id.movie_btclear)
+    ButtonRectangle btClear;
 
     private ColorStateList select, normal;
 
@@ -93,6 +95,12 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
 
                 searchTraceId();
                 break;
+            case R.id.movie_btclear:
+
+                showSuccess(View.GONE, null);
+                if(movieEtStorwagelo != null) movieEtStorwagelo.getText().clear();
+                if(movieEtTracknum != null) movieEtTracknum.getText().clear();
+                break;
         }
 
     }
@@ -129,7 +137,6 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
             return;
         }
 
-        showSuccess(View.GONE, null);
 
         stowrageNum = stowrageNum.replace("\n", stowrageNum);
         if (avloading.getVisibility() == View.VISIBLE) return;
@@ -144,6 +151,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         ivtrackNum.setOnClickListener(clickListener);
         ivtrackNum.setOnClickListener(clickListener);
         movieBtScan.setOnClickListener(clickListener);
+        btClear.setOnClickListener(clickListener);
 
         select = getResources().getColorStateList(R.color.colorPrimary);
         normal = getResources().getColorStateList(R.color.text_gray);
@@ -185,7 +193,6 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     public void stopLoading() {
 
         avloading.setVisibility(View.GONE);
-
     }
 
     /**

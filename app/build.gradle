@@ -1,12 +1,19 @@
 apply plugin: 'com.android.application'
+
 apply plugin: 'com.jakewharton.butterknife'
 
+
+def config = rootProject.ext
+
+
 android {
+
     compileSdkVersion 28
+
     defaultConfig {
-        applicationId "com.bondex.ysl.pdaapp"
-        minSdkVersion 19
-        targetSdkVersion 28
+        applicationId config.applicationId
+        minSdkVersion config.androidMinSdkVersion
+        targetSdkVersion config.androidTargetSdkVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -14,43 +21,86 @@ android {
 //    dataBinding{
 //        enabled=true;
 //    }
+
+    signingConfigs {
+
+        release {
+
+            keyAlias '123456'
+            keyPassword '123456'
+            storeFile file('/ysltest.jks')
+            storePassword '123456'
+        }
+
+       debug {
+
+           keyAlias '123456'
+           keyPassword '123456'
+           storeFile file('/ysltest.jks')
+           storePassword '123456'
+       }
+
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+        debug{
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 
 dependencies {
+    def depend = config.appdependicens
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation  depend.appcompat
+    implementation  depend.constraint
     //   retrofit
-    implementation 'com.squareup.retrofit2:converter-scalars:2.0.0'
+    implementation depend.scalars
+    implementation depend.retrofitrxjava
     //   rxAndroid
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.x.x'
+    implementation depend.rxAndroid
+    implementation depend.rxjava
     //   gosn
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation depend.gson
     //   等待框
-    implementation 'com.wang.avi:library:2.1.3'
+    implementation depend.avi
     //   logger 查询日志框架
-    implementation 'com.orhanobut:logger:2.2.0'
-    implementation 'com.android.support:design:28.0.0'
+    implementation depend.logger
+    implementation  depend.supportdesign
     //    引入marterial design 风格的元素
-    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-    implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    implementation  depend.materialeditext
+    implementation  depend.materialDesign
     //    butterknife
-    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
-    implementation 'org.jetbrains:annotations-java5:15.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation  depend.butterknife
+    annotationProcessor depend.butterKnifeCompiler
+    implementation  depend.annotations
+//    recycelerview
+    implementation  depend.recycelerview
+
+//    flexbox
+    implementation depend.flebox
+
 // 图片轮播框架
-     implementation project(":convenientbanner")
+    implementation project(":convenientbanner")
 //    安装apk的library
     implementation project(":installlibrary")
-//    implementation 'com.bigkoo:ConvenientBanner:2.1.4'
-//    implementation 'me.relex:photodraweeview:1.1.3'
-//    implementation 'com.facebook.fresco:fresco:1.3.0'
+
+
+}
+repositories {
+    mavenCentral()
 }

@@ -56,7 +56,6 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @BindView(R.id.main_listvew)
     ListView listView;
 
-
     private ColorStateList normal, select;
     private String subSystemName;
 
@@ -69,14 +68,10 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        showLeft(true, R.mipmap.menu, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                boolean isOpen = mainPanel.isOpen() ? mainPanel.closePane() : mainPanel.openPane();
-            }
+        showLeft(true, R.mipmap.menu, v -> {
+            boolean isOpen = mainPanel.isOpen() ? mainPanel.closePane() : mainPanel.openPane();
         });
-        showRight(false, 0, null);
+        showRight(false, 0,null);
         showTitle(true, "仓库PDA");
 
     }
@@ -85,9 +80,9 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     public MainPresenter getPresenter() {
 
         if (presenter == null) {
+
             subSystemName = SharedPreferecneUtils.getValue(this, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NAME);
             presenter = new MainPresenter(this, this);
-
         }
         return presenter;
     }
@@ -130,12 +125,12 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         select = getResources().getColorStateList(R.color.colorPrimary);
         btLoginout.setOnClickListener(clickListener);
 
-        tvUserId.setText("用户ID:" + PdaApplication.LOGINBEAN.getUserid());
+        tvUserId.setText("用户ID: " + PdaApplication.LOGINBEAN.getUserid());
         userName.setText("用户名: " + PdaApplication.LOGINBEAN.getUsername());
         tvSorage.setText("" + subSystemName);
 
 
-        version.setText(CommonUtil.getVersionName(this));
+        version.setText("当前版本: "+CommonUtil.getVersionName(this));
         swPower.setChecked(SharedPreferecneUtils.getBoolean(this, Constant.STORWAGEPAGE, Constant.POWER_STATE));
         swPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -159,9 +154,6 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
             } else {
 
                 SharedPreferecneUtils.saveValue(this, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NAME, "");
-                Intent intent = new Intent(this,LoginActivity.class);
-                intent.putExtra(Constant.LOGIN_OUT,true);
-                startBaseActivity(intent);
                 finish();
             }
             return false;

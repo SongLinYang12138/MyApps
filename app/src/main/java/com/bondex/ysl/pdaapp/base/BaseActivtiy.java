@@ -3,11 +3,9 @@ package com.bondex.ysl.pdaapp.base;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
@@ -17,14 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.ui.IconText;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 
-public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActivity {
+public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActivity{
 
     private LinearLayout llRoot;
     private TextView tvTitle;
@@ -39,7 +36,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.base_layout);
         findView();
-        setMybar();
+        setToolBar();
 
     }
 
@@ -77,12 +74,11 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
     }
 
     protected void showTitle(boolean isShow, String text) {
+
         if (isShow) tvTitle.setVisibility(View.VISIBLE);
         else tvTitle.setVisibility(View.INVISIBLE);
 
         if (CommonUtil.isNotEmpty(text)) tvTitle.setText(text);
-
-
     }
 
 
@@ -94,6 +90,8 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
      */
     @Override
     public void setContentView(int resId) {
+
+
         View view = getLayoutInflater().inflate(resId, null);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -102,6 +100,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
             llRoot.addView(view, lp);
 
     }
+
 
     @Override
     protected void onResume() {
@@ -112,7 +111,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
     public abstract T getPresenter();
 
 
-    public void setMybar() {
+    public void setToolBar() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -136,6 +135,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
     @Override
     public Resources getResources() {
 
+//        确保显示的字体不随主题进行变化
         Resources res = super.getResources();
         Configuration config = new Configuration();
         config.setToDefaults();
@@ -146,6 +146,12 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
     protected void startBaseActivity(Intent intent){
 
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+
+    protected void startBaseActivityForResult(Intent intent,int requestCode){
+
+        startActivityForResult(intent,requestCode);
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 

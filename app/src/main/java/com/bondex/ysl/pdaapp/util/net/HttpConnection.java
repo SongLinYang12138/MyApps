@@ -1,25 +1,19 @@
 package com.bondex.ysl.pdaapp.util.net;
 
-import android.util.Log;
-
 import com.bondex.ysl.pdaapp.application.PdaApplication;
-import com.bondex.ysl.pdaapp.util.netutil.ApiParam;
-import com.bondex.ysl.pdaapp.util.netutil.MD5;
 import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
-import com.bondex.ysl.pdaapp.util.Constant;
-import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
-
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -27,61 +21,23 @@ public class HttpConnection {
 
     private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
     private static final String VERSION_URL = "http://cas.bondex.com.cn:8080/";
+
+
     private static final OkHttpClient httpClient = new OkHttpClient
             .Builder()
             .connectTimeout(30000, TimeUnit.SECONDS)
             .build();
 
-    public static Retrofit getRretrofit(String url) {
+    public static NetApi getRretrofit(String url) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(httpClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
-        return retrofit;
-    }
 
+        return retrofit.create(NetApi.class);
 
-    public static Call<String> testHello(String hello) {
-
-        Gson gson = new Gson();
-        String app_id = "test01";
-        String app_key = "test01";
-        String charset = "utf-8";//编码格式，固定为utf-8
-        long timestamp = System.currentTimeMillis();//时间戳
-
-        String method = "hello";//方法名
-        String business_param = "test123";//业务数据，根据实际请求参数定
-
-        String str = "app_id=" + app_id +
-                "&app_key=" + app_key +
-                "&business_param=" + business_param +
-                "&charset=" + charset +
-                "&method=" + method +
-                "&timestamp=" + timestamp;
-
-        String sign = null;
-        try {
-            sign = MD5.to_MD5(URLEncoder.encode(str, "utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            sign = "";
-            Log.i(Constant.TAG, "sign == null");
-        }
-
-        ApiParam apiParam = new ApiParam();
-        apiParam.setApp_id(app_id);
-        apiParam.setBusiness_param(business_param);
-        apiParam.setCharset(charset);
-        apiParam.setMethod(method);
-        apiParam.setSign(sign);
-        apiParam.setTimestamp(timestamp);
-
-        hello = gson.toJson(apiParam);
-
-        NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
-        return netApi.connect(hello);
     }
 
 
@@ -95,13 +51,11 @@ public class HttpConnection {
             e.printStackTrace();
         }
 
-
         String param = json.toString();
         param = ParamUtils.getParams(param, "login");
         Logger.i("登录参数 " + param);
-        NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
 
-        return netApi.connect(param);
+        return getRretrofit(BASE_URL).connect(param);
     }
 
     public static Call<String> traceId(String traceId, int num) {
@@ -113,17 +67,13 @@ public class HttpConnection {
 
             object.put("warehouseno", num);//此处为仓库编号，成都为1，烟台为2这样
             object.put("traceid", traceId);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         String param = object.toString();
-
         param = ParamUtils.getParams(param, method);
-
-        NetApi netApi = getRretrofit(BASE_URL).create(NetApi.class);
-        return netApi.connect(param);
+        return getRretrofit(BASE_URL).connect(param);
     }
 
 
@@ -135,7 +85,7 @@ public class HttpConnection {
         try {
             object.put("locationid", stowrage);
             object.put("userid", PdaApplication.LOGINBEAN.getUserid());
-            object.put("warehouseno", 1);
+            object.put("warehouseno", num);
             object.put("traceid", traceId);
 
         } catch (JSONException e) {
@@ -145,8 +95,7 @@ public class HttpConnection {
         String param = object.toString();
         param = ParamUtils.getParams(param, method);
 
-        NetApi netApi = HttpConnection.getRretrofit(BASE_URL).create(NetApi.class);
-        return netApi.connect(param);
+        return getRretrofit(BASE_URL).connect(param);
     }
 
     public static Call<String> consigement(String id, int num) {
@@ -168,14 +117,13 @@ public class HttpConnection {
         String params = map.toString();
         params = ParamUtils.getParams(params, method);
 
-        NetApi netApi = HttpConnection.getRretrofit(BASE_URL).create(NetApi.class);
-        return netApi.connect(params);
+        return getRretrofit(BASE_URL).connect(params);
     }
 
-    public static Call<String> getVersion(){
+    public static Call<String> getVersion() {
 
-        NetApi netApi = HttpConnection.getRretrofit(VERSION_URL).create(NetApi.class);
-        return netApi.getVersion();
+
+        return getRretrofit(VERSION_URL).getVersion();
     }
 
 

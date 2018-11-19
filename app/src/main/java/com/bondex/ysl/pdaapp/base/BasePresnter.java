@@ -16,11 +16,11 @@ public abstract class BasePresnter<V extends BaseView, M extends BaseModel> {
         this.view = (V) view;
         this.context = context;
 
+        modal = getModal();
+
+        initData();
         if (this.view != null) view.initView();
         else Logger.i("base view == null");
-
-        modal = getModal();
-        initData();
 
     }
 

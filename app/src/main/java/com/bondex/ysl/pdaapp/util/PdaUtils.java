@@ -9,9 +9,9 @@ public class PdaUtils {
 
     public static void turnOnOffPda(boolean isOpen, Context context) {
 
-        int value = isOpen ? 1 : 0;
-
-        String msg = isOpen ? "扫描器打开" : "扫描器关闭";
+//        int value = isOpen ? 1 : 0;
+//
+//        String msg = isOpen ? "扫描器打开" : "扫描器关闭";
 
         if(isOpen){
             context.sendBroadcast(new Intent("com.android.server.scannerservice.onoff")
@@ -25,7 +25,7 @@ public class PdaUtils {
 //        Intent intent = new Intent(SystemBroadCast.SCANNER_POWER);
 //        intent.putExtra("scanneronoff", value);
 //        context.sendBroadcast(intent);
-        ToastUtils.showToast(msg);
+//        ToastUtils.showToast(msg);
     }
 
     public static void startScan(Context context) {

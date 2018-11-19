@@ -3,6 +3,7 @@ package com.bondex.ysl.pdaapp.exwarehouse;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.bondex.ysl.pdaapp.R;
@@ -23,10 +24,13 @@ import butterknife.ButterKnife;
  */
 public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> implements ConsigementView {
 
+
     @BindView(R.id.consi_tv_code)
     TextView consiTvCode;
     @BindView(R.id.confi_bt_confirm)
     ButtonRectangle confiBtConfirm;
+    @BindView(R.id.confi_bt_clear)
+    ButtonRectangle confibtClear;
 
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avLoading;
@@ -77,6 +81,10 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
 
                 presenter.consignment(code);
                 break;
+            case R.id.confi_bt_clear:
+
+                if(etCode != null) etCode.getText().clear();
+                break;
 
 
 
@@ -88,6 +96,25 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
     public void initView() {
 
         confiBtConfirm.setOnClickListener(clickListener);
+        confibtClear.setOnClickListener(clickListener);
+
+        etCode.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+
+                    String code = etCode.getText().toString();
+                    if (CommonUtil.isEmpty(code)) {
+                        ToastUtils.showToast("请输入单号");
+                        return false;
+                    }
+                    presenter.consignment(code);
+                }
+                return false;
+            }
+        });
 
     }
 

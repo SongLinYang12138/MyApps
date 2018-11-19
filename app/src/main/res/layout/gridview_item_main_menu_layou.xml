@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingVertical="@dimen/paddingVertical"
+    android:paddingLeft="@dimen/paddingVertical"
+    android:paddingTop="@dimen/paddingVertical"
     >
 
     <TextView
         android:id="@+id/menu_bt"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="标准收货"
-        android:textSize="@dimen/text_large"
+        android:textSize="@dimen/text_nromal"
         android:textColor="@color/text_black"
-        android:background="@drawable/menut_button"
+        android:background="@drawable/buttton_selector"
         android:paddingHorizontal="@dimen/button_padding_left"
+        android:padding="@dimen/paddingVertical"
         android:paddingVertical="@dimen/button_padding_top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
