@@ -53,7 +53,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     private void setBainner() {
 
 
-        localImages.add("欢迎使用PDA仓库系统");
+        localImages.add("欢迎使用仓库PDA系统");
         localImages.add(PdaApplication.LOGINBEAN.getUsername());
 
         CBViewHolderCreator holderCreator = new CBViewHolderCreator() {
@@ -80,7 +80,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
         ArrayList<MenuBean> inList = new ArrayList<>();
         inList.add(new MenuBean("标准收货", "standardReceive"));
-        inList.add(new MenuBean("混托盘收货", "confusionReceive"));
+//        inList.add(new MenuBean("混托盘收货", "confusionReceive"));
 
         ArrayList<MenuBean> outList = new ArrayList<>();
 
@@ -89,6 +89,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
         ArrayList<MenuBean> movieList = new ArrayList<>();
         movieList.add(new MenuBean("单元移库", "unitmovie"));
+        movieList.add(new MenuBean("库存查询", "querystorage"));
 
         mainBeans.add(new MainBean("入库", inList));
         mainBeans.add(new MainBean("出库", outList));

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
@@ -26,7 +27,9 @@ import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -71,7 +74,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         showLeft(true, R.mipmap.menu, v -> {
             boolean isOpen = mainPanel.isOpen() ? mainPanel.closePane() : mainPanel.openPane();
         });
-        showRight(false, 0,null);
+        showRight(false, 0, null);
         showTitle(true, "仓库PDA");
 
     }
@@ -130,8 +133,11 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
         tvSorage.setText("" + subSystemName);
 
 
-        version.setText("当前版本: "+CommonUtil.getVersionName(this));
-        swPower.setChecked(SharedPreferecneUtils.getBoolean(this, Constant.STORWAGEPAGE, Constant.POWER_STATE));
+        version.setText("当前版本: " + CommonUtil.getVersionName(this));
+
+        PdaUtils.turnOnOffPda(true, this);
+        swPower.setChecked(true);
+//        swPower.setChecked(SharedPreferecneUtils.getBoolean(this, Constant.STORWAGEPAGE, Constant.POWER_STATE));
         swPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -140,6 +146,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
                 SharedPreferecneUtils.saveBoolean(MainActivity.this, Constant.STORWAGEPAGE, Constant.POWER_STATE, isChecked);
             }
         });
+
     }
 
     @Override
@@ -165,6 +172,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
     @Override
     public void showLoading() {
+
 
     }
 

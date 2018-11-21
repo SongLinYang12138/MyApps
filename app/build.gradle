@@ -18,9 +18,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 //    暂时关闭databinding
-//    dataBinding{
-//        enabled=true;
-//    }
+    dataBinding{
+        enabled=true;
+    }
 
     signingConfigs {
 

@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white_back"
-            android:text="欢迎使用仓库系统" />
+            android:text="欢迎使用仓库PDA系统" />
 
 
         <TextView
@@ -139,4 +139,7 @@
             android:layout_weight="7"
             android:divider="@null"></ListView>
     </LinearLayout>
+
+
+
 </android.support.v4.widget.SlidingPaneLayout>

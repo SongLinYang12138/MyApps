@@ -133,11 +133,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                     intent = new Intent(context, ConsigeMentActivity.class);
                     break;
 
-//                case "standardReceive":
-//
-//                    intent = new Intent(context, StandardReceiveActivity.class);
-//                    break;
-//
+                case "standardReceive":
+
+                    intent = new Intent(context, StandardReceiveActivity.class);
+                    break;
+
 //                case "confusionReceive":
 //
 //                    intent = new Intent(context, ConfuseReceiveActivity.class);

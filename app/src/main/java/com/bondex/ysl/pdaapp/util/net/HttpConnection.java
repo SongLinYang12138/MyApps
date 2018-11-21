@@ -126,5 +126,10 @@ public class HttpConnection {
         return getRretrofit(VERSION_URL).getVersion();
     }
 
+    public static Call<String> getCall(String params){
+
+        return getRretrofit(BASE_URL).connect(params);
+    }
+
 
 }

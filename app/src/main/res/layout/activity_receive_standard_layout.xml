@@ -6,148 +6,145 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/receive_tv_supplier"
+        android:id="@+id/receive_tv_asno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:text="供应商:"
-        android:textColor="@color/text_black"
+        android:text="ASNO:"
+        android:textColor="@color/text_gray"
         android:textSize="@dimen/text_normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/receive_et_supplier"
+        app:layout_constraintRight_toLeftOf="@id/receive_et_asno"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
 
     <EditText
-        android:id="@+id/receive_et_supplier"
+        android:id="@+id/receive_et_asno"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="请输入供应商"
-        android:theme="@style/EditTextStyle"
-        app:layout_constraintBottom_toBottomOf="@id/receive_tv_supplier"
-        app:layout_constraintDimensionRatio="w:5:3"
-        app:layout_constraintLeft_toRightOf="@id/receive_tv_supplier"
-        app:layout_constraintRight_toLeftOf="@id/recive_iv_suppplier"
-        app:layout_constraintTop_toTopOf="@id/receive_tv_supplier" />
-
-    <ImageButton
-        android:id="@+id/recive_iv_suppplier"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_marginLeft="@dimen/receive_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@color/colorPrimary"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="6dp"
-        android:scaleType="fitXY"
-        android:padding="5dp"
-        android:src="@mipmap/search"
-        app:layout_constraintBottom_toBottomOf="@id/receive_tv_supplier"
-        app:layout_constraintLeft_toRightOf="@id/receive_et_supplier"
+        android:focusable="false"
+        android:theme="@style/EditTextStyle"
+        app:layout_constraintBottom_toBottomOf="@id/receive_tv_asno"
+        app:layout_constraintDimensionRatio="w:5:3"
+        app:layout_constraintLeft_toRightOf="@id/receive_tv_asno"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/receive_tv_supplier" />
+        app:layout_constraintTop_toTopOf="@id/receive_tv_asno" />
+
+    <TextView
+        android:id="@+id/receive_tv_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="客户:"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintLeft_toLeftOf="@id/receive_tv_asno"
+        app:layout_constraintTop_toBottomOf="@id/receive_et_asno" />
+
+    <EditText
+        android:id="@+id/receive_et_custom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:minHeight="40dp"
+        android:theme="@style/EditTextStyle"
+        app:layout_constraintBottom_toBottomOf="@id/receive_tv_custom"
+        app:layout_constraintDimensionRatio="w:5:3"
+        app:layout_constraintLeft_toLeftOf="@id/receive_et_asno"
+        app:layout_constraintRight_toRightOf="@id/receive_et_asno"
+        app:layout_constraintTop_toTopOf="@+id/receive_tv_custom" />
 
 
     <TextView
-        android:id="@+id/receive_tv_type"
+        android:id="@+id/receive_tv_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="ASN类型:"
-        android:textColor="@color/text_black"
+        android:text="产品:"
+        android:textColor="@color/text_gray"
         android:textSize="@dimen/text_normal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/receive_et_supplier" />
+        app:layout_constraintLeft_toLeftOf="@id/receive_tv_asno"
+        app:layout_constraintTop_toBottomOf="@id/receive_et_custom" />
 
-    <Spinner
-        android:id="@+id/receive_sp_spinner"
+    <EditText
+        android:id="@+id/receive_et_product"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="请输入供应商"
+        android:hint="请输入产品"
         android:theme="@style/EditTextStyle"
-        app:layout_constraintBottom_toBottomOf="@id/receive_tv_type"
-        app:layout_constraintDimensionRatio="w:5:3"
-        app:layout_constraintLeft_toRightOf="@id/receive_tv_type"
-        app:layout_constraintRight_toLeftOf="@id/recive_iv_suppplier"
-        app:layout_constraintTop_toTopOf="@id/receive_tv_type" />
+        app:layout_constraintBottom_toBottomOf="@id/receive_tv_product"
+        app:layout_constraintDimensionRatio="w:5:1"
+        app:layout_constraintLeft_toLeftOf="@id/receive_et_asno"
+        app:layout_constraintRight_toLeftOf="@id/recive_iv_number"
+        app:layout_constraintTop_toTopOf="@id/receive_tv_product" />
+
+    <ImageButton
+        android:id="@+id/recive_iv_number"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/metal_gray"
+        android:padding="5dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/search"
+        app:layout_constraintRight_toRightOf="@id/receive_et_asno"
+        app:layout_constraintTop_toTopOf="@id/receive_et_product"
+        app:layout_constraintBottom_toBottomOf="@id/receive_et_product"
+        />
 
 
     <TextView
         android:id="@+id/receive_tv_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="ASN编号:"
-        android:textColor="@color/text_black"
+        android:text="收货数量:"
+        android:textColor="@color/text_gray"
         android:textSize="@dimen/text_normal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/receive_et_number"
-        app:layout_constraintTop_toBottomOf="@id/receive_sp_spinner" />
+        app:layout_constraintLeft_toLeftOf="@id/receive_tv_asno"
+        app:layout_constraintTop_toBottomOf="@id/receive_et_product" />
 
     <EditText
-        android:id="@+id/receive_et_number"
+        android:id="@+id/receive_et_num"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:hint="请输入ASN编号"
+        android:hint="请输入数量"
+        android:inputType="number"
         android:theme="@style/EditTextStyle"
         app:layout_constraintBottom_toBottomOf="@id/receive_tv_number"
         app:layout_constraintDimensionRatio="w:5:3"
-        app:layout_constraintLeft_toRightOf="@id/receive_tv_number"
-        app:layout_constraintRight_toLeftOf="@id/recive_iv_number"
-        app:layout_constraintTop_toTopOf="@id/receive_tv_number" />
-
-    <ImageButton
-        android:id="@+id/recive_iv_number"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@color/colorPrimary"
-        android:padding="5dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/search"
-        app:layout_constraintLeft_toRightOf="@id/receive_et_number"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/receive_et_number" />
-
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="@id/receive_et_asno"
+        app:layout_constraintTop_toTopOf="@id/receive_tv_number"
+        app:layout_constraintRight_toLeftOf="@+id/receive_tv_have_receive"
+        />
 
     <TextView
-        android:id="@+id/receive_tv_order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="客户订单号:"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/text_normal"
-        app:layout_constraintLeft_toLeftOf="@id/receive_tv_supplier"
-        app:layout_constraintRight_toLeftOf="@id/receive_et_number"
-        app:layout_constraintTop_toBottomOf="@id/receive_et_number" />
-
-    <EditText
-        android:id="@+id/receive_et_order"
+        android:id="@+id/receive_tv_have_receive"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:hint="请输入客户订单号"
-        android:theme="@style/EditTextStyle"
-        app:layout_constraintBottom_toBottomOf="@id/receive_tv_order"
-        app:layout_constraintDimensionRatio="w:5:3"
-        app:layout_constraintLeft_toRightOf="@id/receive_tv_order"
-        app:layout_constraintRight_toLeftOf="@id/recive_iv_number"
-        app:layout_constraintTop_toTopOf="@id/receive_tv_order" />
+        android:layout_height="wrap_content"
+        android:text="已收数量:"
+        android:textColor="@color/text_black"
+        app:layout_constraintHorizontal_weight="1"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintBottom_toBottomOf="@+id/receive_tv_number"
+        app:layout_constraintLeft_toRightOf="@+id/receive_et_num"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/receive_tv_number" />
 
 
     <TextView
-        android:id="@+id/receive_tv_shipper"
+        android:id="@+id/receive_tv_stowrage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="货主:"
-        android:textColor="@color/text_black"
+        android:text="收货库位:"
+        android:textColor="@color/text_gray"
         android:textSize="@dimen/text_normal"
-        app:layout_constraintLeft_toLeftOf="@id/receive_tv_supplier"
-        app:layout_constraintRight_toLeftOf="@id/receive_et_number"
-        app:layout_constraintTop_toBottomOf="@id/receive_et_order" />
+        app:layout_constraintLeft_toLeftOf="@id/receive_tv_asno"
+        app:layout_constraintTop_toBottomOf="@id/receive_et_num" />
 
     <EditText
         android:id="@+id/receive_et_shipper"
@@ -155,12 +152,53 @@
         android:layout_height="40dp"
         android:editable="false"
         android:theme="@style/EditTextStyle"
-        app:layout_constraintBottom_toBottomOf="@id/receive_tv_shipper"
+        android:hint="请输入收货库位"
+        app:layout_constraintBottom_toBottomOf="@id/receive_tv_stowrage"
         app:layout_constraintDimensionRatio="w:5:3"
-        app:layout_constraintLeft_toRightOf="@id/receive_tv_order"
-        app:layout_constraintRight_toLeftOf="@id/recive_iv_number"
-        app:layout_constraintTop_toTopOf="@id/receive_tv_shipper" />
+        app:layout_constraintRight_toRightOf="@id/receive_et_asno"
+        app:layout_constraintLeft_toLeftOf="@id/receive_et_asno"
+        app:layout_constraintTop_toTopOf="@id/receive_tv_stowrage" />
 
+    <TextView
+        android:id="@+id/receive_tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="冻结代码:"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintLeft_toLeftOf="@id/receive_tv_asno"
+        app:layout_constraintTop_toBottomOf="@id/receive_et_shipper" />
+
+
+    <RadioGroup
+        android:id="@+id/receive_freeze_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/receive_tv_code"
+        app:layout_constraintBottom_toBottomOf="@id/receive_tv_code"
+        app:layout_constraintLeft_toLeftOf="@id/receive_et_asno"
+        app:layout_constraintRight_toRightOf="@id/receive_et_asno"
+        android:orientation="horizontal"
+        >
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/receive_tv_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正常"
+            android:checked="true"
+            android:textColor="@color/text_gray"
+            />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/receive_tv_wait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待检"
+            android:checked="false"
+            android:textColor="@color/text_gray"
+            />
+    </RadioGroup>
 
     <Button
 
@@ -181,7 +219,7 @@
         style="@style/button_gray_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="取消"
+        android:text="清除"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -191,5 +229,17 @@
 
         />
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/av_loading"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="@string/indicatorname"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        />
 
 </android.support.constraint.ConstraintLayout>
