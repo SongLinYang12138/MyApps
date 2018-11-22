@@ -32,7 +32,6 @@
         <activity
             android:name=".main.MainActivity"
             android:launchMode="singleTask"></activity>
-        <activity android:name=".kotmain.KotMainActivity"/>
         <activity
             android:name=".stowrage.StowrageActivity"
             android:launchMode="standard"
@@ -41,6 +40,7 @@
         <activity android:name=".exwarehouse.ConsigeMentActivity" />
         <activity android:name=".receive.standand.StandardReceiveActivity"/>
         <activity android:name=".receive.confuse.ConfuseReceiveActivity"/>
+        <activity android:name=".query.QueryStowrageActivity"/>
 
         <provider
             android:name=".util.provider.LoginProvider"

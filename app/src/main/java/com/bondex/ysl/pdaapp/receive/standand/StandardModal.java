@@ -215,7 +215,7 @@ public class StandardModal extends BaseModel<StandardCallback> {
                 .subscribe(consumer);
     }
 
-    public void receiving(String asno, String asnlineno, String receivedQty, String receivingLocation, String holdRejectCode) {
+    public void receiving(String asno, int asnlineno, int receivedQty, String receivingLocation, String holdRejectCode) {
 
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
@@ -233,16 +233,16 @@ public class StandardModal extends BaseModel<StandardCallback> {
                 map.put("ReceivingLocation", receivingLocation);//取自收货库位文本框
                 map.put("HoldRejectCode", holdRejectCode);//取自冻结代码选择框，当前有两个选项 {“OK”:”正常”,”DJ”:”待检”}，”正常”的默认选中
 
-                String param = ParamUtils.getParams(map.toString(),method);
+                String param = ParamUtils.getParams(map.toString(), method);
 
                 HttpConnection.getCall(param).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
 
-                        if(response.body() == null){
+                        if (response.body() == null) {
 
                             emitter.onNext("N");
-                        }else {
+                        } else {
                             emitter.onNext(response.body());
                         }
 
@@ -257,19 +257,28 @@ public class StandardModal extends BaseModel<StandardCallback> {
                 });
 
 
-
-
             }
         });
 
         Consumer<String> observer = new Consumer<String>() {
             @Override
             public void accept(String s) throws Exception {
-
-                if("N".equals(s)){
+//                {"success":true,"msg":"收货成功","business_param":null,"errormsg":null,"method":null}
+                if ("N".equals(s)) {
                     resultback.receiveFailed("连接服务器失败");
-                }else {
+                } else {
 
+                    JSONObject object = new JSONObject(s);
+
+                    boolean isSuccess = object.getBoolean("success");
+
+                    if (isSuccess) {
+
+                        resultback.receiveSuccess(object.getString("msg"));
+                    } else {
+
+                        resultback.receiveFailed(object.getString("errormsg"));
+                    }
 
                 }
 

@@ -14,6 +14,7 @@ import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
 import com.bondex.ysl.pdaapp.exwarehouse.ConsigeMentActivity;
 import com.bondex.ysl.pdaapp.movie.MovieInventoryActivity;
+import com.bondex.ysl.pdaapp.query.QueryStowrageActivity;
 import com.bondex.ysl.pdaapp.receive.confuse.ConfuseReceiveActivity;
 import com.bondex.ysl.pdaapp.receive.standand.StandardReceiveActivity;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
@@ -142,6 +143,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 //
 //                    intent = new Intent(context, ConfuseReceiveActivity.class);
 //                    break;
+                case "querystorage":
+
+                    intent = new Intent(context,QueryStowrageActivity.class);
+                    break;
 
 
                 default:

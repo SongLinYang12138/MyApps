@@ -140,6 +140,7 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
         receiveEtCustom.getText().clear();
         receiveEtAsno.getText().clear();
         receiveEtNum.getText().clear();
+        receiveEtProduct.requestFocus();
         receiveBtConfirm.setBackgroundResource(R.drawable.bact_gray_bt);
         receiveBtConfirm.setClickable(false);
     }
@@ -220,7 +221,9 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
             ToastUtils.showToast("请输入自收货库位");
             return;
         }
-        presenter.receiveConfirm(receiveQty, location, freezeCode);
+
+        int qty = Integer.valueOf(receiveQty);
+        presenter.receiveConfirm(qty, location, freezeCode);
 
     }
 
@@ -363,6 +366,7 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
     @Override
     public void receiveSuccess(String msg) {
 
+        showShort(msg);
         reset();
     }
 

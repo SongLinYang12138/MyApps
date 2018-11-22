@@ -83,16 +83,22 @@
         <item name="android:textColor">@color/text_gray</item>
     </style>
 
-    <style name="normal_tv_gray" parent="Base.V7.Widget.AppCompat.AutoCompleteTextView">
+    <style name="normal_tv_gray" >
 
         <item name="android:textColor">@color/text_gray</item>
         <item name="android:textSize">@dimen/text_nromal</item>
     </style>
 
-    <style name="normal_tv_white" parent="Base.V7.Widget.AppCompat.AutoCompleteTextView">
-
+    <style name="normal_tv_white" >
         <item name="android:textColor">@color/light_gray</item>
         <item name="android:textSize">@dimen/text_nromal</item>
     </style>
-
+    <style name="small_tv_red">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/flb_color</item>
+    </style>
+    <style name="normal_tv_black">
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
 </resources>

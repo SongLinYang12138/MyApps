@@ -150,7 +150,6 @@
         android:id="@+id/receive_et_shipper"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:editable="false"
         android:theme="@style/EditTextStyle"
         android:hint="请输入收货库位"
         app:layout_constraintBottom_toBottomOf="@id/receive_tv_stowrage"

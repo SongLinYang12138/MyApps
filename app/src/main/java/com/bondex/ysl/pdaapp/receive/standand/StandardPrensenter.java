@@ -46,14 +46,15 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
 
         if (receiveStandardCodeBean == null) return;
         String asnno = receiveStandardCodeBean.getAsnno();
-        modal.searchProduct(asnno,productId);
+        modal.searchProduct(asnno, productId);
         view.showLoading();
     }
 
-    public void receiveConfirm(String receiveQty,String receiveLocation,String holdrejectCode){
+    public void receiveConfirm(int receiveQty, String receiveLocation, String holdrejectCode) {
 
 
-        modal.receiving(receiveStandardCodeBean.getAsnno(),receiveStandardCodeBean.getAsnlineno()+"",receiveQty,receiveLocation,holdrejectCode);
+        view.showLoading();
+        modal.receiving(receiveStandardCodeBean.getAsnno(), receiveStandardCodeBean.getAsnlineno(), receiveQty, receiveLocation, holdrejectCode);
     }
 
 
@@ -89,10 +90,14 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
     @Override
     public void receiveSuccess(String s) {
 
+        view.receiveSuccess(s);
+        view.stopLoading();
     }
 
     @Override
     public void receiveFailed(String msg) {
 
+        view.receiveFalied(msg);
+        view.stopLoading();
     }
 }
