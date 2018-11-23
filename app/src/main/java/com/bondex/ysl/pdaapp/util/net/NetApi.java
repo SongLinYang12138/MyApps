@@ -23,7 +23,7 @@ public interface NetApi {
     Call<String> login(@Field("param")String param);
 
 
-    @GET("wmsappversion.jsp")
+    @GET("appversion?type=wms")
     Call<String> getVersion();
 
 

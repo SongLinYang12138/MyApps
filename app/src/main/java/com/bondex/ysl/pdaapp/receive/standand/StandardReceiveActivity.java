@@ -137,8 +137,8 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
 
         receiveEtShipper.getText().clear();
         receiveEtProduct.getText().clear();
-        receiveEtCustom.getText().clear();
-        receiveEtAsno.getText().clear();
+//        receiveEtCustom.getText().clear();
+//        receiveEtAsno.getText().clear();
         receiveEtNum.getText().clear();
         receiveEtProduct.requestFocus();
         receiveBtConfirm.setBackgroundResource(R.drawable.bact_gray_bt);
@@ -355,6 +355,7 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
 
         receiveTvHaveReceive.setText("已收数量: " + bean.getReceivedqty());
         receiveEtShipper.setText(bean.getReceivinglocation());
+        receiveEtNum.requestFocus();
     }
 
     @Override

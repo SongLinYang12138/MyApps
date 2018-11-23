@@ -20,7 +20,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class HttpConnection {
 
     private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
-    private static final String VERSION_URL = "http://cas.bondex.com.cn:8080/";
+    private static final String VERSION_URL = "http://pubdoc.bondex.com.cn:8087/fileking/app/";
 
 
     private static final OkHttpClient httpClient = new OkHttpClient

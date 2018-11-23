@@ -14,6 +14,7 @@ public interface MainView extends BaseView {
     void listAdapter(MainAdapter adapter);
 
     void showUpdate(UpdateBean bean);
+    void installApk(String path);
 
 
 

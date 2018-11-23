@@ -26,6 +26,17 @@ import com.bondex.ysl.pdaapp.bean.UpdateBean;
 import com.bondex.ysl.pdaapp.ui.ProgressView;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
+import com.bondex.ysl.pdaapp.util.netutil.MD5;
+import com.orhanobut.logger.Logger;
+
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.util.ArrayList;
 
 public class MainPresenter extends BasePresnter<MainView, MainModal> implements MainBack, DownloadListener {
@@ -34,17 +45,18 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     private ArrayList<String> localImages = new ArrayList<>();
 
     private String filePath;
-    private String url = "http://fortest.bondex.com.cn/";
     private TextView updateTv;
     private ProgressView updateProgress;
     private Button updateConfirm;
     private Dialog updateDialog;
+    private UpdateBean updateBean;
+
 
     public MainPresenter(MainView view, final Context context) {
         super(view, context);
 
 
-        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bondex/text.jpg";
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bondex/Pda.apk";
 
         setBainner();
         setListAdapter();
@@ -124,10 +136,11 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     @Override
     public void checkUpdate(UpdateBean bean) {
 
+        updateBean = bean;
 //        对比version code 检查是否需要更新
         if (bean.getVersion_id() > CommonUtil.getVersionCode(context)) {
 
-//            showUpdateDialog(bean);
+            showUpdateDialog(bean);
         } else {
 
         }
@@ -163,7 +176,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
                 public void onClick(View v) {
 
                     updateConfirm.setClickable(false);
-                    modal.download(url, filePath, MainPresenter.this);
+                    modal.download(updateBean.getDownload_url(), filePath, MainPresenter.this);
                 }
             });
             updateCancel.setOnClickListener(new View.OnClickListener() {
@@ -206,8 +219,21 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     }
 
     @Override
-    public void onFinish(String path) {
+    public void onFinish(String path,byte[] data) {
 
+
+        Logger.i("datalength   "+data.length);
+        String myMd5 = MD5.getFileMD5(filePath);
+
+//        Logger.i("updateMd5 " + updateBean.getDownlad_md5() + "\n myMd5: " + myMd5);
+
+        if (updateBean.getDownlad_md5().equals(myMd5)) {
+
+            Logger.i("DM5解析完毕");
+        } else {
+
+            Logger.i("DM5不一致");
+        }
 
         progressHandler.sendEmptyMessage(FINISH);
     }
@@ -254,13 +280,16 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
                             updateTv.setVisibility(View.VISIBLE);
                             updateProgress.setVisibility(View.GONE);
                             updateConfirm.setClickable(true);
+                            view.installApk(filePath);
+
                         }
                         break;
                     case FAILED:
 
                         if (updateTv != null) {
 
-                            if(CommonUtil.isNotEmpty(msg.obj.toString())) ToastUtils.showToast(msg.obj.toString());
+                            if (CommonUtil.isNotEmpty(msg.obj.toString()))
+                                ToastUtils.showToast(msg.obj.toString());
                             updateConfirm.setClickable(true);
                             updateTv.setVisibility(View.VISIBLE);
                             updateProgress.setVisibility(View.GONE);

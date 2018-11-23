@@ -1,6 +1,8 @@
 package com.bondex.ysl.installlibrary.download;
 
 
+import android.util.Log;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -36,9 +38,12 @@ public class HttpConnection {
 
     public static void donwolad(String url, final String filePath, final DownloadListener listener) {
 
-        NetApi netApi = HttpConnection.getRretrofit(url).create(NetApi.class);
+        String httpurl = url.substring(0,url.lastIndexOf("/")+1);
+        String name = url.substring(url.lastIndexOf("/")+1,url.length());
+        Log.i("INstall","httpurl  "+httpurl+"  \n  name "+name);
+        NetApi netApi = HttpConnection.getRretrofit(httpurl).create(NetApi.class);
 
-        netApi.downloadFile().enqueue(new Callback<ResponseBody>() {
+        netApi.downloadFile(name).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
 

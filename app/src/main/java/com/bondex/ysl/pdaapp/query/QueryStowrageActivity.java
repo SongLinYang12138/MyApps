@@ -53,7 +53,12 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
         showRight(true, R.string.search, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (dialogBinding != null) {
+                    dialogBinding.querystoEtTrckcode.getText().clear();
+                    dialogBinding.querystoEtSku.getText().clear();
+                    dialogBinding.querystoEtStolocation.getText().clear();
 
+                }
                 showSearDialog();
             }
         });
@@ -123,6 +128,7 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
             lp.width = CommonUtil.getScreentW(this) - 100;
             lp.height = CommonUtil.getScreenH(this) * 2 / 3;
             lp.gravity = Gravity.CENTER;
+
 
             dialogBinding.querystoEtStolocation.setOnKeyListener(new View.OnKeyListener() {
                 @Override
@@ -207,7 +213,7 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
             });
         }
         searchDailog.show();
-
+        dialogBinding.querystoEtStolocation.requestFocus();
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.bondex.ysl.installlibrary.download;
 
 
+import android.util.Log;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -24,7 +27,6 @@ public class FileUtils {
         //从response获取输入流以及总大小
         writeFileFromIS(new File(path), response.body().byteStream(), response.body().contentLength(), downloadListener);
     }
-
 
 
     //将输入流写入文件
@@ -49,20 +51,21 @@ public class FileUtils {
         try {
             os = new BufferedOutputStream(new FileOutputStream(file));
             byte data[] = new byte[sBufferSize];
+            byte[] md5Data = new byte[1024];
+
             int len;
             while ((len = is.read(data, 0, sBufferSize)) != -1) {
                 os.write(data, 0, len);
                 currentLength += len;
                 //计算当前下载进度
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+//                md5Data = spilet(md5Data, data);
                 downloadListener.onProgress((int) (100 * currentLength / totalLength));
             }
+
+
             //下载完成，并返回保存的文件路径
-            downloadListener.onFinish(file.getAbsolutePath());
+            downloadListener.onFinish(file.getAbsolutePath(), md5Data);
         } catch (IOException e) {
             e.printStackTrace();
             downloadListener.onFail("IOException");
@@ -81,6 +84,18 @@ public class FileUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public static byte[] spilet(byte[] first, byte[] second) {
+
+        byte[] c = new byte[first.length + second.length];
+
+        System.arraycopy(first, 0, c, 0, first.length);
+
+        System.arraycopy(second, 0, c, first.length, second.length);
+
+        return c;
     }
 
 

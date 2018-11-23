@@ -64,10 +64,9 @@ android {
 
 dependencies {
     def depend = config.appdependicens
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation  depend.appcompat
-    implementation  depend.constraint
+    implementation depend.appcompat
+    implementation depend.constraint
     //   retrofit
     implementation depend.scalars
     implementation depend.retrofitrxjava
@@ -80,26 +79,23 @@ dependencies {
     implementation depend.avi
     //   logger 查询日志框架
     implementation depend.logger
-    implementation  depend.supportdesign
+    implementation depend.supportdesign
     //    引入marterial design 风格的元素
-    implementation  depend.materialeditext
-    implementation  depend.materialDesign
+    implementation depend.materialeditext
+    implementation depend.materialDesign
     //    butterknife
-    implementation  depend.butterknife
+    implementation depend.butterknife
     annotationProcessor depend.butterKnifeCompiler
-    implementation  depend.annotations
-//    recycelerview
-    implementation  depend.recycelerview
-
-//    flexbox
+    implementation depend.annotations
+    //    recycelerview
+    implementation depend.recycelerview
+    //    flexbox
     implementation depend.flebox
-
-// 图片轮播框架
-    implementation project(":convenientbanner")
-//    安装apk的library
-    implementation project(":installlibrary")
-
-
+    // 图片轮播框架
+    implementation project(':convenientbanner')
+    //    安装apk的library
+    implementation project(':installlibrary')
+    implementation files('libs/commons-codec-1.11.jar')
 }
 repositories {
     mavenCentral()

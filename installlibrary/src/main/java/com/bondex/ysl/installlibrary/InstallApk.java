@@ -19,7 +19,7 @@ public class InstallApk {
     private static final String TYPE = "application/vnd.android.package-archive";
     private static final String AUTHORITY = "com.bondex.ysl.installlibrary";
 
-    public void install(String path, Context context) {
+    public static void install(String path, Context context) {
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
 

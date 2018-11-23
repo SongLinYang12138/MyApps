@@ -2,6 +2,7 @@ package com.bondex.ysl.pdaapp.main;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SlidingPaneLayout;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.bondex.ysl.installlibrary.InstallApk;
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.UpdateBean;
 import com.bondex.ysl.pdaapp.login.LoginActivity;
@@ -23,6 +25,7 @@ import com.bondex.ysl.pdaapp.util.PdaUtils;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.PermissionUtil;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -84,6 +87,14 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
         if (presenter == null) {
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PermissionUtil.checkPermission(this);
+
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                PermissionUtil.checkIsAndroidO(this);
+            }
             subSystemName = SharedPreferecneUtils.getValue(this, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NAME);
             presenter = new MainPresenter(this, this);
         }
@@ -209,6 +220,14 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
     @Override
     public void showUpdate(UpdateBean bean) {
+
+    }
+
+    @Override
+    public void installApk(String path) {
+
+
+        InstallApk.install(path, this);
 
     }
 }
