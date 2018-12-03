@@ -1,5 +1,6 @@
 package com.bondex.ysl.pdaapp.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -154,15 +155,16 @@ public abstract class BindBaseActivity<T extends BasePresnter> extends FragmentA
         }
     }
 
-    public void showLong(String msg) {
+    public void showLong(Context context, String msg) {
 
+        if(context == null) return;
         if (CommonUtil.isNotEmpty(msg))
             Toast.makeText(PdaApplication.context, msg, Toast.LENGTH_SHORT).show();
     }
 
 
-    public void showShort(String msg) {
-
+    public void showShort(Context context,String msg) {
+        if(context == null) return;
         if(CommonUtil.isNotEmpty(msg))
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }

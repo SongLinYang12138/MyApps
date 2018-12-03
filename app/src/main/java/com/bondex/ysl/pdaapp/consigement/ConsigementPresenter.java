@@ -1,14 +1,12 @@
-package com.bondex.ysl.pdaapp.exwarehouse;
+package com.bondex.ysl.pdaapp.consigement;
 
 import android.content.Context;
-import android.content.IntentFilter;
 import com.bondex.ysl.pdaapp.base.BasePresnter;
 import com.bondex.ysl.pdaapp.bean.ResultBean;
+import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
-import com.bondex.ysl.pdaapp.util.SystemBroadCast;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
-import com.bondex.ysl.pdaapp.util.broadcast.PdaBroadCast;
 import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
 
 /**
@@ -18,14 +16,12 @@ import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
  */
 public class ConsigementPresenter extends BasePresnter<ConsigementView, ConsigeMentModel> implements ConsigeMentBack, PdaCallback {
 
-    private PdaBroadCast pdaBroadCast = new PdaBroadCast(this);
 
     public ConsigementPresenter(ConsigementView view, Context context) {
         super(view, context);
 
 
-        IntentFilter filter = new IntentFilter(SystemBroadCast.SCN_CUST_ACTION_SCODE);
-        context.registerReceiver(pdaBroadCast, filter);
+
     }
 
     @Override
@@ -37,10 +33,16 @@ public class ConsigementPresenter extends BasePresnter<ConsigementView, ConsigeM
 
     public void consignment(String id) {
 
-        view.showLoading();
-        int no = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
 
-        modal.doNet(id, no + "");
+        if(!isRunning){
+
+            view.showLoading();
+            int no = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
+
+            modal.doNet(id, no + "");
+            isRunning = true;
+        }
+
     }
 
     @Override
@@ -53,14 +55,16 @@ public class ConsigementPresenter extends BasePresnter<ConsigementView, ConsigeM
 
     @Override
     public void faile(String msg) {
+
         view.stopLoading();
-        ToastUtils.showToast(msg);
+        ToastUtils.showToast(context,msg);
+        isRunning = false;
     }
 
     @Override
     public void success(ResultBean bean) {
-        view.stopLoading();
 
+        view.stopLoading();
         if (bean.isSuccess()) {
 
             view.onSuccess(bean.getMsg());
@@ -68,18 +72,21 @@ public class ConsigementPresenter extends BasePresnter<ConsigementView, ConsigeM
 
             view.faile(bean.getErrormsg());
         }
+        isRunning = false;
 
     }
 
     @Override
     public void pdaResult(String result) {
 
-        view.setCode(result);
+      if(CommonUtil.isNotEmpty(result))  view.setCode(result);
+
+
     }
 
     public void onDestroy() {
 
-        context.unregisterReceiver(pdaBroadCast);
+
     }
 
 }

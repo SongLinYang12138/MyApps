@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
+import com.bondex.ysl.pdaapp.bean.ResultBean;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.PdaUtils;
@@ -39,6 +41,8 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     MaterialEditText movieEtTracknum;
     @BindView(R.id.movie_tv_storwagelo)
     TextView movieTvStorwagelo;
+    @BindView(R.id.movie_tv_originallo)
+    TextView tvOrignal;
     @BindView(R.id.movie_et_storwagelo)
     MaterialEditText movieEtStorwagelo;
 
@@ -46,6 +50,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     ButtonRectangle movieBtScan;
     @BindView(R.id.movie_iv_tracknum)
     ImageView ivtrackNum;
+
 
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avloading;
@@ -98,8 +103,9 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
             case R.id.movie_btclear:
 
                 showSuccess(View.GONE, null);
-                if(movieEtStorwagelo != null) movieEtStorwagelo.getText().clear();
-                if(movieEtTracknum != null) movieEtTracknum.getText().clear();
+                if (movieEtStorwagelo != null) movieEtStorwagelo.getText().clear();
+                if (movieEtTracknum != null) movieEtTracknum.getText().clear();
+                tvOrignal.setText("原始库位:  ");
                 break;
         }
 
@@ -110,10 +116,11 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
      * 查询原始单号
      */
     private void searchTraceId() {
+
         String traceId = movieEtTracknum.getText().toString();
 
         if (CommonUtil.isEmpty(traceId)) {
-            showShort("请输入原始单号");
+//            showShort(this,"请输入原始单号");
             return;
         }
         showSuccess(View.GONE, null);
@@ -123,7 +130,6 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         }
 
         presenter.traceId(traceId);
-
     }
 
     /**
@@ -156,29 +162,41 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         select = getResources().getColorStateList(R.color.colorPrimary);
         normal = getResources().getColorStateList(R.color.text_gray);
 
+        if (Constant.SOFT_INPUTMOd) {
+
+            hideSoftInputMethod(movieEtTracknum);
+            hideSoftInputMethod(movieEtStorwagelo);
+        }
+
         movieEtStorwagelo.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
 
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
                     removeStowrage();
+                    return true;
                 }
 
                 return false;
             }
         });
+        movieEtStorwagelo.setOnClickListener(selectAll);
 
         movieEtTracknum.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
                     searchTraceId();
+                    return true;
                 }
                 return false;
             }
         });
+        movieEtTracknum.setOnClickListener(selectAll);
 
     }
 
@@ -201,7 +219,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     @Override
     public void onSuccess(String data) {
 
-        showShort(data);
+        showShort(this,data);
         showSuccess(View.VISIBLE, data);
     }
 
@@ -218,7 +236,8 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
     public void faile(String msg) {
 
         showSuccess(View.VISIBLE, msg);
-        showLong(msg);
+        showLong(this,msg);
+        errorSound();
     }
 
     @Override
@@ -231,7 +250,6 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         }
 
         if (CommonUtil.isEmpty(result)) {
-            showShort("没有扫描到数据");
             return;
         }
 
@@ -298,22 +316,33 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         movieEtStorwagelo.setFocusable(true);
         movieEtStorwagelo.setFocusableInTouchMode(true);
         movieEtStorwagelo.requestFocus();
+        correctSound();
         Log.i(Constant.TAG, "获取焦点");
     }
 
     @SuppressLint("ResourceType")
     @Override
-    public void setBtBack(boolean isClick) {
+    public void setBtBack(boolean isClick, ResultBean bean) {
 
 
         if (isClick) {
 
+            correctSound();
             movieBtScan.setBackground(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+            tvOrignal.setText("原始库位:  " + bean.getMsg());
         } else {
-            movieBtScan.setBackground(new ColorDrawable(getResources().getColor(R.color.text_gray)));
+
+            errorSound();
+            movieBtScan.setBackground(new ColorDrawable(getResources().getColor(R.color.metal_gray)));
         }
         movieBtScan.setClickable(isClick);
     }
+
+    @Override
+    public void showErrorSound() {
+        errorSound();
+    }
+
 
     @Override
     protected void onDestroy() {

@@ -113,7 +113,7 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
             case R.id.stowrage_bt_confirm:
 
                 if(warehousesBean == null ) {
-                    showShort("请选择仓库");
+                    showShort(this,"请选择仓库");
                     return;
                 }
 

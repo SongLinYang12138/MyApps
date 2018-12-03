@@ -68,12 +68,12 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
                 String password = loginEtPassword.getText().toString();
 
                 if (CommonUtil.isEmpty(name)) {
-                    showShort("请输入用户名");
+                    showShort(this,"请输入用户名");
                     return;
                 }
 
                 if (CommonUtil.isEmpty(password)) {
-                    showShort("请输入密码");
+                    showShort(this,"请输入密码");
                     return;
                 }
 
@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
     @Override
     public void onSuccess(String data) {
 
-        showShort(data);
+        showShort(this,data);
         jumpStowrage();
 
     }
@@ -121,7 +121,7 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
     @Override
     public void faile(String msg) {
 
-        showLong(msg);
+        showLong(this,msg);
     }
 
     @Override

@@ -9,6 +9,7 @@ public abstract class BasePresnter<V extends BaseView, M extends BaseModel> {
     protected V view;
     protected M modal;
     protected Context context;
+    protected  boolean isRunning;
 
     public BasePresnter(V view, Context context) {
 

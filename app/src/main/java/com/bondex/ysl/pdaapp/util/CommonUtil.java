@@ -62,4 +62,16 @@ public class CommonUtil {
     }
 
 
+    public static boolean isNumber(String str){
+
+        try {
+
+            Double.valueOf(str);
+            return true;
+        }catch (Exception e){
+
+            return false;
+        }
+    }
+
 }

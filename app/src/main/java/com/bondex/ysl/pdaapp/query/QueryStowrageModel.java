@@ -64,7 +64,7 @@ public class QueryStowrageModel extends BaseModel<QueryStowrageCallBack> {
                 map.put("warehouseno", stoId);//此处为仓库编号，成都为1，烟台为2这样
                 map.put("traceid", traceId);//对应库位
                 map.put("locationid", locationId);//对应跟踪号，库位和跟踪号不能都为空
-                map.put("locationid", sku);
+                map.put("sku", sku);
 
 
 

@@ -73,7 +73,7 @@ public class MainAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
 
-            view = LayoutInflater.from(context).inflate(R.layout.menu_item_layout, null);
+            view = LayoutInflater.from(context).inflate(R.layout.menu_item_layout, parent,false);
             holder.recyclerView = view.findViewById(R.id.menu_gridview);
             holder.tvTitel = view.findViewById(R.id.menu_tv_title);
 

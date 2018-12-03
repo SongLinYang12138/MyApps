@@ -66,11 +66,11 @@ public class SelectPopupWindow extends ConstraintLayout {
     private void showPopWindow() {
 
         if(list == null){
-            ToastUtils.showToast("请设置list");
+            ToastUtils.showToast(context,"请设置list");
             return;
         }
         if(listener == null){
-            ToastUtils.showToast("请设置listener");
+            ToastUtils.showToast(context,"请设置listener");
             return;
         }
 

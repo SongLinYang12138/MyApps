@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bondex.ysl.pdaapp"
-    android:versionCode="10"
-    android:versionName="1.0.0.1"
-    >
+    package="com.bondex.ysl.pdaapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".application.PdaApplication"
@@ -21,7 +18,7 @@
 
         <activity
             android:name=".login.LoginActivity"
-            android:launchMode="singleTask">
+            android:launchMode="standard">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,16 +34,34 @@
             android:name=".stowrage.StowrageActivity"
             android:launchMode="standard"
             android:theme="@style/dialog"></activity>
-        <activity android:name=".movie.MovieInventoryActivity" />
-        <activity android:name=".exwarehouse.ConsigeMentActivity" />
-        <activity android:name=".receive.standand.StandardReceiveActivity"/>
-        <activity android:name=".receive.confuse.ConfuseReceiveActivity"/>
-        <activity android:name=".query.QueryStowrageActivity"/>
+        <activity
+            android:name=".movie.MovieInventoryActivity"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+
+            />
+        <activity
+            android:name=".consigement.ConsigeMentActivity"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".receive.standand.StandardReceiveActivity"
+            android:launchMode="standard"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".receive.confuse.ConfuseReceiveActivity"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".query.QueryStowrageActivity"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <provider
             android:name=".util.provider.LoginProvider"
             android:authorities="com.bondex.ysl.pdaapp.login"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="standard" />
 
     </application>
 

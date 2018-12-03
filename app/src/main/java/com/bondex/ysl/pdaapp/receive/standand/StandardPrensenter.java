@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.bondex.ysl.pdaapp.base.BasePresnter;
 import com.bondex.ysl.pdaapp.bean.ReceiveStandardCodeBean;
+import com.bondex.ysl.pdaapp.util.CommonUtil;
 
 /**
  * date: 2018/11/8
@@ -38,23 +39,35 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
     public void searchCode(String code) {
 
 
-        modal.searchCode(code);
-        view.showLoading();
+        if (!isRunning) {
+            modal.searchCode(code);
+            isRunning = true;
+            view.showLoading();
+        }
+
     }
 
     public void searchProduct(String productId) {
 
+
         if (receiveStandardCodeBean == null) return;
-        String asnno = receiveStandardCodeBean.getAsnno();
-        modal.searchProduct(asnno, productId);
-        view.showLoading();
+
+        if(!isRunning){
+
+            String asnno = receiveStandardCodeBean.getAsnno();
+            modal.searchProduct(asnno, productId);
+            view.showLoading();
+        }
     }
 
-    public void receiveConfirm(int receiveQty, String receiveLocation, String holdrejectCode) {
+    public void receiveConfirm(int receiveQty, String receiveLocation, String holdrejectCode, double weight, double fweight, double volume, double price) {
 
+        if(!isRunning){
 
-        view.showLoading();
-        modal.receiving(receiveStandardCodeBean.getAsnno(), receiveStandardCodeBean.getAsnlineno(), receiveQty, receiveLocation, holdrejectCode);
+            view.showLoading();
+            modal.receiving(receiveStandardCodeBean.getAsnno(), receiveStandardCodeBean.getAsnlineno(), receiveQty, receiveLocation, holdrejectCode, weight, fweight, volume, price);
+        }
+
     }
 
 
@@ -64,6 +77,7 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
 
         receiveStandardCodeBean = bean;
         view.stopLoading();
+        isRunning = false;
     }
 
     @Override
@@ -71,6 +85,8 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
 
         view.searchCodeFaile(msg);
         view.stopLoading();
+        isRunning = false;
+
     }
 
     @Override
@@ -79,12 +95,28 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
         view.productResult(bean);
         view.stopLoading();
         receiveStandardCodeBean = bean;
+        isRunning = false;
+
+
+        String str = view.getReceiveNm();
+
+        if (CommonUtil.isEmpty(str)) {
+            str = "0";
+        }
+
+        if (!CommonUtil.isNumber(str)) {
+            return;
+        }
+        modifyTotal(Double.valueOf(str));
+
     }
 
     @Override
     public void productFailed(String msg) {
         view.productFaile(msg);
         view.stopLoading();
+        isRunning = false;
+
     }
 
     @Override
@@ -92,6 +124,8 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
 
         view.receiveSuccess(s);
         view.stopLoading();
+        isRunning = false;
+
     }
 
     @Override
@@ -99,5 +133,28 @@ public class StandardPrensenter extends BasePresnter<StandardView, StandardModal
 
         view.receiveFalied(msg);
         view.stopLoading();
+        isRunning = false;
+
     }
+
+
+    /**
+     * 设置默认数值
+     */
+    protected void modifyTotal(double num) {
+
+        if (receiveStandardCodeBean == null) return;
+
+        double totalWeight = num * receiveStandardCodeBean.getNw();
+
+        double totalFweight = num * receiveStandardCodeBean.getGw();
+
+        double volume = num * receiveStandardCodeBean.getCubic();
+
+        double price = num * receiveStandardCodeBean.getPrice();
+
+        view.modifyTotal(totalWeight, totalFweight, volume, price);
+
+    }
+
 }

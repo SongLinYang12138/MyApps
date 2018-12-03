@@ -1,4 +1,4 @@
-package com.bondex.ysl.pdaapp.exwarehouse;
+package com.bondex.ysl.pdaapp.consigement;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,13 +6,9 @@ import android.util.Log;
 import com.bondex.ysl.pdaapp.base.BaseModel;
 import com.bondex.ysl.pdaapp.bean.ResultBean;
 import com.bondex.ysl.pdaapp.util.Constant;
-import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.bondex.ysl.pdaapp.util.net.HttpConnection;
-import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
-
-import org.json.JSONObject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;

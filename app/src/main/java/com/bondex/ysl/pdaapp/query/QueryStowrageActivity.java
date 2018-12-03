@@ -12,12 +12,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.databinding.DialogQueryStowrageLayoutBinding;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
-
+import com.bondex.ysl.pdaapp.util.Constant;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,6 +31,8 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
 
     @BindView(R.id.querysto_recyclerview)
     RecyclerView querystoRecyclerview;
+    @BindView(R.id.querysto_size)
+    TextView tvSize;
     private DialogQueryStowrageLayoutBinding dialogBinding;
     private Dialog searchDailog;
     private boolean isSearchCode;
@@ -57,9 +60,9 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
                     dialogBinding.querystoEtTrckcode.getText().clear();
                     dialogBinding.querystoEtSku.getText().clear();
                     dialogBinding.querystoEtStolocation.getText().clear();
-
                 }
                 showSearDialog();
+                presenter.adapterClear();
             }
         });
     }
@@ -83,7 +86,6 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
     public void initView() {
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-
         querystoRecyclerview.setLayoutManager(manager);
     }
 
@@ -122,6 +124,7 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
             View view = LayoutInflater.from(this).inflate(R.layout.dialog_query_stowrage_layout, null, false);
             dialogBinding = DataBindingUtil.bind(view);
             searchDailog.setContentView(dialogBinding.getRoot());
+            ImageView ivBack = view.findViewById(R.id.base_back);
 
             WindowManager.LayoutParams lp = searchDailog.getWindow().getAttributes();
 
@@ -142,6 +145,7 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
                     return false;
                 }
             });
+            dialogBinding.querystoEtStolocation.setOnClickListener(selectAll);
 
             dialogBinding.querystoEtTrckcode.setOnKeyListener(new View.OnKeyListener() {
                 @Override
@@ -157,20 +161,19 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
                     return false;
                 }
             });
+            dialogBinding.querystoEtTrckcode.setOnClickListener(selectAll);
             dialogBinding.querystoEtSku.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
-
                         return true;
                     }
-
                     return false;
                 }
             });
 
-
+            dialogBinding.querystoEtSku.setOnClickListener(selectAll);
             dialogBinding.querystoBtClear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -190,15 +193,20 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
 
 
                     if (CommonUtil.isEmpty(stoId) && CommonUtil.isEmpty(traceId) && CommonUtil.isEmpty(sku)) {
-                        showShort("请输入一项进行查询");
+                        showShort(QueryStowrageActivity.this,"请输入一项进行查询");
                         return;
                     }
-
                     presenter.search(stoId, traceId, sku);
                 }
             });
 
 
+            ivBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
             searchDailog.getWindow().setAttributes(lp);
             searchDailog.setCanceledOnTouchOutside(false);
 
@@ -211,6 +219,15 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
                     }
                 }
             });
+
+            if (Constant.SOFT_INPUTMOd) {
+
+                hideSoftInputMethod(dialogBinding.querystoEtSku);
+                hideSoftInputMethod(dialogBinding.querystoEtStolocation);
+                hideSoftInputMethod(dialogBinding.querystoEtTrckcode);
+            }
+
+
         }
         searchDailog.show();
         dialogBinding.querystoEtStolocation.requestFocus();
@@ -221,15 +238,24 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
 
         isSearchCode = true;
         searchDailog.dismiss();
-        if (adapter != null) querystoRecyclerview.setAdapter(adapter);
+        if (adapter != null) {
+            querystoRecyclerview.setAdapter(adapter);
+        }
+        correctSound();
 
     }
 
     @Override
     public void resultFailed(String msg) {
 
-        showShort(msg);
+        showShort(this,msg);
+        errorSound();
+    }
 
+    @Override
+    public void setSize(int size) {
+
+        tvSize.setText("当前共 " + size + " 行记录");
     }
 
 }

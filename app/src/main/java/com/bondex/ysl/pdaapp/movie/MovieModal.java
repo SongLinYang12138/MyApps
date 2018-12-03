@@ -86,7 +86,7 @@ public class MovieModal extends BaseModel<MovieBack> {
                 } else {
 
                     Gson gson = new Gson();
-
+//                    {"success":true,"msg":"M1-1","business_param":null,"errormsg":null,"method":null}
                     ResultBean bean = gson.fromJson(s, ResultBean.class);
                     resultback.traceIdExists(bean);
                 }

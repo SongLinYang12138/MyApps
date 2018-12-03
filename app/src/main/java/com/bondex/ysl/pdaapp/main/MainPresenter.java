@@ -249,10 +249,10 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     }
 
 
-    private final int START = 1001;
-    private final int FINISH = 1100;
-    private final int FAILED = 1110;
-    private Handler progressHandler = new Handler() {
+    private final  int START = 1001;
+    private final  int FINISH = 1100;
+    private final  int FAILED = 1110;
+    private  Handler progressHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -276,7 +276,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
                         if (updateTv != null) {
                             updateDialog.dismiss();
-                            ToastUtils.showToast("下载成功");
+                            ToastUtils.showToast(context,"下载成功");
                             updateTv.setVisibility(View.VISIBLE);
                             updateProgress.setVisibility(View.GONE);
                             updateConfirm.setClickable(true);
@@ -289,14 +289,13 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
                         if (updateTv != null) {
 
                             if (CommonUtil.isNotEmpty(msg.obj.toString()))
-                                ToastUtils.showToast(msg.obj.toString());
+                                ToastUtils.showToast(context,msg.obj.toString());
                             updateConfirm.setClickable(true);
                             updateTv.setVisibility(View.VISIBLE);
                             updateProgress.setVisibility(View.GONE);
                         }
                         break;
                 }
-
 
             }
 

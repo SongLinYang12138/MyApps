@@ -7,15 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
-import com.bondex.ysl.pdaapp.exwarehouse.ConsigeMentActivity;
+import com.bondex.ysl.pdaapp.consigement.ConsigeMentActivity;
 import com.bondex.ysl.pdaapp.movie.MovieInventoryActivity;
 import com.bondex.ysl.pdaapp.query.QueryStowrageActivity;
-import com.bondex.ysl.pdaapp.receive.confuse.ConfuseReceiveActivity;
 import com.bondex.ysl.pdaapp.receive.standand.StandardReceiveActivity;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
@@ -150,7 +148,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
 
                 default:
-                    ToastUtils.showToast("该功能正在开发中");
+                    ToastUtils.showToast(context,"该功能正在开发中");
             }
 
             if (intent != null) context.startActivity(intent);

@@ -21,4 +21,8 @@ public interface StandardView extends BaseView {
     void receiveSuccess(String msg);
     void receiveFalied(String msg);
 
+    void modifyTotal(double weight,double fweight, double volume,double price);
+
+    String getReceiveNm();
+
 }

@@ -35,7 +35,6 @@ public class LoginProvider extends ContentProvider {
     public boolean onCreate() {
 
         sqlite = new LoginSqlite(getContext(),Constant.SQLITE_NAME,null,Constant.SQLITE_VERSION);
-
         return false;
     }
 
@@ -71,10 +70,8 @@ public class LoginProvider extends ContentProvider {
         switch (URI_MATCHER.match(uri)) {
             case BEANS:
                 return "vnd.android.cursor.dir/" + TABLE_NAME;
-
             case BEAN:
                 return "vnd.android.cursor.item/" + TABLE_NAME;
-
             default:
                 throw new IllegalArgumentException("Unkwon Uri:" + uri.toString());
         }
@@ -91,10 +88,7 @@ public class LoginProvider extends ContentProvider {
                 return ContentUris.withAppendedId(uri,rowId);
             default:
                 throw new IllegalArgumentException("Unkwon Uri:" + uri.toString());
-
         }
-
-
     }
 
     @Override

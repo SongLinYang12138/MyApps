@@ -1,17 +1,13 @@
 package com.bondex.ysl.pdaapp.movie;
 
 import android.content.Context;
-import android.content.IntentFilter;
-
 import com.bondex.ysl.pdaapp.base.BasePresnter;
 import com.bondex.ysl.pdaapp.bean.ResultBean;
+import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
-import com.bondex.ysl.pdaapp.util.SystemBroadCast;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
-import com.bondex.ysl.pdaapp.util.broadcast.PdaBroadCast;
 import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
-
 import java.util.LinkedHashMap;
 
 /**
@@ -21,7 +17,7 @@ import java.util.LinkedHashMap;
  */
 public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implements PdaCallback, MovieBack {
 
-    private PdaBroadCast pdaBroadCast;
+
 
     private boolean isTraceIdExist;
     private String traceId; //被移除的单号
@@ -32,9 +28,6 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     public MoviePresenter(MovieView view, Context context) {
         super(view, context);
 
-        pdaBroadCast = new PdaBroadCast(this);
-        IntentFilter intentFilter = new IntentFilter(SystemBroadCast.SCN_CUST_ACTION_SCODE);
-        context.registerReceiver(pdaBroadCast, intentFilter);
     }
 
     @Override
@@ -62,7 +55,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     public void removeStowrage(String stowrage) {
 
         if (!isTraceIdExist) {
-            ToastUtils.showToast("请先查询原始单号成功");
+            ToastUtils.showToast(context,"请先查询原始单号成功");
             return;
         }
 
@@ -73,7 +66,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
 //        判断一个库位移除一次
         if(resultMap.get(stowrage)){
 
-            ToastUtils.showToast("该库位已移除成功");
+            ToastUtils.showToast(context,"该库位已移库成功");
             return;
         }
 
@@ -86,7 +79,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     @Override
     public void pdaResult(String result) {
 
-        view.pdaResult(result);
+       if(CommonUtil.isNotEmpty(result)) view.pdaResult(result);
     }
 
     @Override
@@ -96,10 +89,10 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
 
             view.toStorLocaltion();
             isTraceIdExist = true;
-            view.setBtBack(true);
+            view.setBtBack(true,bean);
         } else {
-            view.setBtBack(false);
-            ToastUtils.showToast(bean.getErrormsg());
+            view.setBtBack(false,bean);
+            ToastUtils.showToast(context,bean.getErrormsg());
         }
 
         view.stopLoading();
@@ -108,7 +101,8 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     @Override
     public void onFailed(String msg) {
 
-        ToastUtils.showToast(msg);
+        ToastUtils.showToast(context,msg);
+        view.showErrorSound();
         view.stopLoading();
     }
 
@@ -120,7 +114,7 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
         if (bean.isSuccess()) {
 
             resultMap.put(removeKey,true);
-            view.onSuccess("移除成功");
+            view.onSuccess("移库成功");
         } else {
 
             view.faile(bean.getErrormsg());
@@ -131,7 +125,6 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
     public void destroy() {
 
         resultMap.clear();
-        context.unregisterReceiver(pdaBroadCast);
     }
 
 }

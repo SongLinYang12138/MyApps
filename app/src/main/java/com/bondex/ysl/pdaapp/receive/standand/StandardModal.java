@@ -16,6 +16,9 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -31,8 +34,7 @@ import retrofit2.Response;
  * Author: ysl
  * description:
  */
-public class StandardModal extends BaseModel<StandardCallback> {
-
+public class StandardModal<T> extends BaseModel<StandardCallback> {
 
     private int stoId;
     private String userId;
@@ -138,7 +140,6 @@ public class StandardModal extends BaseModel<StandardCallback> {
 
     public void searchProduct(String ano, String productId) {
 
-
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
@@ -147,8 +148,8 @@ public class StandardModal extends BaseModel<StandardCallback> {
                 JSONObject map = new JSONObject();
                 map.put("userid", userId);//当前登录用户
                 map.put("warehouseno", stoId);
-                map.put("asnno", ano);//第一步返回的asnno
-                map.put("sku", productId);//产品文本框里获取
+                map.put("asnno", ano.trim());//第一步返回的asnno
+                map.put("sku", productId.trim());//产品文本框里获取
 
                 String params = ParamUtils.getParams(map.toString(), method);
 
@@ -194,6 +195,7 @@ public class StandardModal extends BaseModel<StandardCallback> {
 
                             ReceiveStandardCodeBean bean = gson.fromJson(object.getString("msg"), ReceiveStandardCodeBean.class);
 
+                            Logger.i("产品返回:  " + bean.getCubic() + "   " + bean.getPrice() + "  receiveQty" + bean.getReceivedqty());
                             resultback.resultProduct(bean);
                         } else {
 
@@ -215,7 +217,7 @@ public class StandardModal extends BaseModel<StandardCallback> {
                 .subscribe(consumer);
     }
 
-    public void receiving(String asno, int asnlineno, int receivedQty, String receivingLocation, String holdRejectCode) {
+    public void receiving(String asno, int asnlineno, int receivedQty, String receivingLocation, String holdRejectCode, double weight, double fweight, double volume, double price) {
 
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
@@ -227,11 +229,16 @@ public class StandardModal extends BaseModel<StandardCallback> {
                 JSONObject map = new JSONObject();
                 map.put("userid", userId);
                 map.put("warehouseno", stoId);
-                map.put("asnno", asno);//上一步返回
+                map.put("asnno", asno.trim());//上一步返回
                 map.put("asnlineno", asnlineno);//上一步返回值
                 map.put("ReceivedQty", receivedQty);//取自收货数量文本框
-                map.put("ReceivingLocation", receivingLocation);//取自收货库位文本框
-                map.put("HoldRejectCode", holdRejectCode);//取自冻结代码选择框，当前有两个选项 {“OK”:”正常”,”DJ”:”待检”}，”正常”的默认选中
+                map.put("ReceivingLocation", receivingLocation.trim());//取自收货库位文本框
+                map.put("HoldRejectCode", holdRejectCode.trim());//取自冻结代码选择框，当前有两个选项 {“OK”:”正常”,”DJ”:”待检”}，”正常”的默认选中
+                map.put("HoldRejectCode", holdRejectCode.trim());//取自冻结代码选择框，当前有两个选项 {“OK”:”正常”,”DJ”:”待检”}，”正常”的默认选中
+                map.put("TotalCubic", volume);
+                map.put("TotalGrossWeight", fweight);
+                map.put("TotalNetWeight", weight);
+                map.put("TotalPrice", price);
 
                 String param = ParamUtils.getParams(map.toString(), method);
 

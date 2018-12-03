@@ -42,6 +42,17 @@ public class QueryStowragePresenter extends BasePresnter<QueryStowrageView, Quer
         view.showLoading();
     }
 
+    public void adapterClear(){
+
+        if(adapter != null){
+            adapter.clearList();
+
+            view.setSize(0);
+
+        }
+    }
+
+
     @Override
     public void searchResult(ArrayList<QueryStowrageBean> list) {
 
@@ -54,7 +65,7 @@ public class QueryStowragePresenter extends BasePresnter<QueryStowrageView, Quer
             view.resultSuccess(null);
         }
 
-
+        view.setSize(list.size());
 
         view.stopLoading();
     }

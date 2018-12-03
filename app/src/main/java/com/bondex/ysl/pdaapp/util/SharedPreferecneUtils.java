@@ -22,7 +22,7 @@ public class SharedPreferecneUtils {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
         editor.clear();
     }
 
@@ -47,7 +47,7 @@ public class SharedPreferecneUtils {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
         editor.clear();
     }
 
@@ -63,18 +63,15 @@ public class SharedPreferecneUtils {
         SharedPreferences preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = preferences.edit();
-
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
         editor.clear();
-
     }
 
     public static boolean getBoolean(Context context, String name, String key) {
 
         SharedPreferences preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
         return preferences.getBoolean(key, false);
-
     }
 
 }

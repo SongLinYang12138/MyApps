@@ -32,6 +32,12 @@ public class QueryStowrageAdapter extends RecyclerView.Adapter<QueryStowrageAdap
         notifyDataSetChanged();
     }
 
+    public void clearList(){
+
+        this.list.clear();
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHodler onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

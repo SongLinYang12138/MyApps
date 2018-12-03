@@ -1,5 +1,7 @@
 package com.bondex.ysl.pdaapp.bean;
 
+import java.text.DecimalFormat;
+
 /**
  * date: 2018/11/21
  * Author: ysl
@@ -8,19 +10,20 @@ package com.bondex.ysl.pdaapp.bean;
 public class ReceiveStandardCodeBean {
 
 
-
-
-
     /**
      * customerid : GT12110174
      * customername : 山东泰山壹伍叁贰物联供应链有限公司
      * asnno : ASNCD18111200001
-     * asnlineno : 1
+     * asnlineno : 2
      * sku : 12000001
      * skuname : 泰山（新品）
-     * expectedqty : 10.0
-     * receivedqty : 2.0
+     * expectedqty : 20.0
+     * receivedqty : 16.0
      * receivinglocation : A1-1
+     * cubic : 0.0
+     * gw : 0.0
+     * nw : 0.0
+     * price : 0.0
      */
 
     private String customerid;
@@ -32,8 +35,10 @@ public class ReceiveStandardCodeBean {
     private double expectedqty;
     private double receivedqty;
     private String receivinglocation;
-
-
+    private double cubic;
+    private double gw;
+    private double nw;
+    private double price;
 
 
     public String getCustomerid() {
@@ -85,6 +90,7 @@ public class ReceiveStandardCodeBean {
     }
 
     public double getExpectedqty() {
+
         return expectedqty;
     }
 
@@ -93,6 +99,7 @@ public class ReceiveStandardCodeBean {
     }
 
     public double getReceivedqty() {
+
         return receivedqty;
     }
 
@@ -106,5 +113,39 @@ public class ReceiveStandardCodeBean {
 
     public void setReceivinglocation(String receivinglocation) {
         this.receivinglocation = receivinglocation;
+    }
+
+    public double getCubic() {
+
+
+        return cubic;
+    }
+
+    public void setCubic(double cubic) {
+        this.cubic = cubic;
+    }
+
+    public double getGw() {
+        return gw;
+    }
+
+    public void setGw(double gw) {
+        this.gw = gw;
+    }
+
+    public double getNw() {
+        return nw;
+    }
+
+    public void setNw(double nw) {
+        this.nw = nw;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

@@ -1,19 +1,24 @@
-package com.bondex.ysl.pdaapp.exwarehouse;
+package com.bondex.ysl.pdaapp.consigement;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.SelecteAllListener;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -31,6 +36,8 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
     ButtonRectangle confiBtConfirm;
     @BindView(R.id.confi_bt_clear)
     ButtonRectangle confibtClear;
+    @BindView(R.id.consi_ll_title)
+    LinearLayout llTitle;
 
     @BindView(R.id.av_loading)
     AVLoadingIndicatorView avLoading;
@@ -52,7 +59,9 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
                 finish();
             }
         });
-        showTitle(true, "发货");
+        showTitle(true, "按订单发货");
+
+        llTitle.setVisibility(View.INVISIBLE);
 
 
     }
@@ -75,7 +84,7 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
                 String code = etCode.getText().toString();
 
                 if (CommonUtil.isEmpty(code)) {
-                    ToastUtils.showToast("请输入单号");
+                    ToastUtils.showToast(this,"请输入单号");
                     return;
                 }
 
@@ -83,9 +92,8 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
                 break;
             case R.id.confi_bt_clear:
 
-                if(etCode != null) etCode.getText().clear();
+                if (etCode != null) etCode.getText().clear();
                 break;
-
 
 
         }
@@ -98,17 +106,22 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
         confiBtConfirm.setOnClickListener(clickListener);
         confibtClear.setOnClickListener(clickListener);
 
+
+        if (Constant.SOFT_INPUTMOd) {
+            hideSoftInputMethod(etCode);
+        }
+
+        etCode.setOnClickListener(new SelecteAllListener());
+
         etCode.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
-
                     String code = etCode.getText().toString();
                     if (CommonUtil.isEmpty(code)) {
-                        ToastUtils.showToast("请输入单号");
-                        return false;
+                        return true;
                     }
                     presenter.consignment(code);
                 }
@@ -133,13 +146,16 @@ public class ConsigeMentActivity extends BaseActivtiy<ConsigementPresenter> impl
     @Override
     public void onSuccess(String data) {
 
-        showShort(data);
+        correctSound();
+        showShort(this,data);
         finish();
     }
 
     @Override
     public void faile(String msg) {
-        showLong(msg);
+
+        errorSound();
+        showLong(this,msg);
     }
 
     @Override

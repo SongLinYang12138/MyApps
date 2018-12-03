@@ -1,35 +1,50 @@
 package com.bondex.ysl.pdaapp.base;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.ui.IconText;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
+import com.bondex.ysl.pdaapp.util.SelecteAllListener;
+import com.bondex.ysl.pdaapp.util.SystemBroadCast;
+import com.bondex.ysl.pdaapp.util.broadcast.PdaBroadCast;
+import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
 
-public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActivity{
+import java.lang.reflect.Method;
+
+public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActivity {
 
     private LinearLayout llRoot;
     private TextView tvTitle;
     private IconText tvRight;
     private ImageView iv_left;
     public T presenter;
-    public MyClickListener clickListener = new MyClickListener();
+    private SoundPool correctPool, errorPool;
 
+    public MyClickListener clickListener = null;
+    public SelecteAllListener selectAll = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,11 +53,19 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
         findView();
         setToolBar();
 
+        clickListener = new MyClickListener();
+        selectAll = new SelecteAllListener();
+        correctPool = new SoundPool(2, AudioManager.STREAM_SYSTEM, 5);
+        correctPool.load(this, R.raw.correct, 1);
+
+        errorPool = new SoundPool(2, AudioManager.STREAM_SYSTEM, 5);
+        errorPool.load(this, R.raw.error, 1);
+
+
     }
 
 
     private void findView() {
-
 
         llRoot = findViewById(R.id.ll_basetitle_root);
         iv_left = findViewById(R.id.base_back);
@@ -143,16 +166,16 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
         return res;
     }
 
-    protected void startBaseActivity(Intent intent){
+    protected void startBaseActivity(Intent intent) {
 
         startActivity(intent);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    protected void startBaseActivityForResult(Intent intent,int requestCode){
+    protected void startBaseActivityForResult(Intent intent, int requestCode) {
 
-        startActivityForResult(intent,requestCode);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public abstract void noDoubleClick(View v);
@@ -168,18 +191,73 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
         }
     }
 
-    public void showLong(String msg) {
+    public void showLong(Context context,String msg) {
 
+        if(context == null) return;
         if (CommonUtil.isNotEmpty(msg))
-            Toast.makeText(PdaApplication.context, msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
 
-    public void showShort(String msg) {
-
-        if(CommonUtil.isNotEmpty(msg))
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    public void showShort(Context context,String msg) {
+        if(context == null) return;
+        if (CommonUtil.isNotEmpty(msg))
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
 
+    protected void correctSound() {
+        correctPool.play(1, 1, 1, 0, 0, 1);
+
+    }
+
+    protected void errorSound() {
+        errorPool.play(1, 1, 1, 0, 0, 1);
+
+    }
+
+
+    /** ==== 隐藏系统键盘 ======*/
+    //用这个方法关闭系统键盘就不会出现光标消失的问题了
+    public void hideSoftInputMethod(EditText ed){
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        String methodName = null;
+        int currentVersion = android.os.Build.VERSION.SDK_INT;
+        if(currentVersion >= 16){
+            // 4.2
+            methodName = "setShowSoftInputOnFocus";  //
+        }else if(currentVersion >= 14){
+            // 4.0
+            methodName = "setSoftInputShownOnFocus";
+        }
+
+        if(methodName == null){
+            //最低级最不济的方式，这个方式会把光标给屏蔽
+            ed.setInputType(InputType.TYPE_NULL);
+        }else{
+            Class<EditText> cls = EditText.class;
+            Method setShowSoftInputOnFocus;
+            try {
+                setShowSoftInputOnFocus = cls.getMethod(methodName, boolean.class);
+                setShowSoftInputOnFocus.setAccessible(true);
+                setShowSoftInputOnFocus.invoke(ed, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        selectAll = null;
+        clickListener = null;
+        errorPool = null;
+        correctPool = null;
+
+    }
 }

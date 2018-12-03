@@ -16,4 +16,5 @@ public interface QueryStowrageView extends BaseView {
 
     void resultSuccess(QueryStowrageAdapter adapter);
     void resultFailed(String msg);
+    void setSize(int size);
 }

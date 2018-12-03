@@ -35,7 +35,7 @@ public class PdaBroadCast extends BroadcastReceiver {
                 e.printStackTrace();
                 Log.e("in", e.toString());
             }
-            if (pdaCallback != null && CommonUtil.isNotEmpty(message)) pdaCallback.pdaResult(message);
+            if (pdaCallback != null ) pdaCallback.pdaResult(message);
 
 
         }

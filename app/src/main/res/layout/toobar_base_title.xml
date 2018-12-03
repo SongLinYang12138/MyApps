@@ -29,6 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="标题"
+            android:visibility="invisible"
             android:textColor="@color/white_back"
             android:textSize="@dimen/text_large" />
 

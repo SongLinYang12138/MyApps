@@ -12,5 +12,7 @@ public class Constant {
     public static final String LOGIN_OUT = "login_out";//退回到登录状态的标志
     public static final String POWER_STATE = "power_state";//扫描器开关状态
 
+    public static final Boolean SOFT_INPUTMOd = true;
+
 
 }

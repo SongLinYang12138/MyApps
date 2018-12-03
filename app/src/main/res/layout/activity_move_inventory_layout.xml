@@ -48,8 +48,19 @@
         app:layout_constraintBottom_toBottomOf="@id/movie_tv_tracknum"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        />
+        android:contentDescription="TODO" />
 
+    <TextView
+        android:id="@+id/movie_tv_originallo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="原始库位: "
+        android:textSize="@dimen/text_nromal"
+        android:textColor="@color/text_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/movie_tv_tracknum"
+        app:layout_constraintTop_toBottomOf="@id/movie_tv_tracknum"
+        app:layout_constraintVertical_bias="0.1" />
     <TextView
         android:id="@+id/movie_tv_storwagelo"
         android:layout_width="wrap_content"
@@ -61,7 +72,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/movie_et_storwagelo"
-        app:layout_constraintTop_toBottomOf="@id/movie_tv_tracknum"
+        app:layout_constraintTop_toBottomOf="@id/movie_tv_originallo"
         app:layout_constraintVertical_bias="0.1" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
