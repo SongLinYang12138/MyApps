@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_panel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray">
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_gray"
+        android:paddingHorizontal="@dimen/marginHorizontal"
+        android:paddingVertical="@dimen/paddingVertical">
+
+        <TextView
+            android:id="@+id/menu_tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white_back"
+            android:text="欢迎使用仓库PDA系统" />
+
+
+        <TextView
+            android:id="@+id/user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingVertical"
+            android:text="用户id:"
+            android:textColor="@color/white_back"
+            app:layout_constraintTop_toBottomOf="@+id/menu_tv_welcome" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingVertical"
+            android:text="用户名:"
+            android:textColor="@color/white_back"
+            app:layout_constraintTop_toBottomOf="@+id/user_id" />
+
+        <TextView
+            android:id="@+id/tv_stowrage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingVertical"
+            android:text="仓库"
+            android:textColor="@color/white_back"
+            app:layout_constraintTop_toBottomOf="@id/user_name"
+            />
+
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/menu_bt_porwer"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:thumbTintMode="@drawable/switch_gray"
+            android:padding="@dimen/paddingVertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_stowrage"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_stowrage"
+            android:text="扫描器开关:"
+            >
+
+        </android.support.v7.widget.SwitchCompat>
+
+
+        <TextView
+            android:id="@+id/check_update"
+            style="@style/super_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/marginVertical"
+            android:text="检查更新"
+            app:layout_constraintVertical_bias="0.4"
+           app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/marginVertical"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/check_update"
+            android:text="当前版本：1.0.15"
+          />
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/menu_bt_loginout"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/bondex_blue_dark"
+            android:padding="@dimen/paddingVertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/version"
+            app:layout_constraintVertical_bias="0.5"
+     >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="退出"
+                android:textColor="@color/white_back"
+                android:textSize="@dimen/text_nromal" />
+
+        </com.gc.materialdesign.views.ButtonRectangle>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/main_banner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:autoTurningTime="3000"
+            app:canLoop="true">
+
+        </com.bigkoo.convenientbanner.ConvenientBanner>
+
+        <ListView
+            android:id="@+id/main_listvew"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="7"
+            android:divider="@null"></ListView>
+    </LinearLayout>
+
+
+
+</android.support.v4.widget.SlidingPaneLayout>

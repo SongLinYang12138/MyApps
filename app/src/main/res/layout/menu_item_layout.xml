@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/menu_rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bondex_blue_dark"
+        android:paddingVertical="6dp"
+
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:id="@+id/menu_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="空运"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_normal" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/menu_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/menu_rl_top"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:numColumns="2"
+        ></android.support.v7.widget.RecyclerView>
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="pick"
+            type="Boolean" />
+    </data>
+
+    <!--左边布局-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="@dimen/activity_horizontal_margin">
+
+
+        <!--上边布局-->
+
+
+        <TextView
+            android:id="@+id/pick_tv_custom_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginVertical"
+            android:text="客户名称: "
+            android:theme="@style/normal_tv_black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginLeft="@dimen/activity_horizontal_margin" />
+
+
+        <TextView
+            android:id="@+id/pick_tv_stowrage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="库位: "
+            android:theme="@style/normal_tv_red"
+            app:layout_constraintBottom_toBottomOf="@id/pick_tv_custom_name"
+            app:layout_constraintLeft_toRightOf="@id/pick_tv_custom_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pick_tv_custom_name" />
+
+        <TextView
+            android:id="@+id/pick_tv_traceId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_small"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:text="跟踪号: "
+            android:theme="@style/normal_tv_red"
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_custom_name"
+            app:layout_constraintTop_toBottomOf="@id/pick_tv_custom_name" />
+
+        <TextView
+            android:id="@+id/pick_tv_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_small"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:text="产品: "
+            android:theme="@style/normal_tv_red"
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_custom_name"
+            app:layout_constraintTop_toBottomOf="@id/pick_tv_traceId" />
+
+        <TextView
+            android:id="@+id/pick_tv_productname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_small"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:text="产品名称: "
+            android:theme="@style/small_tv_gray"
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_custom_name"
+            app:layout_constraintTop_toBottomOf="@id/pick_tv_product" />
+
+
+        <TextView
+            android:id="@+id/pick_tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_small"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:text="数量: "
+            android:theme="@style/normal_tv_gray"
+
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_stowrage"
+            app:layout_constraintTop_toBottomOf="@+id/pick_tv_custom_name" />
+
+        <RelativeLayout
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_small"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:layout_marginBottom="@dimen/marginVertical"
+            android:background="@color/metal_gray"
+            app:layout_constraintBottom_toTopOf="@id/pick_et_stowrage"
+            app:layout_constraintTop_toBottomOf="@id/pick_tv_productname">
+
+
+        </RelativeLayout>
+        <!--中间-->
+        <TextView
+            android:id="@+id/pick_tv_stowragename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="库位:"
+            android:theme="@style/normal_tv_gray"
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_custom_name"
+            app:layout_constraintTop_toBottomOf="@id/line" />
+
+        <EditText
+            android:id="@+id/pick_et_stowrage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:theme="@style/EditTextStyle"
+            app:layout_constraintBottom_toBottomOf="@id/pick_tv_stowragename"
+            app:layout_constraintHorizontal_bias="0"
+            android:singleLine="true"
+
+            app:layout_constraintLeft_toRightOf="@id/pick_tv_stowragename"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pick_tv_stowragename"
+            app:layout_constraintWidth_percent="0.4" />
+
+
+        <TextView
+            android:id="@+id/pick_traceid_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跟踪号:"
+            android:theme="@style/normal_tv_gray"
+            app:layout_constraintBottom_toBottomOf="@id/pick_et_traceId"
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_stowragename"
+            app:layout_constraintTop_toTopOf="@id/pick_et_traceId" />
+
+        <EditText
+            android:id="@+id/pick_et_traceId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:theme="@style/EditTextStyle"
+            android:singleLine="true"
+
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/pick_traceid_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pick_et_stowrage"
+            app:layout_constraintWidth_percent="0.7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="产品:"
+            android:theme="@style/normal_tv_gray"
+            app:layout_constraintBottom_toBottomOf="@id/pick_et_sku"
+            app:layout_constraintLeft_toLeftOf="@id/pick_tv_custom_name"
+            app:layout_constraintTop_toTopOf="@id/pick_et_sku" />
+
+        <EditText
+            android:id="@+id/pick_et_sku"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:theme="@style/EditTextStyle"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toLeftOf="@id/pick_et_stowrage"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pick_et_traceId"
+            app:layout_constraintWidth_percent="0.7"
+
+            />
+
+
+        <Button
+            android:id="@+id/pick_bt_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/gray_exitext_rect"
+            android:text="确认"
+            app:layout_constraintBottom_toTopOf="@id/pick_bt_last"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pick_et_sku" />
+
+        <Button
+            android:id="@+id/pick_bt_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="-20dp"
+            android:background="@drawable/gray_exitext_rect"
+            android:text="清除"
+            app:layout_constraintBottom_toBottomOf="@id/pick_bt_confirm"
+            app:layout_constraintLeft_toRightOf="@id/pick_bt_confirm"
+            app:layout_constraintTop_toTopOf="@id/pick_bt_confirm" />
+
+        <RelativeLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_small"
+            android:layout_marginTop="@dimen/marginVertical"
+            android:layout_marginBottom="@dimen/marginVertical"
+            android:background="@color/metal_gray"
+            app:layout_constraintBottom_toTopOf="@id/pick_bt_last"
+            app:layout_constraintTop_toBottomOf="@id/pick_bt_confirm">
+
+
+        </RelativeLayout>
+        <!--底部-->
+        <Button
+            android:id="@+id/pick_bt_last"
+            style="@style/button_blue_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="上一条"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pick_bt_confirm" />
+
+        <Button
+            android:id="@+id/pick_bt_next"
+            style="@style/button_gray_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="下一条"
+            app:layout_constraintBottom_toBottomOf="@id/pick_bt_last"
+            app:layout_constraintLeft_toRightOf="@id/pick_bt_last"
+            app:layout_constraintTop_toTopOf="@id/pick_bt_last" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
