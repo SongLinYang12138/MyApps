@@ -351,29 +351,29 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
 
         if (CommonUtil.isEmpty(receiveQty)) {
 
-            showShort(this,"请输入自收数量");
+            showShort(this, "请输入自收数量");
             return;
         }
         if (CommonUtil.isEmpty(location)) {
 
-            showShort(this,"请输入自收货库位");
+            showShort(this, "请输入自收货库位");
             return;
         }
         if (!CommonUtil.isNumber(weight)) {
 
-            showShort(this,"净重只能是数字");
+            showShort(this, "净重只能是数字");
             return;
         }
         if (!CommonUtil.isNumber(fweight)) {
-            showShort(this,"毛重只能是数字");
+            showShort(this, "毛重只能是数字");
             return;
         }
         if (!CommonUtil.isNumber(volume)) {
-            showShort(this,"体积只能是数字");
+            showShort(this, "体积只能是数字");
             return;
         }
         if (!CommonUtil.isNumber(price)) {
-            showShort(this,"总价只能是数字");
+            showShort(this, "总价只能是数字");
             return;
         }
 
@@ -503,6 +503,7 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
     @Override
     public void codeResult(ReceiveStandardCodeBean bean) {
 
+        if (bean == null) return;
         isCodeSearched = true;
         receiveEtAsno.setText(bean.getAsnno());
         receiveEtCustom.setText(bean.getCustomerid() + "/" + bean.getCustomername());
@@ -514,7 +515,7 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
 
     @Override
     public void searchCodeFaile(String msg) {
-        showShort(this,msg);
+        showShort(this, msg);
         errorSound();
     }
 
@@ -538,14 +539,14 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
     @Override
     public void productFaile(String msg) {
 
-        showShort(this,msg);
+        showShort(this, msg);
         errorSound();
     }
 
     @Override
     public void receiveSuccess(String msg) {
 
-        showShort(this,msg);
+        showShort(this, msg);
         reset();
         correctSound();
     }
@@ -553,7 +554,7 @@ public class StandardReceiveActivity extends BaseActivtiy<StandardPrensenter> im
     @Override
     public void receiveFalied(String msg) {
 
-        showShort(this,msg);
+        showShort(this, msg);
         reset();
         errorSound();
     }

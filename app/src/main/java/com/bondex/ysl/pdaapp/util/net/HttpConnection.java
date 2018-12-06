@@ -65,36 +65,13 @@ public class HttpConnection {
 
 
 
-
-    public static Call<String> consigement(String id, int num) {
-
-        String method = "so.shipment";//方法名
-
-        JSONObject map = new JSONObject();
-
-        try {
-            map.put("warehouseno", Integer.valueOf(num));//当前登录用户选择的仓库ID
-            map.put("Action", "Ship");//固定值
-            map.put("ProcessBy", "OrderNo");//固定值
-            map.put("userid", PdaApplication.LOGINBEAN.getUserid());//系统当前登录人ID
-            map.put("OrderNO", id);//第一步扫描的发运单号
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String params = map.toString();
-        params = ParamUtils.getParams(params, method);
-
-        return getRretrofit(BASE_URL).connect(params);
-    }
-
     public static Call<String> getVersion() {
 
 
         return getRretrofit(VERSION_URL).getVersion();
     }
 
-    public static Call<String> getCall(String params) {
+    private static Call<String> getCall(String params) {
 
         return getRretrofit(BASE_URL).connect(params);
     }
@@ -117,7 +94,6 @@ public class HttpConnection {
                         } else {
 
                             emitter.onNext(response.body());
-
                         }
                     }
 
@@ -140,7 +116,13 @@ public class HttpConnection {
 
                     Gson gson = new Gson();
                     HttpRequestParam param = gson.fromJson(s, HttpRequestParam.class);
-                    request.httpSuccess(param);
+
+                    if(param.isSuccess()){
+                        request.httpSuccess(param);
+                    }else {
+                        request.httpError(param.getErrormsg());
+                    }
+
                 }
 
             }

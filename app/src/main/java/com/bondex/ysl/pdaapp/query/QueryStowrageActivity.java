@@ -178,6 +178,7 @@ public class QueryStowrageActivity extends BaseActivtiy<QueryStowragePresenter> 
                 @Override
                 public void onClick(View v) {
 
+                    dialogBinding.querystoEtStolocation.requestFocus();
                     dialogBinding.querystoEtStolocation.getText().clear();
                     dialogBinding.querystoEtTrckcode.getText().clear();
                     dialogBinding.querystoEtSku.getText().clear();

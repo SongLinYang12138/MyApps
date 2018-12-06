@@ -81,15 +81,19 @@ public class StandardModal<T> extends BaseModel<StandardCallback> {
             public void httpSuccess(HttpRequestParam param) {
 
                 Gson gson = new Gson();
-
+//                {"success":false,"msg":null,"business_param":null,"errormsg":"无效的ASNNO","method":null}
                 ReceiveStandardCodeBean bean = gson.fromJson(param.getMsg(), ReceiveStandardCodeBean.class);
+                if(bean == null){
+                    resultback.searchFaile("连接服务器失败");
+                    return;
+                }
                 resultback.searchBack(bean);
             }
 
             @Override
             public void httpError(String msg) {
 
-                resultback.searchFaile("连接服务器失败");
+                resultback.searchFaile(msg);
             }
         });
     }

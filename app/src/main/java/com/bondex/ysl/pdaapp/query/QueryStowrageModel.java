@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseModel;
+import com.bondex.ysl.pdaapp.bean.HttpRequestParam;
 import com.bondex.ysl.pdaapp.bean.QueryStowrageBean;
 import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
+import com.bondex.ysl.pdaapp.util.interf.HtppReuquest;
 import com.bondex.ysl.pdaapp.util.net.HttpConnection;
 import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
 import com.google.gson.Gson;
@@ -34,6 +36,9 @@ import retrofit2.Response;
  */
 public class QueryStowrageModel extends BaseModel<QueryStowrageCallBack> {
 
+    private String userId = PdaApplication.LOGINBEAN.getUserid();
+    private int stoId = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
+
     public QueryStowrageModel(Context context) {
         super(context);
     }
@@ -49,97 +54,59 @@ public class QueryStowrageModel extends BaseModel<QueryStowrageCallBack> {
     }
 
 
-    public void search(String traceId, String locationId,String sku) {
+    public void search(String traceId, String locationId, String sku) {
 
-        String userId = PdaApplication.LOGINBEAN.getUserid();
-        int stoId = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
 
-        Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
+        String method = "inv.searchInv";//方法名
+        JSONObject map = new JSONObject();
+        try {
+            map.put("userid", userId);
+            map.put("warehouseno", stoId);//此处为仓库编号，成都为1，烟台为2这样
+            map.put("traceid", traceId);//对应库位
+            map.put("locationid", locationId);//对应跟踪号，库位和跟踪号不能都为空
+            map.put("sku", sku);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String params = ParamUtils.getParams(map.toString(), method);
+
+
+        HttpConnection.connect(params, new HtppReuquest() {
             @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-
-                String method = "inv.searchInv";//方法名
-                JSONObject map = new JSONObject();
-                map.put("userid", userId);
-                map.put("warehouseno", stoId);//此处为仓库编号，成都为1，烟台为2这样
-                map.put("traceid", traceId);//对应库位
-                map.put("locationid", locationId);//对应跟踪号，库位和跟踪号不能都为空
-                map.put("sku", sku);
+            public void httpSuccess(HttpRequestParam param) {
 
 
 
-                String params = ParamUtils.getParams(map.toString(), method);
+                ArrayList<QueryStowrageBean> beans = new ArrayList<>();
+                Gson gson = new Gson();
+                String msg = param.getMsg();
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(msg);
 
-                HttpConnection.getCall(params).enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    for (int i = 0; i < array.length(); ++i) {
 
-                        if (response.body() == null) {
-                            emitter.onNext("N");
-                        } else {
-                            emitter.onNext(response.body());
-
-                        }
+                        JSONObject object1 = array.getJSONObject(i);
+                        QueryStowrageBean bean = gson.fromJson(object1.toString(), QueryStowrageBean.class);
+                        beans.add(bean);
                     }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
-                        emitter.onNext("N");
-                    }
-                });
-            }
-        });
-
-        Consumer<String> observer = new Consumer<String>() {
-            @Override
-            public void accept(String s) {
-
-                if ("N".equals(s)) {
-
-                    resultback.searchFailed("连接服务器失败");
-                } else {
-
-                    try {
-                        JSONObject object = new JSONObject(s);
-
-                        boolean isSuccess = object.getBoolean("success");
-
-                        if (isSuccess) {
-
-                            ArrayList<QueryStowrageBean> beans = new ArrayList<>();
-                            Gson gson = new Gson();
-                            String msg = object.getString("msg");
-                            JSONArray array = new JSONArray(msg);
-
-                            for (int i = 0; i < array.length(); ++i) {
-
-                                JSONObject object1 = array.getJSONObject(i);
-                                QueryStowrageBean bean = gson.fromJson(object1.toString(), QueryStowrageBean.class);
-                                beans.add(bean);
-                            }
-
-                            resultback.searchResult(beans);
-                        } else {
-
-                            resultback.searchFailed(object.getString("errormsg"));
-                        }
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
 
                 }
 
+                resultback.searchResult(beans);
+
             }
-        };
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
 
+            @Override
+            public void httpError(String msg) {
 
+                resultback.searchFailed(msg);
+            }
+        });
     }
 
 }

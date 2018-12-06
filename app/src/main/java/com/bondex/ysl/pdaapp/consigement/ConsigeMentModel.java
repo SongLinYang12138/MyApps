@@ -3,12 +3,19 @@ package com.bondex.ysl.pdaapp.consigement;
 import android.content.Context;
 import android.util.Log;
 
+import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.base.BaseModel;
+import com.bondex.ysl.pdaapp.bean.HttpRequestParam;
 import com.bondex.ysl.pdaapp.bean.ResultBean;
 import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.interf.HtppReuquest;
 import com.bondex.ysl.pdaapp.util.net.HttpConnection;
+import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -35,56 +42,48 @@ public class ConsigeMentModel extends BaseModel<ConsigeMentBack> {
     @Override
     public void doNet(final String... param) {
 
-        Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(final ObservableEmitter<String> emitter) throws Exception {
-
 
                 String no = param[1];
                 String id = param[0];
 
+                String method = "so.shipment";//方法名
 
+                JSONObject map = new JSONObject();
 
-                Call<String> call = HttpConnection.consigement(id,Integer.valueOf(no));
-                call.enqueue(new Callback<String>() {
+                try {
+                    map.put("warehouseno", Integer.valueOf(no));//当前登录用户选择的仓库ID
+                    map.put("Action", "Ship");//固定值
+                    map.put("ProcessBy", "OrderNo");//固定值
+                    map.put("userid", PdaApplication.LOGINBEAN.getUserid());//系统当前登录人ID
+                    map.put("OrderNO", id);//第一步扫描的发运单号
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String params = map.toString();
+                params = ParamUtils.getParams(params, method);
+
+                HttpConnection.connect(params, new HtppReuquest() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void httpSuccess(HttpRequestParam param) {
 
-                        if(response.body() == null) emitter.onNext("N");
-                        else emitter.onNext(response.body());
+
+                        ResultBean bean = new ResultBean();
+                        bean.setSuccess(param.isSuccess());
+                        bean.setMsg(param.getMsg());
+                        bean.setBusiness_param(param.getBusiness_param());
+                        bean.setErrormsg(param.getErrormsg());
+                        bean.setMethod(param.getMethod());
+
+                         resultback.success(bean);
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
-                        emitter.onNext("N");
+                    public void httpError(String msg) {
+                        resultback.faile(msg);
                     }
                 });
 
-            }
-        });
-        Consumer<String> consumer = new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                Log.i(Constant.TAG,s);
-                Logger.i(" "+s);
-                if(s.equals("N")) resultback.faile("连接服务器失败");
-                else {
-                    Gson gson = new Gson();
-
-                    ResultBean bean = gson.fromJson(s,ResultBean.class);
-
-                    if(bean == null) resultback.faile(s);
-                    else resultback.success(bean);
-                }
-
-
-            }
-        };
-
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(consumer);
 
 
     }
@@ -93,4 +92,5 @@ public class ConsigeMentModel extends BaseModel<ConsigeMentBack> {
     protected void doLocal(String... param) {
 
     }
+
 }
