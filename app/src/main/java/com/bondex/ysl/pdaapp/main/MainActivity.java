@@ -145,7 +145,6 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
 
         swPower.setChecked(true);
-//        swPower.setChecked(SharedPreferecneUtils.getBoolean(this, Constant.STORWAGEPAGE, Constant.POWER_STATE));
         swPower.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

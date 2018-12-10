@@ -18,11 +18,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:launchMode="standard">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".main.MainActivity"
@@ -61,6 +57,16 @@
         <activity android:name=".pick.PickActivity"
             android:launchMode="standard"
             ></activity>
+        <activity android:name=".welcome.WelcomeActvity"
+            android:theme="@style/welcomeTheme"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

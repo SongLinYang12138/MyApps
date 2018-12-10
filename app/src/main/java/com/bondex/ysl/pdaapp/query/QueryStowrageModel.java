@@ -78,7 +78,6 @@ public class QueryStowrageModel extends BaseModel<QueryStowrageCallBack> {
             public void httpSuccess(HttpRequestParam param) {
 
 
-
                 ArrayList<QueryStowrageBean> beans = new ArrayList<>();
                 Gson gson = new Gson();
                 String msg = param.getMsg();

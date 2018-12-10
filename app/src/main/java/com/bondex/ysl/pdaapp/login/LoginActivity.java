@@ -130,8 +130,6 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
         loginEtPhone.setText(name);
         loginEtPassword.setText(passoword);
         String stowrage = SharedPreferecneUtils.getValue(this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME);
-
-
         if (islogined && CommonUtil.isNotEmpty(stowrage)) jumpToMain();
     }
 

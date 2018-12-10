@@ -15,13 +15,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="editTextStyle">@style/EditTextStyle</item>
+        <!--<item name="editTextStyle">@style/EditTextStyle</item>-->
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
 
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="android:windowSoftInputMode">stateAlwaysHidden|adjustNothing</item>
+    </style>
 
+    <style name="welcomeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/flash</item>
 
     </style>
 
@@ -43,7 +51,6 @@
         <item name="android:textSize">@dimen/text_normal</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textColorHint">@color/metal_gray</item>
-
     </style>
 
     <style name="edit_style">
