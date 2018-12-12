@@ -64,6 +64,7 @@ public abstract class BindBaseActivity<T extends BasePresnter> extends FragmentA
 
 
     protected void showRight(boolean isShow, int resourceId, View.OnClickListener listener) {
+
         llRoot = findViewById(R.id.ll_basetitle_root);
         tvRight = findViewById(R.id.base_right);
 

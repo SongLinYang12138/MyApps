@@ -103,6 +103,8 @@ public class PickActivity extends BaseActivtiy<PickPresennter> implements PickVi
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
 
                     searchCode();
+                    pickEtOrdercode.setText(pickEtOrdercode.getText().toString());
+                    pickEtOrdercode.selectAll();
                     return true;
                 }
 
@@ -216,13 +218,13 @@ public class PickActivity extends BaseActivtiy<PickPresennter> implements PickVi
 
             alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setTitle("请注意: ");
-            alertBuilder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    presenter.pickModal(bean.getAllocationdetailsid());
-                }
-            });
+//            alertBuilder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//
+//                    presenter.pickModal(bean.getAllocationdetailsid());
+//                }
+//            });
             alertBuilder.setPositiveButton("取消", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

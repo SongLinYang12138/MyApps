@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.PickBean;
 import com.bondex.ysl.pdaapp.databinding.PickRecyclerViewItemLayoutBinding;
@@ -15,6 +16,7 @@ import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 import com.bondex.ysl.pdaapp.util.SelecteAllListener;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -77,7 +79,9 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.ViewHolder> {
         viewHolder.binding.pickTvProductname.setText("产品名称: " + bean.getSkuname());
         viewHolder.binding.pickTvNum.setText("数量: " + bean.getQty());
         viewHolder.binding.pickBtLast.setTag(i);
-
+        viewHolder.binding.pickEtSku.setHint(bean.getSku());
+        viewHolder.binding.pickEtStowrage.setHint(bean.getLocation());
+        viewHolder.binding.pickEtTraceId.setHint(bean.getTraceid());
 
     }
 
@@ -112,6 +116,7 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.ViewHolder> {
                 CommonUtil.hideSoftInputMethod(binding.pickEtTraceId);
             }
 
+
             binding.pickEtStowrage.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -119,6 +124,8 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.ViewHolder> {
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
 
                         binding.pickEtTraceId.requestFocus();
+                        binding.pickEtTraceId.setText(binding.pickEtTraceId.getText().toString());
+                        binding.pickEtTraceId.selectAll();
                         return true;
                     }
 
@@ -133,6 +140,8 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.ViewHolder> {
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
 
                         binding.pickEtSku.requestFocus();
+                        binding.pickEtSku.setText(binding.pickEtSku.getText().toString());
+                        binding.pickEtSku.selectAll();
                         return true;
                     }
 
@@ -184,21 +193,26 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.ViewHolder> {
 
                     if (CommonUtil.isEmpty(scanLocation)) {
 
-                        ToastUtils.showToast(binding.getRoot().getContext(), "请输入库位");
-                        return;
+//                        ToastUtils.showToast(binding.getRoot().getContext(), "请输入库位");
+//                        return;
+                        scanLocation = bean.getLocation();
                     }
 
                     if (CommonUtil.isEmpty(scanTraceId)) {
 
-                        ToastUtils.showToast(binding.getRoot().getContext(), "请输入跟踪号");
-                        return;
+//                        ToastUtils.showToast(binding.getRoot().getContext(), "请输入跟踪号");
+//                        return;
+                        scanTraceId = bean.getTraceid();
                     }
 
                     if (CommonUtil.isEmpty(scanSku)) {
 
-                        ToastUtils.showToast(binding.getRoot().getContext(), "请输入产品");
-                        return;
+//                        ToastUtils.showToast(binding.getRoot().getContext(), "请输入产品");
+//                        return;
+
+                        scanSku = bean.getSku();
                     }
+
 
                     bean.setScanLocation(scanLocation);
                     bean.setScanTraceId(scanTraceId);
