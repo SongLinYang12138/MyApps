@@ -1,5 +1,6 @@
 package com.bondex.ysl.pdaapp.util.netutil;
 
+import android.media.session.MediaSession;
 import android.util.Log;
 
 import com.bondex.ysl.pdaapp.util.Constant;
@@ -25,8 +26,14 @@ public class ParamUtils {
         String app_key = APP_KEY;
         String charset = CHAREST;//编码格式，固定为utf-8
         long timestamp = System.currentTimeMillis();//时间戳
+        String dataKey = null;
 
         String method = methodName;//方法名
+       dataKey = Constant.LOGIN_DATE_KEY;
+
+
+
+
         String business_param = param;//业务数据，根据实际请求参数定
 
         String str = "app_id=" + app_id +
@@ -34,8 +41,8 @@ public class ParamUtils {
                 "&business_param=" + business_param +
                 "&charset=" + charset +
                 "&method=" + method +
-                "&timestamp=" + timestamp;
-
+                "&timestamp=" + timestamp +
+                "&date_key=" + Constant.LOGIN_DATE_KEY;
 
         String sign = null;
         try {
@@ -53,13 +60,12 @@ public class ParamUtils {
         apiParam.setMethod(method);
         apiParam.setSign(sign);
         apiParam.setTimestamp(timestamp);
+        apiParam.setDateKey(dataKey);
 
         param = gson.toJson(apiParam);
         return param;
 
     }
-
-
 
 
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
 import com.bondex.ysl.pdaapp.consigement.ConsigeMentActivity;
+import com.bondex.ysl.pdaapp.freeze.FreezeTrayActivity;
 import com.bondex.ysl.pdaapp.movie.MovieInventoryActivity;
 import com.bondex.ysl.pdaapp.pick.PickActivity;
 import com.bondex.ysl.pdaapp.query.QueryStowrageActivity;
@@ -145,6 +146,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                 case "querystorage":
 
                     intent = new Intent(context,QueryStowrageActivity.class);
+                    break;
+                case "freezetray":
+
+                    intent = new Intent(context, FreezeTrayActivity.class);
                     break;
 
 

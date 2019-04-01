@@ -30,7 +30,6 @@ public class MoviePresenter extends BasePresnter<MovieView, MovieModal> implemen
         super(view, context);
 
         stoId = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
-        stoId = 4;
     }
 
     @Override

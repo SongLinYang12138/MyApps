@@ -59,7 +59,7 @@ public class QueryStowrageAdapter extends RecyclerView.Adapter<QueryStowrageAdap
         viewHodler.binding.queryItemCustomName.setText("客户姓名:  " + bean.getCustomername());
         viewHodler.binding.queryItemSkuId.setText("产品 :  " + bean.getSku());
         viewHodler.binding.queryItemLocationId.setText("库位:  " + bean.getLocationid());
-        viewHodler.binding.queryItemTraceId.setText("跟踪号:  " + bean.getTraceid());
+        viewHodler.binding.queryItemTraceId.setText("" + bean.getTraceid());
         viewHodler.binding.queryItemNum.setText("库存数量" + bean.getQty() + "   |  分配数量" + bean.getQtyallocated());
         viewHodler.binding.queryItemNumfreeze.setText("冻结数量" + bean.getQtyonhold() + "   |   可用数据" + bean.getQtyused() + "");
     }

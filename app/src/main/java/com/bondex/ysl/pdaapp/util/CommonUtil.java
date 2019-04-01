@@ -1,15 +1,22 @@
 package com.bondex.ysl.pdaapp.util;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+
+import com.bondex.ysl.pdaapp.util.netutil.MD5;
 
 import java.lang.reflect.Method;
 
@@ -69,39 +76,40 @@ public class CommonUtil {
     }
 
 
-    public static boolean isNumber(String str){
+    public static boolean isNumber(String str) {
 
         try {
 
             Double.valueOf(str);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
 
             return false;
         }
     }
 
 
-    /** ==== 隐藏系统键盘 ======*/
+    /**
+     * ==== 隐藏系统键盘 ======
+     */
     //用这个方法关闭系统键盘就不会出现光标消失的问题了
-    public static void hideSoftInputMethod(EditText ed){
-
+    public static void hideSoftInputMethod(EditText ed) {
 
 
         String methodName = null;
         int currentVersion = android.os.Build.VERSION.SDK_INT;
-        if(currentVersion >= 16){
+        if (currentVersion >= 16) {
             // 4.2
             methodName = "setShowSoftInputOnFocus";  //
-        }else if(currentVersion >= 14){
+        } else if (currentVersion >= 14) {
             // 4.0
             methodName = "setSoftInputShownOnFocus";
         }
 
-        if(methodName == null){
+        if (methodName == null) {
             //最低级最不济的方式，这个方式会把光标给屏蔽
             ed.setInputType(InputType.TYPE_NULL);
-        }else{
+        } else {
             Class<EditText> cls = EditText.class;
             Method setShowSoftInputOnFocus;
             try {
@@ -112,6 +120,13 @@ public class CommonUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String getDateKey() {
+
+        String imei = MD5.to_MD5(System.currentTimeMillis() + "bondex");
+
+        return imei;
     }
 
 }

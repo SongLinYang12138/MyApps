@@ -11,7 +11,7 @@ public class MD5 {
 	public final static String to_MD5(String s) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',	'a', 'b', 'c', 'd', 'e', 'f' };
 		try {
-			byte[] strTemp = s.getBytes();
+			byte[] strTemp = s.getBytes("utf-8");
 			MessageDigest mdTemp = MessageDigest.getInstance("MD5");
 			mdTemp.update(strTemp);
 			byte[] md = mdTemp.digest();

@@ -119,8 +119,6 @@ public class LoginBean {
 
             bean.setWarehouses(result);
 
-            Logger.i(" "+result);
-
             cursor.moveToNext();
         }
         cursor.close();

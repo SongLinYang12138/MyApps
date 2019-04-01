@@ -1,6 +1,9 @@
 package com.bondex.ysl.pdaapp.main;
 
+import android.app.Application;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
@@ -23,10 +26,12 @@ import com.bondex.ysl.pdaapp.base.BasePresnter;
 import com.bondex.ysl.pdaapp.bean.MainBean;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
 import com.bondex.ysl.pdaapp.bean.UpdateBean;
+import com.bondex.ysl.pdaapp.bean.loginebean.LoginBean;
 import com.bondex.ysl.pdaapp.ui.ProgressView;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.bondex.ysl.pdaapp.util.netutil.MD5;
+import com.bondex.ysl.pdaapp.util.provider.LoginProvider;
 import com.orhanobut.logger.Logger;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -50,6 +55,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     private Button updateConfirm;
     private Dialog updateDialog;
     private UpdateBean updateBean;
+    private ContentResolver resolver;
 
 
     public MainPresenter(MainView view, final Context context) {
@@ -57,6 +63,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
 
         filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bondex/Pda.apk";
+        resolver = context.getContentResolver();
 
         setBainner();
         setListAdapter();
@@ -102,6 +109,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
         ArrayList<MenuBean> movieList = new ArrayList<>();
         movieList.add(new MenuBean("单元移库", "unitmovie"));
         movieList.add(new MenuBean("库存查询", "querystorage"));
+        movieList.add(new MenuBean("托盘冻结", "freezetray"));
 
         mainBeans.add(new MainBean("入库", inList));
         mainBeans.add(new MainBean("出库", outList));
@@ -219,10 +227,10 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     }
 
     @Override
-    public void onFinish(String path,byte[] data) {
+    public void onFinish(String path, byte[] data) {
 
 
-        Logger.i("datalength   "+data.length);
+        Logger.i("datalength   " + data.length);
         String myMd5 = MD5.getFileMD5(filePath);
 
 //        Logger.i("updateMd5 " + updateBean.getDownlad_md5() + "\n myMd5: " + myMd5);
@@ -248,11 +256,23 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
         progressHandler.sendMessage(msg);
     }
 
+    public void loginOut() {
 
-    private final  int START = 1001;
-    private final  int FINISH = 1100;
-    private final  int FAILED = 1110;
-    private  Handler progressHandler = new Handler() {
+        LoginBean bean = PdaApplication.LOGINBEAN;
+
+        if (bean == null) return;
+        bean.setLogined(false);
+        ContentValues values = bean.toContentValue();
+
+
+        resolver.update(LoginProvider.CONTENT_URI, values, "username=?", new String[]{PdaApplication.LOGINBEAN.getUsername()});
+    }
+
+
+    private final int START = 1001;
+    private final int FINISH = 1100;
+    private final int FAILED = 1110;
+    private Handler progressHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -276,7 +296,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
                         if (updateTv != null) {
                             updateDialog.dismiss();
-                            ToastUtils.showToast(context,"下载成功");
+                            ToastUtils.showToast(context, "下载成功");
                             updateTv.setVisibility(View.VISIBLE);
                             updateProgress.setVisibility(View.GONE);
                             updateConfirm.setClickable(true);
@@ -289,7 +309,7 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
                         if (updateTv != null) {
 
                             if (CommonUtil.isNotEmpty(msg.obj.toString()))
-                                ToastUtils.showToast(context,msg.obj.toString());
+                                ToastUtils.showToast(context, msg.obj.toString());
                             updateConfirm.setClickable(true);
                             updateTv.setVisibility(View.VISIBLE);
                             updateProgress.setVisibility(View.GONE);

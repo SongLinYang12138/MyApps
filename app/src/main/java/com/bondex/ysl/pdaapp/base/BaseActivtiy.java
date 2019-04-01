@@ -26,8 +26,10 @@ import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.application.PdaApplication;
 import com.bondex.ysl.pdaapp.ui.IconText;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
+import com.bondex.ysl.pdaapp.util.Constant;
 import com.bondex.ysl.pdaapp.util.NoDoubleClickListener;
 import com.bondex.ysl.pdaapp.util.SelecteAllListener;
+import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.bondex.ysl.pdaapp.util.SystemBroadCast;
 import com.bondex.ysl.pdaapp.util.broadcast.PdaBroadCast;
 import com.bondex.ysl.pdaapp.util.interf.PdaCallback;
@@ -100,7 +102,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
 
         if (isShow) tvTitle.setVisibility(View.VISIBLE);
         else tvTitle.setVisibility(View.INVISIBLE);
-
+//        int stoId = SharedPreferecneUtils.getInteger(this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NO);
         if (CommonUtil.isNotEmpty(text)) tvTitle.setText(text);
     }
 
@@ -121,6 +123,7 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
         lp.addRule(RelativeLayout.BELOW, R.id.ll_basetitle_root);
         if (null != llRoot)
             llRoot.addView(view, lp);
+
 
     }
 
@@ -191,16 +194,16 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
         }
     }
 
-    public void showLong(Context context,String msg) {
+    public void showLong(Context context, String msg) {
 
-        if(context == null) return;
+        if (context == null) return;
         if (CommonUtil.isNotEmpty(msg))
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
 
-    public void showShort(Context context,String msg) {
-        if(context == null) return;
+    public void showShort(Context context, String msg) {
+        if (context == null) return;
         if (CommonUtil.isNotEmpty(msg))
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
@@ -217,26 +220,27 @@ public abstract class BaseActivtiy<T extends BasePresnter> extends FragmentActiv
     }
 
 
-    /** ==== 隐藏系统键盘 ======*/
-    //用这个方法关闭系统键盘就不会出现光标消失的问题了
-    public void hideSoftInputMethod(EditText ed){
+    /**
+     * ==== 隐藏系统键盘 ======
+     */
+    public void hideSoftInputMethod(EditText ed) {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         String methodName = null;
         int currentVersion = android.os.Build.VERSION.SDK_INT;
-        if(currentVersion >= 16){
+        if (currentVersion >= 16) {
             // 4.2
             methodName = "setShowSoftInputOnFocus";  //
-        }else if(currentVersion >= 14){
+        } else if (currentVersion >= 14) {
             // 4.0
             methodName = "setSoftInputShownOnFocus";
         }
 
-        if(methodName == null){
+        if (methodName == null) {
             //最低级最不济的方式，这个方式会把光标给屏蔽
             ed.setInputType(InputType.TYPE_NULL);
-        }else{
+        } else {
             Class<EditText> cls = EditText.class;
             Method setShowSoftInputOnFocus;
             try {

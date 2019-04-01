@@ -31,34 +31,45 @@ public class HttpRequestParam {
     }
 
     public String getMsg() {
-        return msg;
+        return msg == null ? "" : msg;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.msg = msg == null ? "" : msg;
     }
 
     public String getBusiness_param() {
-        return business_param;
+        return business_param == null ? "" : business_param;
     }
 
     public void setBusiness_param(String business_param) {
-        this.business_param = business_param;
+        this.business_param = business_param == null ? "" : business_param;
     }
 
     public String getErrormsg() {
-        return errormsg;
+        return errormsg == null ? "" : errormsg;
     }
 
     public void setErrormsg(String errormsg) {
-        this.errormsg = errormsg;
+        this.errormsg = errormsg == null ? "" : errormsg;
     }
 
     public String getMethod() {
-        return method;
+        return method == null ? "" : method;
     }
 
     public void setMethod(String method) {
-        this.method = method;
+        this.method = method == null ? "" : method;
+    }
+
+    @Override
+    public String toString() {
+        return "HttpRequestParam{" +
+                "success=" + success +
+                ", msg='" + msg + '\'' +
+                ", business_param='" + business_param + '\'' +
+                ", errormsg='" + errormsg + '\'' +
+                ", method='" + method + '\'' +
+                '}';
     }
 }

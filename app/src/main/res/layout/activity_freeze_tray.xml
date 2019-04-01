@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".freeze.FreezeTrayActivity">
+
+
+    <TextView
+        android:id="@+id/freeze_tv_code_name"
+        style="@style/normal_tv_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="托盘号:"
+        app:layout_constraintBottom_toBottomOf="@id/freeze_et_code"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/freeze_et_code" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/freeze_et_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:hint="请输入托盘号"
+        app:layout_constraintLeft_toRightOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.7"
+        app:met_floatingLabel="none"
+        app:met_underlineColor="@color/rect_red" />
+
+    <com.bondex.ysl.pdaapp.ui.IconText
+        android:id="@+id/freeze_it_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:textSize="@dimen/icon_normal"
+        app:layout_constraintBottom_toBottomOf="@id/freeze_et_code"
+        app:layout_constraintRight_toRightOf="@id/freeze_et_code"
+        app:layout_constraintTop_toTopOf="@id/freeze_et_code" />
+
+    <TextView
+        android:id="@+id/freeze_tv_batch"
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="批次属性:"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toBottomOf="@id/freeze_et_code" />
+
+    <TextView
+        android:id="@+id/freeze_tv_location"
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="库位:"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toBottomOf="@id/freeze_tv_batch" />
+
+    <TextView
+        android:id="@+id/freeze_tv_code"
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="托盘号"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toBottomOf="@id/freeze_tv_location" />
+
+    <TextView
+        android:id="@+id/freeze_tv_amount"
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="数量:"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toBottomOf="@id/freeze_tv_code" />
+
+    <TextView
+        android:id="@+id/freeze_tv_freeze_amount"
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="冻结数量:"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toBottomOf="@id/freeze_tv_amount" />
+
+    <TextView
+        android:id="@+id/freeze_tv_freeze_num"
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="冻结编号:"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toBottomOf="@id/freeze_tv_freeze_amount" />
+
+    <TextView
+
+        style="@style/normal_tv_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="冻结原因: "
+        app:layout_constraintBottom_toBottomOf="@id/freeze_rg_reason"
+        app:layout_constraintLeft_toLeftOf="@id/freeze_tv_code_name"
+        app:layout_constraintTop_toTopOf="@id/freeze_rg_reason" />
+
+    <RadioGroup
+        android:id="@+id/freeze_rg_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@id/freeze_tv_freeze_amount"
+        app:layout_constraintTop_toBottomOf="@id/freeze_tv_freeze_num">
+
+
+        <RadioButton
+            android:id="@+id/freeze_rb_wait"
+            style="@style/normal_tv_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="待检"
+
+            />
+
+        <RadioButton
+            android:id="@+id/freeze_rb_stained"
+            style="@style/normal_tv_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="污损" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/freeze_bt_freeze"
+        style="@style/button_blue_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="冻结"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/freeze_rg_reason" />
+
+
+    <Button
+        android:id="@+id/freeze_bt_un_freeze"
+        style="@style/button_gray_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="解冻"
+        app:layout_constraintLeft_toRightOf="@id/freeze_bt_freeze"
+        app:layout_constraintTop_toTopOf="@id/freeze_bt_freeze" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/av_loading"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:indicatorName="@string/indicatorname"
+        app:indicatorColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        />
+
+</android.support.constraint.ConstraintLayout>

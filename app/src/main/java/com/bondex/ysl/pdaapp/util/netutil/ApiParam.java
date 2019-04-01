@@ -7,6 +7,16 @@ public class ApiParam {
 	private String method;
 	private String business_param;
 	private String sign;
+	private String dateKey;
+
+	public String getDateKey() {
+		return dateKey == null ? "" : dateKey;
+	}
+
+	public void setDateKey(String dateKey) {
+		this.dateKey = dateKey == null ? "" : dateKey;
+	}
+
 	public String getApp_id() {
 		return app_id;
 	}

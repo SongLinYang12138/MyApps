@@ -24,8 +24,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HttpConnection {
 
-    private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
+//    private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
     private static final String VERSION_URL = "http://pubdoc.bondex.com.cn:8087/fileking/app/";
+    private static final String BASE_URL = "http://172.16.75.43:8084/";
+
 
 
     private static final OkHttpClient httpClient = new OkHttpClient
@@ -56,8 +58,9 @@ public class HttpConnection {
             e.printStackTrace();
         }
 
+        String method = "login";
         String param = json.toString();
-        param = ParamUtils.getParams(param, "login");
+        param = ParamUtils.getParams(param, method);
         Logger.i("登录参数 " + param);
 
         return getRretrofit(BASE_URL).connect(param);
@@ -93,6 +96,7 @@ public class HttpConnection {
                             emitter.onNext("N");
                         } else {
 
+                            Logger.i(""+response.body());
                             emitter.onNext(response.body());
                         }
                     }
@@ -111,7 +115,7 @@ public class HttpConnection {
 
                 if (s.equals("N")) {
 
-                    request.httpError("连接服务器失败");
+                    request.httpError("当前没有数据");
                 } else {
 
                     Gson gson = new Gson();

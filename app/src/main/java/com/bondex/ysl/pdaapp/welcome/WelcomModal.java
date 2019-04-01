@@ -33,6 +33,7 @@ public class WelcomModal extends BaseModel<WelcomeCallBack> {
 
         Cursor cursor = resolver.query(LoginProvider.CONTENT_URI, LoginBean.COLUMNS, null, null, null);
 
+
         LoginBean loginBean = LoginBean.toLoginBean(cursor);
 
         if (loginBean != null)

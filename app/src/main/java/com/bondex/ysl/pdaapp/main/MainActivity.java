@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -75,7 +76,8 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
             boolean isOpen = mainPanel.isOpen() ? mainPanel.closePane() : mainPanel.openPane();
         });
         showRight(false, 0, null);
-        showTitle(true, "仓库PDA");
+
+        showTitle(true, "仓库PDA ");
 
     }
 
@@ -86,7 +88,6 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PermissionUtil.checkPermission(this);
-
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -119,6 +120,7 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
 
             case R.id.menu_bt_loginout:
 
+                presenter.loginOut();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra(Constant.LOGIN_OUT, true);
                 startBaseActivity(intent);
@@ -131,6 +133,15 @@ public class MainActivity extends BaseActivtiy<MainPresenter> implements MainVie
     @Override
     public void initView() {
 
+        Constant.LOGIN_DATE_KEY = SharedPreferecneUtils.getValue(this,Constant.DATE_KEY,Constant.DATE_KEY);
+
+        if(TextUtils.isEmpty(Constant.LOGIN_DATE_KEY)){
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.putExtra(Constant.LOGIN_OUT, true);
+            startBaseActivity(intent);
+            finish();
+        }
 
         normal = getResources().getColorStateList(R.color.bottom_normal);
         select = getResources().getColorStateList(R.color.colorPrimary);

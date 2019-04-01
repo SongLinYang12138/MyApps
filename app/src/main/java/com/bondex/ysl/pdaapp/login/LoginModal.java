@@ -7,6 +7,8 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.bondex.ysl.pdaapp.application.PdaApplication;
+import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.bondex.ysl.pdaapp.util.provider.LoginProvider;
 import com.bondex.ysl.pdaapp.base.BaseModel;
 import com.bondex.ysl.pdaapp.bean.BaseBean;
@@ -61,7 +63,8 @@ public class LoginModal extends BaseModel<LoginBack> {
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 
-                        emitter.onNext(t.getMessage());
+                        Logger.i(t.toString());
+                        emitter.onNext(t.toString());
                         resultback.loginFailed("");
                     }
                 });
@@ -89,6 +92,10 @@ public class LoginModal extends BaseModel<LoginBack> {
                         saveUserBean(loginBean);
                         resultback.loginSuccess("登录成功");
                         PdaApplication.LOGINBEAN = loginBean;
+
+                        SharedPreferecneUtils.saveValue(context, Constant.DATE_KEY,Constant.DATE_KEY,Constant.LOGIN_DATE_KEY);
+
+
                     } else {
 
                         if (CommonUtil.isNotEmpty(bean.getErrormsg())) {

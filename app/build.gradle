@@ -15,8 +15,8 @@ android {
         targetSdkVersion config.androidTargetSdkVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 13
-        versionName "1.0.0.6"
+        versionCode 16
+        versionName "1.1.1.0"
     }
 //    暂时关闭databinding
     dataBinding {
@@ -62,12 +62,6 @@ android {
         targetCompatibility = '1.8'
     }
     applicationVariants.all {
-//        variant  ->
-//
-//        variant .outputs.all{
-//
-//
-//        }
 
         //判断是release还是debug版本
         def buildType = it.buildType.name
@@ -86,7 +80,7 @@ android {
                 //重新对apk命名。(适用于Gradle4.0（含）以上版本)如果你Gradle版本是4.0以下版本则将上面的一行代码放开并注释下面的这一行。
                 it.outputFileName = fileName
 
-                def  filepath = "E:/app/bondex"
+                def filepath = "E:/app/bondex"
                 File file = new File(filepath)
 
                 if (!file.exists()) {

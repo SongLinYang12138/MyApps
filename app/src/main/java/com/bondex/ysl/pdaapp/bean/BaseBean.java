@@ -3,20 +3,24 @@ package com.bondex.ysl.pdaapp.bean;
 public class BaseBean {
 
 
-    /**
-     * success : true
-     * msg : {"userid":"wangzhenying","username":"王震鹰","salt":"54863945","userlevel":9,"warehouses":[{"no":1,"SUBSYSTEM_ID":"WMS01","SUBSYSTEM_NAME":"成都邦达吉通仓库"}]}
-     * business_param : null
-     * errormsg : null
-     * method : null
-     */
+//    {"success":true,"msg":"{\"userid\":\"maggie.sun\",\"username\":\"孙潞\",\"salt\":\"57134104\",
+// \"userlevel\":9,\"warehouses\":[{\"no\":8,\"SUBSYSTEM_ID\":\"WMS08\",\"SUBSYSTEM_NAME\":\"海程邦达仓库\"}]}",
+// "business_param":null,"errormsg":null,"method":null,"dateKey":"224471EC-1247-4FFB-A22C-FF16344C44EE"}
 
     private boolean success;
     private String msg;
     private String business_param;
     private String errormsg;
     private String method;
+    private String dateKey;
 
+    public String getDateKey() {
+        return dateKey == null ? "" : dateKey;
+    }
+
+    public void setDateKey(String dateKey) {
+        this.dateKey = dateKey == null ? "" : dateKey;
+    }
 
     public String getMsg() {
         return msg == null ? "" : msg;

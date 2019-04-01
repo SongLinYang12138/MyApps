@@ -2,29 +2,22 @@ package com.bondex.ysl.pdaapp.movie;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bondex.ysl.pdaapp.R;
 import com.bondex.ysl.pdaapp.base.BaseActivtiy;
 import com.bondex.ysl.pdaapp.bean.ResultBean;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
 import com.bondex.ysl.pdaapp.util.Constant;
-import com.bondex.ysl.pdaapp.util.PdaUtils;
-import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -145,7 +138,7 @@ public class MovieInventoryActivity extends BaseActivtiy<MoviePresenter> impleme
         }
 
 
-        stowrageNum = stowrageNum.replace("\n", stowrageNum);
+        stowrageNum = stowrageNum.replaceAll("\n", stowrageNum);
         if (avloading.getVisibility() == View.VISIBLE) return;
         presenter.removeStowrage(stowrageNum);
 

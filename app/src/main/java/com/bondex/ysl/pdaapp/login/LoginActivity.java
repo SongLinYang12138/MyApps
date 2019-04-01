@@ -1,8 +1,12 @@
 package com.bondex.ysl.pdaapp.login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.EditText;
 
@@ -45,6 +49,22 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
         showLeft(false, 0, null);
         showRight(false, 0, null);
         showTitle(true, "仓库系统");
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},11);
+            }
+        }
+        Constant.LOGIN_DATE_KEY = CommonUtil.getDateKey();
     }
 
     @Override
@@ -55,6 +75,7 @@ public class LoginActivity extends BaseActivtiy<LoginPernster> implements LoginV
         }
         return presenter;
     }
+
 
     @Override
     public void noDoubleClick(View v) {
