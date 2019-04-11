@@ -4,10 +4,14 @@ import android.content.Context;
 
 import com.bondex.ysl.installlibrary.download.DownloadListener;
 import com.bondex.ysl.pdaapp.base.BaseModel;
+import com.bondex.ysl.pdaapp.bean.FreezeSearchBean;
+import com.bondex.ysl.pdaapp.bean.HttpRequestParam;
 import com.bondex.ysl.pdaapp.bean.UpdateBean;
+import com.bondex.ysl.pdaapp.util.interf.HtppReuquest;
 import com.bondex.ysl.pdaapp.util.net.HttpConnection;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -34,6 +38,23 @@ public class MainModal extends BaseModel<MainBack> {
 
     }
 
+    public void searCode(String param) {
+
+        HttpConnection.connect(param, new HtppReuquest() {
+            @Override
+            public void httpSuccess(HttpRequestParam param) {
+
+                resultback.checkDateKey(param.getMsg() + param.getErrormsg());
+            }
+
+            @Override
+            public void httpError(String msg) {
+                resultback.checkDateKey(msg);
+            }
+        });
+
+    }
+
 
     public void checkVersion() {
 
@@ -47,9 +68,9 @@ public class MainModal extends BaseModel<MainBack> {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
 
-                        if(response.body() == null){
+                        if (response.body() == null) {
                             emitter.onNext("N");
-                        }else {
+                        } else {
                             emitter.onNext(response.body());
                         }
                     }
@@ -58,7 +79,7 @@ public class MainModal extends BaseModel<MainBack> {
                     public void onFailure(Call<String> call, Throwable t) {
 
                         emitter.onNext("N");
-                       t.getMessage();
+                        t.getMessage();
                     }
                 });
 
@@ -69,16 +90,16 @@ public class MainModal extends BaseModel<MainBack> {
             @Override
             public void accept(String s) throws Exception {
 
-                if(s.equals("N")){
+                if (s.equals("N")) {
 
-                }else {
+                } else {
 
                     Gson gson = new Gson();
 
-                    UpdateBean bean = gson.fromJson(s,UpdateBean.class);
+                    UpdateBean bean = gson.fromJson(s, UpdateBean.class);
                     resultback.checkUpdate(bean);
                 }
-                Logger.i("getVersion  " +s);
+                Logger.i("getVersion  " + s);
 
             }
         };
@@ -88,13 +109,13 @@ public class MainModal extends BaseModel<MainBack> {
 
     }
 
-    public void download(final String url, final String path, final DownloadListener listener){
+    public void download(final String url, final String path, final DownloadListener listener) {
 
-        Observable  observable = Observable.create(new ObservableOnSubscribe() {
+        Observable observable = Observable.create(new ObservableOnSubscribe() {
             @Override
             public void subscribe(ObservableEmitter emitter) throws Exception {
 
-                com.bondex.ysl.installlibrary.download.HttpConnection.donwolad(url,path,listener);
+                com.bondex.ysl.installlibrary.download.HttpConnection.donwolad(url, path, listener);
             }
         });
         Consumer<String> consumer = new Consumer<String>() {
@@ -106,7 +127,6 @@ public class MainModal extends BaseModel<MainBack> {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer);
-
 
 
     }

@@ -44,6 +44,14 @@ public class ParamUtils {
                 "&timestamp=" + timestamp +
                 "&date_key=" + Constant.LOGIN_DATE_KEY;
 
+//        String str = "app_id=" + app_id +
+//                "&app_key=" + app_key +
+//                "&business_param=" + business_param +
+//                "&charset=" + charset +
+//                "&method=" + method +
+//                "&timestamp=" + timestamp;
+
+
         String sign = null;
         try {
             sign = MD5.to_MD5(URLEncoder.encode(str, "utf-8"));

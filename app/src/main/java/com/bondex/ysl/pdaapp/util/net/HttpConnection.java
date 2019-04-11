@@ -1,14 +1,17 @@
 package com.bondex.ysl.pdaapp.util.net;
 
-import com.bondex.ysl.pdaapp.application.PdaApplication;
+
 import com.bondex.ysl.pdaapp.bean.HttpRequestParam;
 import com.bondex.ysl.pdaapp.util.interf.HtppReuquest;
 import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -24,10 +27,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HttpConnection {
 
-//    private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
+        private static final String BASE_URL = "http://wol.bondex.com.cn:8089/";
     private static final String VERSION_URL = "http://pubdoc.bondex.com.cn:8087/fileking/app/";
-    private static final String BASE_URL = "http://172.16.75.43:8084/";
-
+//    private static final String BASE_URL = "http://172.16.75.43:8084/";
 
 
     private static final OkHttpClient httpClient = new OkHttpClient
@@ -67,7 +69,6 @@ public class HttpConnection {
     }
 
 
-
     public static Call<String> getVersion() {
 
 
@@ -96,7 +97,7 @@ public class HttpConnection {
                             emitter.onNext("N");
                         } else {
 
-                            Logger.i(""+response.body());
+                            Logger.i("" + response.body());
                             emitter.onNext(response.body());
                         }
                     }
@@ -113,6 +114,7 @@ public class HttpConnection {
             @Override
             public void accept(String s) {
 
+
                 if (s.equals("N")) {
 
                     request.httpError("当前没有数据");
@@ -121,9 +123,9 @@ public class HttpConnection {
                     Gson gson = new Gson();
                     HttpRequestParam param = gson.fromJson(s, HttpRequestParam.class);
 
-                    if(param.isSuccess()){
+                    if (param.isSuccess()) {
                         request.httpSuccess(param);
-                    }else {
+                    } else {
                         request.httpError(param.getErrormsg());
                     }
 

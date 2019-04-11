@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -27,14 +28,20 @@ import com.bondex.ysl.pdaapp.bean.MainBean;
 import com.bondex.ysl.pdaapp.bean.MenuBean;
 import com.bondex.ysl.pdaapp.bean.UpdateBean;
 import com.bondex.ysl.pdaapp.bean.loginebean.LoginBean;
+import com.bondex.ysl.pdaapp.login.LoginActivity;
 import com.bondex.ysl.pdaapp.ui.ProgressView;
 import com.bondex.ysl.pdaapp.util.CommonUtil;
+import com.bondex.ysl.pdaapp.util.Constant;
+import com.bondex.ysl.pdaapp.util.SharedPreferecneUtils;
 import com.bondex.ysl.pdaapp.util.ToastUtils;
 import com.bondex.ysl.pdaapp.util.netutil.MD5;
+import com.bondex.ysl.pdaapp.util.netutil.ParamUtils;
 import com.bondex.ysl.pdaapp.util.provider.LoginProvider;
 import com.orhanobut.logger.Logger;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -56,6 +63,8 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     private Dialog updateDialog;
     private UpdateBean updateBean;
     private ContentResolver resolver;
+    int no = 0;
+
 
 
     public MainPresenter(MainView view, final Context context) {
@@ -64,7 +73,9 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
 
         filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bondex/Pda.apk";
         resolver = context.getContentResolver();
+        no = SharedPreferecneUtils.getInteger(context, Constant.STORWAGEPAGE, Constant.SUBSYSTEM_NO);
 
+        checkDateKey();
         setBainner();
         setListAdapter();
     }
@@ -141,6 +152,31 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
     }
 
 
+    public void checkDateKey() {
+
+        String method = "inv.beforeFreeze";//方法名
+
+        JSONObject map = new JSONObject();
+
+        try {
+            map.put("userid", PdaApplication.LOGINBEAN.getUserid());//当前登录用户ID
+            map.put("warehouseno", Integer.valueOf(no));//仓库ID
+            map.put("traceid", "asdasdadsadasd");
+            String param = map.toString();
+
+            param = ParamUtils.getParams(param, method);
+
+            modal.searCode(param);
+
+            view.showLoading();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     @Override
     public void checkUpdate(UpdateBean bean) {
 
@@ -154,6 +190,27 @@ public class MainPresenter extends BasePresnter<MainView, MainModal> implements 
         }
 
 
+    }
+
+    @Override
+    public void checkDateKey(String s) {
+
+
+
+        if (s.contains("时间超时")) {
+
+            try {
+
+                Intent intent = new Intent(PdaApplication.context, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return;
+        }
     }
 
 

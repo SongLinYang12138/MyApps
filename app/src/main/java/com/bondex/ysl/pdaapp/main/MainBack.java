@@ -7,4 +7,6 @@ public interface MainBack extends BaseBack {
 
     void checkUpdate(UpdateBean bean);
 
+    void checkDateKey(String key);
+
 }
