@@ -120,12 +120,12 @@ public class StowrageActivity extends BaseActivtiy<StowragePresenter> implements
                 SharedPreferecneUtils.saveValue(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NAME,warehousesBean.getSUBSYSTEM_NAME());
                 SharedPreferecneUtils.saveInteger(StowrageActivity.this,Constant.STORWAGEPAGE,Constant.SUBSYSTEM_NO,warehousesBean.getNo());
 
-
                 setResult(RESULT_OK);
                 finish();
                 break;
 
             case R.id.stowrage_bt_cancel:
+
                 setResult(RESULT_CANCELED);
                 finish();
                 break;
